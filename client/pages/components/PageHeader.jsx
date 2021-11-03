@@ -9,10 +9,10 @@ const PageHeader = () => (
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
+              <Link to="/boards/id">board1</Link>
             </li>
             <li>
-              <Link to="/users">Users</Link>
+              <Link to="/login">Login</Link>
             </li>
           </ul>
           </nav>

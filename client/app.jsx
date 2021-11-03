@@ -7,6 +7,7 @@ import {
 
 import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
+import BoardView from './pages/BoardView';
 
 export default class App extends React.Component {
   // top nav with branding and banner plus routing goes here
@@ -15,14 +16,13 @@ export default class App extends React.Component {
       <Router>
         {/* stuff outside Switch will apear in every view */}
         <PageHeader />
-
         <Switch>
           {/* swappable views go here */}
-          <Route path="/about">
+          <Route path="/login">
           <HomeView />
           </Route>
-          <Route path="/users">
-          <HomeView />
+          <Route path="/boards/">
+          <BoardView />
           </Route>
           <Route path="/">
             <HomeView />
