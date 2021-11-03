@@ -4,9 +4,9 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
-.container {
+/* .container {
   font-family: "Source Sans Pro", sans-serif;
-}
+} */
 /* utility classes */
 
 .flex {
@@ -42,8 +42,16 @@ body {
   margin: 0;
 }
 
+.no-padding {
+  padding: 0;
+}
+
 .align-center {
   align-content: center;
+}
+
+.width-100 {
+  width: 100%;
 }
 
 /* other styles */

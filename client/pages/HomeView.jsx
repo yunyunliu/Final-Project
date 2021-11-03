@@ -3,7 +3,7 @@ import React from 'react';
 export default function HomeView(props) {
   return (
     <>
-      <div>HOME</div>
+      <div className='container'>HOME</div>
     </>
   );
 }

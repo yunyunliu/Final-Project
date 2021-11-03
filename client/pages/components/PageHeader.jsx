@@ -12,8 +12,8 @@ const PageHeader = () => (
         </div>
       </div>
    </div>
-    <nav className='top-nav'>
-        <ul className='top-list'>
+    <nav className='top-nav width-100 container no-padding'>
+        <ul className='top-list no-padding'>
           <li className="nav-item">
             <Link className='gray-text' to="/">Home</Link>
           </li>
