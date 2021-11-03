@@ -1,4 +1,71 @@
+
+body {
+  color: #292929;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
 .container {
   font-family: "Source Sans Pro", sans-serif;
+}
+/* utility classes */
+
+.flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+  display: flex;
+}
+
+.teal-bg {
+  background-color: #1db9c3;
+}
+
+.gray-text {
   color: #292929;
+}
+
+.pink-text {
+  color: #F56FAD;
+}
+
+.semi-bold {
+  font-weight: 700;
+}
+
+.blue-bg {
+  background-color: #EAFEFF;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.align-center {
+  align-content: center;
+}
+
+/* other styles */
+
+.logo {
+  width: 80px;
+  height: 80px;
+}
+
+.header-text {
+  margin-left: 20px;
+}
+
+.brand {
+  margin: 20px;
+}
+
+.top-list {
+  list-style-type: none;
+}
+
+.nav-item {
+  display: inline-block;
+  margin-left: 10px;
 }

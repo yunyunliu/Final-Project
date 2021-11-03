@@ -14,10 +14,9 @@
 }
 
 .container {
-  /* max-width: 575px; */
+  max-width: 575px;
   margin: 0 auto;
-  font-family: "Source Sans Pro", sans-serif;
-  color: #292929;
+
 
   /* padding: 0 1.5rem; */
 }
@@ -34,9 +33,9 @@
 }
 
 @media screen and (min-width: 576px) {
-  /* .container {
+  .container {
     max-width: 900px;
-  } */
+  }
 
   /* .column-full,
   .column-half {
@@ -52,10 +51,4 @@
   .column-third {
     width: 30%;
   }
-}
-
-/* utility classes */
-
-.flex {
-  display: flex;
 }
