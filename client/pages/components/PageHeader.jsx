@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PageHeader = () => (
- <div>
+ <div className='page-header'>
       <nav>
-          <ul>
+          <ul >
             <li>
               <Link to="/">Home</Link>
             </li>
