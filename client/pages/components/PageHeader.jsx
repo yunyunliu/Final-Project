@@ -2,8 +2,21 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PageHeader = () => (
-<nav className="navbar navbar-light bg-light">
-</nav>
+ <div className='page-header'>
+      <nav>
+          <ul >
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/boards/id">board1</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+          </ul>
+          </nav>
+ </div>
 );
 
 export default PageHeader;

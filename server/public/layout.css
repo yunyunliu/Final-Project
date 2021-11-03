@@ -1,0 +1,61 @@
+/* layout classes should be separated from other css */
+
+/* breakpoints:
+  1. min-width >= 576px (bootstrap sm)
+  2. min-width >= 768px (bootstrap m)
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.container {
+  /* max-width: 575px; */
+  margin: 0 auto;
+  font-family: "Source Sans Pro", sans-serif;
+  color: #292929;
+
+  /* padding: 0 1.5rem; */
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.column-full,
+.column-half,
+.column-third {
+  width: 100%;
+}
+
+@media screen and (min-width: 576px) {
+  /* .container {
+    max-width: 900px;
+  } */
+
+  /* .column-full,
+  .column-half {
+    padding: 0 0.75rem;
+  } */
+
+  .column-half {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .column-third {
+    width: 30%;
+  }
+}
+
+/* utility classes */
+
+.flex {
+  display: flex;
+}
