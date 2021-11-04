@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ProjectListItem from './components/ProjectListItem';
+// import ConfirmDelete from './components/ConfirmDelete';
 
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     fetch('/api/users/1/boards')
@@ -24,16 +26,30 @@ const HomeView = () => {
     setBoards(updated);
   };
 
+  const handleDelete = async boardId => {
+    await fetch(`/api/users/1/boards/${boardId}`,
+      { method: 'DELETE' });
+  };
+
+  // const toggleModal = () => {
+  //   setShow(!show);
+  // };
+
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
+      {
+        // show ? <ConfirmDelete /> : null
+      }
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
             return (
               <ProjectListItem
                     key={board.boardId}
-                    board={board} />
+                    board={board}
+                    handleDelete={handleDelete}
+                    />
             );
           })
         }
