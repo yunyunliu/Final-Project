@@ -13,6 +13,10 @@ body {
   display: flex;
 }
 
+.flex-col {
+  flex-direction: column;
+}
+
 .justify-center {
   justify-content: center;
   display: flex;
@@ -47,12 +51,21 @@ body {
 }
 
 .align-center {
-  align-content: center;
+  align-items: center;
 }
 
 .width-100 {
   width: 100%;
 }
+
+.no-bullets {
+  list-style-type: none;
+}
+
+.center-text {
+  text-align: center;
+}
+
 
 /* other styles */
 
@@ -69,11 +82,22 @@ body {
   margin: 20px;
 }
 
-.top-list {
-  list-style-type: none;
-}
-
 .nav-item {
   display: inline-block;
   margin-left: 10px;
+}
+
+.board-list {
+  width: 200px;
+}
+
+.add-project-btn {
+  width: 200px;
+  height:60px;
+  border: 3px solid #1db9c3;
+  font-size: 22px;
+}
+
+.icon-container {
+  margin: 10px;
 }

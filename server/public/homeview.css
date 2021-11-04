@@ -1,0 +1,12 @@
+.project-item {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.project-button {
+  border: none;
+  padding-left: 15px;
+  color: #292929;
+  background-color: #EAFEFF;
+}
