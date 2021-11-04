@@ -18,8 +18,9 @@ app.use(staticMiddleware);
 
 app.use(errorMiddleware);
 
-app.get('/api/users/:id', (req, res) => {
+app.get('/api/users/:id/boards', (req, res) => {
   const { id } = req.params;
+  // console.log('id:', id)
   const sql = `
     SELECT *
         FROM "boards"
@@ -30,6 +31,21 @@ app.get('/api/users/:id', (req, res) => {
     .then(result => {
       res.json(result.rows);
     });
+});
+
+app.post('/api/users/:id/boards', async (req, res) => {
+  const userId = req.params.id;
+
+  const sql = `
+    INSERT INTO "boards" ("userId", "name")
+      VALUES ($1, 'New Project')
+      RETURNING *
+  `;
+  const values = [userId];
+  const results = await db.query(sql, values);
+  const [data] = results.rows;
+  // console.log('results:', data);
+  res.json(data);
 });
 
 app.listen(process.env.PORT, () => {

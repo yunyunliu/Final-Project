@@ -5,7 +5,7 @@ const HomeView = () => {
   const [boards, setBoards] = useState([]);
 
   useEffect(() => {
-    fetch('/api/users/1')
+    fetch('/api/users/1/boards')
       .then(res => {
         // console.log('response:', res)
         if (res.ok) {
