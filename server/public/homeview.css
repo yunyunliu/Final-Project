@@ -28,3 +28,37 @@
 .plus-icon-container {
   margin: 10px;
 }
+
+.confirm-delete-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color:#292929;
+  border: 3px solid #1db9c3;
+  width: 300px;
+}
+
+.confirm-heading {
+  font-size: 24px;
+}
+
+.confirm-text {
+  font-size: 18px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.confirm-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.confirm-btn {
+  box-sizing: content-box;
+  width: 75px;
+  height: 40px;
+  font-size: 20px;
+  border: 2px solid #1db9c3;
+}
