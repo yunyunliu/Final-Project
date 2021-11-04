@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ProjectListItem from './components/ProjectListItem';
-// import ConfirmDelete from './components/ConfirmDelete';
+import ConfirmDelete from './components/ConfirmDelete';
 
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
-  const [show, setShow] = useState(false);
+  const [displayModal, setDisplayModal] = useState(false);
 
   useEffect(() => {
     fetch('/api/users/1/boards')
@@ -33,16 +33,15 @@ const HomeView = () => {
     setBoards(updated);
   };
 
-  // const toggleModal = () => {
-  //   setShow(!show);
-  // };
+  const toggleShow = () => {
+    setDisplayModal(!displayModal);
+  };
 
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
-      {
-        // show ? <ConfirmDelete /> : null
-      }
+      displayModal {JSON.stringify(displayModal)}
+      {displayModal ? <ConfirmDelete /> : null}
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
@@ -51,6 +50,7 @@ const HomeView = () => {
                     key={board.boardId}
                     board={board}
                     handleDelete={handleDelete}
+                    toggleShow={toggleShow}
                     />
             );
           })

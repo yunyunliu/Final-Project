@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProjectListItem = ({ board, handleDelete }) => {
+const ProjectListItem = ({ board, toggleShow }) => {
   const { name, boardId } = board;
 
   return (
@@ -9,7 +9,7 @@ const ProjectListItem = ({ board, handleDelete }) => {
         <p>{name}</p>
       </div>
       <button type='button'
-      onClick={() => handleDelete(boardId)}
+      onClick={() => toggleShow()}
         className='icon-btn'>
         <i className='fas fa-times red'></i>
       </button>
