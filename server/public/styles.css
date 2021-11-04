@@ -7,6 +7,9 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
 /* utility classes */
 
 .flex {
@@ -50,6 +53,10 @@ body {
   padding: 0;
 }
 
+.no-border {
+  border: none;
+}
+
 .align-center {
   align-items: center;
 }
@@ -84,4 +91,15 @@ body {
 .nav-item {
   display: inline-block;
   margin-left: 10px;
+}
+
+.icon-btn {
+  background-color: #eafeff;
+  border: none;
+  /* color: #292929; */
+  font-size: 22px;
+}
+
+.icon-btn:hover {
+  border: 0.5px solid #292929;
 }

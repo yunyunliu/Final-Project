@@ -6,7 +6,10 @@ const ProjectListItem = props => {
       <div className='project-item'>
         <p>{props.board.name}</p>
       </div>
-      <i className='fas fa-times red'></i>
+      <button type='button'
+        className='icon-btn'>
+        <i className='fas fa-times red'></i>
+      </button>
     </li>
   );
 };
