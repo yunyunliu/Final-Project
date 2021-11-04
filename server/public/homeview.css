@@ -54,3 +54,11 @@
   width: 100%;
   margin-top: 20px;
 }
+
+.confirm-btn {
+  box-sizing: content-box;
+  width: 75px;
+  height: 40px;
+  font-size: 20px;
+  border: 2px solid #1db9c3;
+}

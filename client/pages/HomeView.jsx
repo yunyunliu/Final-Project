@@ -19,7 +19,7 @@ const HomeView = () => {
       });
   }, []);
 
-  const handleClick = async () => {
+  const handleAddNew = async () => {
     const response = await fetch('/api/users/1/boards',
       { method: 'POST' });
     const data = await response.json(); // response.json is async!!
@@ -48,9 +48,10 @@ const HomeView = () => {
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
-      {displayModal
+      {/* {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
-        : null}
+        : null} */}
+        <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
@@ -65,7 +66,7 @@ const HomeView = () => {
         }
       </ul>
       <button className='add-project-btn blue-bg semi-bold pink-text'
-        onClick={e => handleClick(e)}>
+        onClick={() => handleAddNew()}>
         <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
         New Project
       </button>
