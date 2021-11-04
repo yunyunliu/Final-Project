@@ -17,6 +17,15 @@ const HomeView = () => {
       });
   }, []);
 
+  const handleClick = async () => {
+    const response = await fetch('/api/users/1/boards',
+      { method: 'POST' });
+    const data = await response.json(); // response.json is async!!
+    // console.log('data:', data)
+    const updated = boards.concat(data);
+    setBoards(updated);
+  };
+
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
@@ -31,7 +40,8 @@ const HomeView = () => {
           })
         }
       </ul>
-      <button className='add-project-btn blue-bg semi-bold pink-text'>
+      <button className='add-project-btn blue-bg semi-bold pink-text'
+        onClick={e => handleClick(e)}>
         <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
         New Project
       </button>
