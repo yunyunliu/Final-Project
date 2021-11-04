@@ -29,6 +29,8 @@ const HomeView = () => {
   const handleDelete = async boardId => {
     await fetch(`/api/users/1/boards/${boardId}`,
       { method: 'DELETE' });
+    const updated = boards.filter(board => board.boardId !== boardId);
+    setBoards(updated);
   };
 
   // const toggleModal = () => {
