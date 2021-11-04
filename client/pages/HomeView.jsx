@@ -40,17 +40,16 @@ const HomeView = () => {
     handleCancel();
   };
 
-  const handleToggle = boardId => {
-    // const [current] = boards.filter(el => el.boardId === boardId);
-    setToDelete(boardId);
-    setDisplayModal(!displayModal);
+  const handleDeleteClick = id => {
+    setToDelete(id);
+    setDisplayModal(true);
   };
 
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
       {displayModal
-        ? <ConfirmDelete id={toDelete} cancel={handleCancel} handleDelete={handleDelete} />
+        ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
         : null}
       <ul className='no-bullets project-list'>
          {
@@ -59,7 +58,7 @@ const HomeView = () => {
               <ProjectListItem
                     key={board.boardId}
                     board={board}
-                    handleToggle={handleToggle}
+                    handleToggle={handleDeleteClick}
                     />
             );
           })
