@@ -3,8 +3,8 @@
   padding: 0;
 }
 
+
 .project-li {
-  font-size: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +14,13 @@
 .project-item {
   padding: 0 10px;
   width: 50%;
+  font-size: 22px;
+  margin-right: 10px;
+  border: none;
+}
+
+.project-item:hover {
+  border: 0.5px solid #292929;
 }
 
 .add-project-btn {

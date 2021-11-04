@@ -48,10 +48,10 @@ const HomeView = () => {
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
-      {/* {displayModal
+      {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
-        : null} */}
-        <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
+        : null}
+        {/* <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} /> */}
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
