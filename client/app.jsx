@@ -9,7 +9,7 @@ import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
 import DashboardView from './pages/BoardView';
 
-const App = ({ data }) => {
+const App = () => {
   return (
     <Router>
       {/* stuff outside Switch will apear in every view */}
@@ -23,7 +23,7 @@ const App = ({ data }) => {
         <DashboardView />
         </Route>
         <Route path="/">
-          <HomeView boards={data}/>
+          <HomeView />
         </Route>
       </Switch>
     </Router>
