@@ -5,6 +5,7 @@ import ConfirmDelete from './components/ConfirmDelete';
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
+  const [toDelete, setToDelete] = useState(null);
 
   useEffect(() => {
     fetch('/api/users/1/boards')
@@ -26,22 +27,31 @@ const HomeView = () => {
     setBoards(updated);
   };
 
+  const handleCancel = () => {
+    setDisplayModal(false);
+    setToDelete(null);
+  };
+
   const handleDelete = async boardId => {
     await fetch(`/api/users/1/boards/${boardId}`,
       { method: 'DELETE' });
     const updated = boards.filter(board => board.boardId !== boardId);
     setBoards(updated);
+    handleCancel();
   };
 
-  const toggleShow = () => {
+  const handleToggle = boardId => {
+    // const [current] = boards.filter(el => el.boardId === boardId);
+    setToDelete(boardId);
     setDisplayModal(!displayModal);
   };
 
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
-      displayModal {JSON.stringify(displayModal)}
-      {displayModal ? <ConfirmDelete /> : null}
+      {displayModal
+        ? <ConfirmDelete id={toDelete} cancel={handleCancel} handleDelete={handleDelete} />
+        : null}
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
@@ -49,8 +59,7 @@ const HomeView = () => {
               <ProjectListItem
                     key={board.boardId}
                     board={board}
-                    handleDelete={handleDelete}
-                    toggleShow={toggleShow}
+                    handleToggle={handleToggle}
                     />
             );
           })
