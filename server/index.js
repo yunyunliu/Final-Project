@@ -4,7 +4,6 @@ const express = require('express');
 
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
-
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -20,7 +19,6 @@ app.use(errorMiddleware);
 
 app.get('/api/users/:id/boards', (req, res) => {
   const { id } = req.params;
-  // console.log('id:', id)
   const sql = `
     SELECT *
         FROM "boards"
@@ -44,8 +42,18 @@ app.post('/api/users/:id/boards', async (req, res) => {
   const values = [userId];
   const results = await db.query(sql, values);
   const [data] = results.rows;
-  // console.log('results:', data);
   res.json(data);
+});
+
+app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
+  const boardId = req.params.boardId;
+  const sql = `
+    DELETE FROM "boards"
+      WHERE "boardId" = $1
+  `;
+  const values = [boardId];
+  await db.query(sql, values);
+  res.sendStatus(204);
 });
 
 app.listen(process.env.PORT, () => {

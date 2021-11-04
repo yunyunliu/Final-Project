@@ -7,7 +7,6 @@ const HomeView = () => {
   useEffect(() => {
     fetch('/api/users/1/boards')
       .then(res => {
-        // console.log('response:', res)
         if (res.ok) {
           return res.json();
         }
@@ -21,7 +20,6 @@ const HomeView = () => {
     const response = await fetch('/api/users/1/boards',
       { method: 'POST' });
     const data = await response.json(); // response.json is async!!
-    // console.log('data:', data)
     const updated = boards.concat(data);
     setBoards(updated);
   };
