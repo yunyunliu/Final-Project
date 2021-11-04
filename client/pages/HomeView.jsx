@@ -1,9 +1,52 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ProjectListItem from './components/ProjectListItem';
 
-export default function HomeView(props) {
+const HomeView = () => {
+  const [boards, setBoards] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/users/1/boards')
+      .then(res => {
+        // console.log('response:', res)
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(data => {
+        setBoards(data);
+      });
+  }, []);
+
+  const handleClick = async () => {
+    const response = await fetch('/api/users/1/boards',
+      { method: 'POST' });
+    const data = await response.json(); // response.json is async!!
+    // console.log('data:', data)
+    const updated = boards.concat(data);
+    setBoards(updated);
+  };
+
   return (
-    <>
-      <div className='container'>HOME</div>
-    </>
+    <div className='container flex flex-col align-center'>
+      <h1 className='pink-text semi-bold center-text'>Projects</h1>
+      <ul className='no-bullets project-list'>
+         {
+          boards.map(board => {
+            return (
+              <ProjectListItem
+                    key={board.boardId}
+                    board={board} />
+            );
+          })
+        }
+      </ul>
+      <button className='add-project-btn blue-bg semi-bold pink-text'
+        onClick={e => handleClick(e)}>
+        <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
+        New Project
+      </button>
+    </div>
   );
-}
+};
+
+export default HomeView;

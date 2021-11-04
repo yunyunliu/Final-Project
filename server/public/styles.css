@@ -1,16 +1,20 @@
-
 body {
   color: #292929;
   font-family: "Source Sans Pro", sans-serif;
 }
 
-/* .container {
+.container {
   font-family: "Source Sans Pro", sans-serif;
-} */
+}
+
 /* utility classes */
 
 .flex {
   display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .justify-center {
@@ -27,7 +31,7 @@ body {
 }
 
 .pink-text {
-  color: #F56FAD;
+  color: #f56fad;
 }
 
 .semi-bold {
@@ -35,7 +39,7 @@ body {
 }
 
 .blue-bg {
-  background-color: #EAFEFF;
+  background-color: #eafeff;
 }
 
 .no-margin {
@@ -47,11 +51,19 @@ body {
 }
 
 .align-center {
-  align-content: center;
+  align-items: center;
 }
 
 .width-100 {
   width: 100%;
+}
+
+.no-bullets {
+  list-style-type: none;
+}
+
+.center-text {
+  text-align: center;
 }
 
 /* other styles */
@@ -67,10 +79,6 @@ body {
 
 .brand {
   margin: 20px;
-}
-
-.top-list {
-  list-style-type: none;
 }
 
 .nav-item {
