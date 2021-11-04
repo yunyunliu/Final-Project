@@ -19,9 +19,8 @@ const HomeView = () => {
 
   return (
     <div className='container flex flex-col align-center'>
-      {/* boards: {JSON.stringify(boards)} */}
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
-      <ul className='no-bullets board-list no-padding'>
+      <ul className='no-bullets project-list'>
          {
           boards.map(board => {
             return (
@@ -32,8 +31,8 @@ const HomeView = () => {
           })
         }
       </ul>
-      <button className='add-project-btn pink-text blue-bg'>
-        <span className='icon-container'><i className='fas fa-plus'></i></span>
+      <button className='add-project-btn blue-bg semi-bold pink-text'>
+        <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
         New Project
       </button>
     </div>

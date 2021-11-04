@@ -1,11 +1,12 @@
 import React from 'react';
 
 const ProjectListItem = props => {
-  // console.log('from ProjectListItem:', board)
   return (
-    <li className='project-item'>
-        {props.board.name}
-      <span className='delete-icon'><i className='fas fa-trash-alt'></i></span>
+    <li className='project-li'>
+      <div className='project-item'>
+        <p>{props.board.name}</p>
+      </div>
+      <i className='fas fa-times red'></i>
     </li>
   );
 };
