@@ -72,8 +72,6 @@ const HomeView = () => {
                     key={board.boardId}
                     board={board}
                     handleToggle={handleDeleteClick}
-                    // displayEdit={displayEdit}
-                    // setBoards={setBoards}
                     handleEdit={handleEdit}
                     />
             );
