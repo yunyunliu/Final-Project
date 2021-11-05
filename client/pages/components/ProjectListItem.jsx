@@ -35,12 +35,31 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
     </>
   );
 
+  let timer = 0;
+  let preventSingleClick = false;
+
+  const handleSingleClick = () => {
+    timer = setTimeout(() => {
+      if (!preventSingleClick) {
+        console.log('hello')
+      }
+      preventSingleClick = false;
+    }, 200);
+  };
+
+  const handleDoubleClick = () => {
+    clearTimeout(timer);
+    preventSingleClick = true;
+    setDisplayEdit(true);
+  };
   const boardName = (
     <>
+    {/* needs to respond to clicks and double clicks */}
       <button type='button'
         id={boardId}
         className='project-item blue-bg semi-bold no-padding'
-        onDoubleClick={e => setDisplayEdit(true)}>
+        onDoubleClick={() => handleDoubleClick()}
+        onClick={() => handleSingleClick()}>
         <p>{name}</p>
       </button>
       <button type='button'
@@ -50,9 +69,11 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
       </button>
     </>
   );
+
   return (
     <li className='project-li'>
         {displayEdit ? editInput : boardName}
+        {/* <Test /> */}
     </li>
   );
 };
