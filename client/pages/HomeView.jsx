@@ -4,9 +4,9 @@ import ConfirmDelete from './components/ConfirmDelete';
 
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
+  // refactor this to be in ProjectListItem like update
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
-
   useEffect(() => {
     fetch('/api/users/1/boards')
       .then(res => {
@@ -18,6 +18,19 @@ const HomeView = () => {
         setBoards(data);
       });
   }, []);
+
+  const handleEdit = async ({ target }, name) => {
+    const boardId = target.id;
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    };
+    const response = await fetch(`/api/users/1/boards/${boardId}`, options);
+    const data = await response.json();
+    const updated = boards.map(board => board.boardId === data.boardId ? data : board);
+    setBoards(updated);
+  };
 
   const handleAddNew = async () => {
     const response = await fetch('/api/users/1/boards',
@@ -48,10 +61,9 @@ const HomeView = () => {
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
-      {/* {displayModal
+      {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
-        : null} */}
-        <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
+        : null}
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
@@ -60,6 +72,7 @@ const HomeView = () => {
                     key={board.boardId}
                     board={board}
                     handleToggle={handleDeleteClick}
+                    handleEdit={handleEdit}
                     />
             );
           })

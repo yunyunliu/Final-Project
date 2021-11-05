@@ -12,7 +12,7 @@ const db = new pg.Pool({
 });
 
 const app = express();
-
+app.use(express.json());
 app.use(staticMiddleware);
 
 app.use(errorMiddleware);
@@ -22,7 +22,8 @@ app.get('/api/users/:id/boards', (req, res) => {
   const sql = `
     SELECT *
         FROM "boards"
-      WHERE "userId" = $1;
+      WHERE "userId" = $1
+      ORDER BY "createdAt" ASC;
   `;
   const params = [id];
   db.query(sql, params)
@@ -54,6 +55,21 @@ app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
   const values = [boardId];
   await db.query(sql, values);
   res.sendStatus(204);
+});
+
+app.patch('/api/users/:id/boards/:boardId', async (req, res) => {
+  const boardId = Number(req.params.boardId);
+  const body = req.body;
+  const sql = `
+  UPDATE "boards"
+      SET "name" = $1
+    WHERE "boardId" = $2
+    RETURNING *
+  `;
+  const values = [body.name, boardId];
+  const result = await db.query(sql, values);
+  const [updated] = result.rows;
+  res.json(updated);
 });
 
 app.listen(process.env.PORT, () => {

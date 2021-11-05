@@ -16,6 +16,7 @@ CREATE TABLE "boards" (
 	"boardId" serial NOT NULL,
 	"userId" integer NOT NULL,
 	"name" TEXT NOT NULL,
+  "createdAt" TIMESTAMP NOT NULL default now(),
 	CONSTRAINT "boards_pk" PRIMARY KEY ("boardId")
 ) WITH (
   OIDS=FALSE

@@ -3,8 +3,8 @@
   padding: 0;
 }
 
+
 .project-li {
-  font-size: 22px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,6 +14,13 @@
 .project-item {
   padding: 0 10px;
   width: 50%;
+  font-size: 22px;
+  margin-right: 10px;
+  border: none;
+}
+
+.project-item:hover {
+  border: 0.5px solid #292929;
 }
 
 .add-project-btn {
@@ -61,4 +68,22 @@
   height: 40px;
   font-size: 20px;
   border: 2px solid #1db9c3;
+}
+
+.edit-element {
+  height: 70px;
+  display: flex;
+  align-items: center;
+}
+
+.edit-input {
+  height: 100%;
+  font-size: 22px;
+  text-indent: 5px;
+  border: 2px solid #1db9c3;
+}
+
+.edit-btn {
+  height:70px;
+  font-weight: 400;
 }
