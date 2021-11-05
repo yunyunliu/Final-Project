@@ -56,6 +56,22 @@ app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
   res.sendStatus(204);
 });
 
+app.patch('/api/users/:id/boards/:boardId', async (req, res) => {
+  const boardId = Number(req.params.boardId);
+  const data = req.body;
+  // console.log('patch request for board', boardId);
+  const sql = `
+  UPDATE "boards"
+      SET "name": $1
+    WHERE "boardId" = $2
+    RETURNING *
+  `;
+  // const values = [data.name, boardId];
+  // const result = await db.query(sql, values);
+  res.json(data);
+
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

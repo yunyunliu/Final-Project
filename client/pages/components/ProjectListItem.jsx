@@ -11,7 +11,7 @@ const ProjectListItem = ({ board, handleToggle }) => {
     setProjectName(text);
   };
 
-  const handleEdit = ({ target }) => {
+  const handleEdit = async ({ target }) => {
     setDisplayEdit(false);
     // console.log('targetId:', e.target.id)
     const boardId = target.id;
@@ -19,7 +19,7 @@ const ProjectListItem = ({ board, handleToggle }) => {
       method: 'PATCH',
       body: JSON.stringify({ name: projectName })
     };
-    fetch(`/api/users/1/boards/${boardId}`, options);
+    const response = await fetch(`/api/users/1/boards/${boardId}`, options);
   };
 
   const editInput = (
@@ -32,7 +32,7 @@ const ProjectListItem = ({ board, handleToggle }) => {
           id={boardId}
           onClick={e => handleEdit(e)}>Done</button>
       </div>
-      <button type='button'>cancel</button>
+      <button type='button' onClick={() => setDisplayEdit(false)}>cancel</button>
     </>
   );
 
