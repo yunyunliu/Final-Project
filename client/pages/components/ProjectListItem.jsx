@@ -52,8 +52,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   );
   return (
     <li className='project-li'>
-        {/* {displayEdit ? editInput : boardName} */}
-        {editInput}
+        {displayEdit ? editInput : boardName}
     </li>
   );
 };
