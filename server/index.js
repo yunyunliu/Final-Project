@@ -33,22 +33,25 @@ app.get('/api/users/:id/boards', (req, res) => {
 });
 
 app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
-  const { boardId, userId } = req.params;
-  console.log('boardId:', boardId, 'userId:', userId)
+  const board = Number(req.params.boardId);
+  const user = Number(req.params.userId);
+
+  console.log('boardId:', board, 'userId:', user)
   const sql = `
   SELECT *
     FROM "boards"
-  WHERE "boardId" = $1 AND "userID" = $2
+  WHERE "boardId" = $1 AND "userId" = $2
   `;
-  const values = [boardId, userId];
+  const values = [board, user];
   const results = await db.query(sql, values);
+  const [data] = results.rows;
   console.log('data:', results.rows);
-  res.end();
+  res.json(data);
+
 });
 
 app.post('/api/users/:id/boards', async (req, res) => {
   const userId = req.params.id;
-
   const sql = `
     INSERT INTO "boards" ("userId", "name")
       VALUES ($1, 'New Project')

@@ -19,7 +19,7 @@ const App = () => {
         {/* <Route path="/login">
           <HomeView />
         </Route> */}
-        <Route path="/board/:boardId">
+        <Route path="/api/users/1/boards/:boardId">
           <BoardView />
         </Route>
         <Route path="/">
