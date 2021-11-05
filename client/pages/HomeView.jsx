@@ -6,6 +6,7 @@ const HomeView = () => {
   const [boards, setBoards] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
+  // const [updatedBoard, setUpdatedBoard] = useState(null);
   useEffect(() => {
     fetch('/api/users/1/boards')
       .then(res => {
@@ -17,6 +18,22 @@ const HomeView = () => {
         setBoards(data);
       });
   }, []);
+
+
+  const handleEdit = async ({ target }, name) => {
+
+    // console.log('targetId:', e.target.id)
+    const boardId = target.id;
+    const options = {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    };
+    const response = await fetch(`/api/users/1/boards/${boardId}`, options);
+    const data = await response.json();
+    console.log('response data:', data);
+  };
+
 
   const handleAddNew = async () => {
     const response = await fetch('/api/users/1/boards',
@@ -44,10 +61,6 @@ const HomeView = () => {
     setDisplayModal(true);
   };
 
-  const handleEditClick = id => {
-    setToEdit(id);
-  };
-
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
@@ -63,8 +76,8 @@ const HomeView = () => {
                     board={board}
                     handleToggle={handleDeleteClick}
                     // displayEdit={displayEdit}
-                    handleClick={handleEditClick}
-                    // handleEdit={handleEdit}
+                    // setBoards={setBoards}
+                    handleEdit={handleEdit}
                     />
             );
           })

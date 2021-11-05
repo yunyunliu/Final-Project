@@ -59,8 +59,6 @@ app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
 app.patch('/api/users/:id/boards/:boardId', async (req, res) => {
   const boardId = Number(req.params.boardId);
   const body = req.body;
-  console.log('body:', body)
-  // console.log('patch request for board', boardId);
   const sql = `
   UPDATE "boards"
       SET "name" = $1
