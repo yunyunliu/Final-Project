@@ -5,12 +5,13 @@ import Column from './components/Column';
 const board = {
   name: 'secret plans',
   boardId: 13,
+  columns: [{ name: 'todo' }, { name: 'in progress' }, { name: 'complete' }],
   userId: 1
 };
 
 const BoardView = () => {
   // const { boardId } = useParams();
-  // const [board, setBoard] = useState({});
+  // const [columns, setColumns] = useState(null);
   // setBoard(boardData);
   // useEffect(() => {
   //   fetch(`/api/users/1/boards/${boardId}`)
@@ -23,7 +24,7 @@ const BoardView = () => {
   // }, []);
   return (
     <div className='container flex'>
-      <Column data={board}/>
+      {board.columns.map(col => <Column key={col.name} data={col}/>)}
     </div>
   );
 };

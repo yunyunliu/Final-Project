@@ -19,7 +19,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
         onChange={e => handleChange(e)}
         />
         <button type='button'
-        className='edit-btn icon-btn source-sans'
+          className='edit-btn icon-btn source-sans'
           id={boardId}
           onClick={e => {
             setDisplayEdit(false);
