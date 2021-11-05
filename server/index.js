@@ -41,8 +41,9 @@ app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
   WHERE "boardId" = $1 AND "userID" = $2
   `;
   const values = [boardId, userId];
-//   const results = await db.query(sql, values);
-//   console.log('data:', results.rows);
+  const results = await db.query(sql, values);
+  console.log('data:', results.rows);
+  res.end();
 });
 
 app.post('/api/users/:id/boards', async (req, res) => {
