@@ -7,7 +7,7 @@ import {
 
 import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
-import DashboardView from './pages/BoardView';
+import BoardView from './pages/BoardView';
 
 const App = () => {
   return (
@@ -19,8 +19,8 @@ const App = () => {
         {/* <Route path="/login">
           <HomeView />
         </Route> */}
-          <Route path="/board">
-        <DashboardView />
+        <Route path="/board/">
+          <BoardView />
         </Route>
         <Route path="/">
           <HomeView />

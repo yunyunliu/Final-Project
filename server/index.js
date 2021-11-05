@@ -32,6 +32,19 @@ app.get('/api/users/:id/boards', (req, res) => {
     });
 });
 
+app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
+  const { boardId, userId } = req.params;
+  console.log('boardId:', boardId, 'userId:', userId)
+  const sql = `
+  SELECT *
+    FROM "boards"
+  WHERE "boardId" = $1 AND "userID" = $2
+  `;
+  const values = [boardId, userId];
+//   const results = await db.query(sql, values);
+//   console.log('data:', results.rows);
+});
+
 app.post('/api/users/:id/boards', async (req, res) => {
   const userId = req.params.id;
 
