@@ -12,11 +12,13 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
 
   const editInput = (
     <>
-      <div>
+      <div className='edit-element'>
         <input value={projectName}
+        className='edit-input gray-text'
         onChange={e => handleChange(e)}
         />
         <button type='button'
+        className='edit-btn icon-btn source-sans'
           id={boardId}
           onClick={e => {
             setDisplayEdit(false);
@@ -25,9 +27,10 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
         </button>
       </div>
       <button type='button'
+      className='edit-btn icon-btn source-sans'
         onClick={() => {
           setDisplayEdit(false);
-        }}>cancel
+        }}>Cancel
       </button>
     </>
   );
@@ -49,7 +52,8 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   );
   return (
     <li className='project-li'>
-        {displayEdit ? editInput : boardName}
+        {/* {displayEdit ? editInput : boardName} */}
+        {editInput}
     </li>
   );
 };

@@ -32,7 +32,6 @@ const HomeView = () => {
     setBoards(updated);
   };
 
-
   const handleAddNew = async () => {
     const response = await fetch('/api/users/1/boards',
       { method: 'POST' });
