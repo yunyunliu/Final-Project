@@ -17,9 +17,12 @@ const ProjectListItem = ({ board, handleToggle }) => {
     const boardId = target.id;
     const options = {
       method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: projectName })
     };
     const response = await fetch(`/api/users/1/boards/${boardId}`, options);
+    const data = await response.json();
+    console.log('response data:', data);
   };
 
   const editInput = (
