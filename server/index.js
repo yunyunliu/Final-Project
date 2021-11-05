@@ -22,7 +22,8 @@ app.get('/api/users/:id/boards', (req, res) => {
   const sql = `
     SELECT *
         FROM "boards"
-      WHERE "userId" = $1;
+      WHERE "userId" = $1
+      ORDER BY "createdAt" ASC;
   `;
   const params = [id];
   db.query(sql, params)
