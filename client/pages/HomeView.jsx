@@ -6,7 +6,6 @@ const HomeView = () => {
   const [boards, setBoards] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
-
   useEffect(() => {
     fetch('/api/users/1/boards')
       .then(res => {
@@ -45,13 +44,16 @@ const HomeView = () => {
     setDisplayModal(true);
   };
 
+  const handleEditClick = id => {
+    setToEdit(id);
+  };
+
   return (
     <div className='container flex flex-col align-center'>
       <h1 className='pink-text semi-bold center-text'>Projects</h1>
       {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
         : null}
-        {/* <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} /> */}
       <ul className='no-bullets project-list'>
          {
           boards.map(board => {
@@ -60,6 +62,9 @@ const HomeView = () => {
                     key={board.boardId}
                     board={board}
                     handleToggle={handleDeleteClick}
+                    // displayEdit={displayEdit}
+                    handleClick={handleEditClick}
+                    // handleEdit={handleEdit}
                     />
             );
           })

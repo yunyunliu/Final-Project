@@ -2,38 +2,46 @@ import React, { useState } from 'react';
 
 const ProjectListItem = ({ board, handleToggle }) => {
   const { name, boardId } = board;
-  const [isEditing, setIsEditing] = useState(false);
   const [projectName, setProjectName] = useState(name);
-
-  const handleEdit = e => {
-
-  };
+  const [displayEdit, setDisplayEdit] = useState(false);
+  const [toEdit, setToEdit] = useState(null);
 
   const handleChange = ({ target }) => {
     const text = target.value;
     setProjectName(text);
   };
 
+  const handleEdit = ({ target }) => {
+    setDisplayEdit(false);
+    // console.log('targetId:', e.target.id)
+    const boardId = target.id;
+    const options = {
+      method: 'PATCH',
+      body: JSON.stringify({ name: projectName })
+    };
+    fetch(`/api/users/1/boards/${boardId}`, options);
+  };
+
   const editInput = (
     <>
       <div>
-        {console.log(projectName)}
         <input value={projectName}
-        onChange={e => handleChange(e)} />
+        onChange={e => handleChange(e)}
+        />
         <button type='button'
-        onClick={() => handleEdit()}>Done</button>
+          id={boardId}
+          onClick={e => handleEdit(e)}>Done</button>
       </div>
-      <button type='button'
-      onClick={() => setIsEditing(false)}>cancel</button>
+      <button type='button'>cancel</button>
     </>
-
   );
+
   const boardName = (
     <>
       <button type='button'
-        id={board.boardId}
+        id={boardId}
         className='project-item blue-bg semi-bold no-padding'
-        onClick={e => setIsEditing(true)}>
+        onDoubleClick={e => setDisplayEdit(true)}>
         <p>{name}</p>
       </button>
       <button type='button'
@@ -45,7 +53,7 @@ const ProjectListItem = ({ board, handleToggle }) => {
   );
   return (
     <li className='project-li'>
-        {isEditing ? editInput : boardName}
+        {displayEdit ? editInput : boardName}
     </li>
   );
 };
