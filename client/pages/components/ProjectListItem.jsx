@@ -10,7 +10,6 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
     setProjectName(text);
   };
 
-
   const editInput = (
     <>
       <div>
@@ -25,7 +24,11 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
           }}>Done
         </button>
       </div>
-      <button type='button' onClick={() => setDisplayEdit(false)}>cancel</button>
+      <button type='button'
+        onClick={() => {
+          setDisplayEdit(false);
+        }}>cancel
+      </button>
     </>
   );
 

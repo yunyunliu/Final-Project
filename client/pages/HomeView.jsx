@@ -4,9 +4,9 @@ import ConfirmDelete from './components/ConfirmDelete';
 
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
+  // refactor this to be in ProjectListItem like update
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
-  // const [updatedBoard, setUpdatedBoard] = useState(null);
   useEffect(() => {
     fetch('/api/users/1/boards')
       .then(res => {
@@ -19,10 +19,7 @@ const HomeView = () => {
       });
   }, []);
 
-
   const handleEdit = async ({ target }, name) => {
-
-    // console.log('targetId:', e.target.id)
     const boardId = target.id;
     const options = {
       method: 'PATCH',
@@ -31,7 +28,8 @@ const HomeView = () => {
     };
     const response = await fetch(`/api/users/1/boards/${boardId}`, options);
     const data = await response.json();
-    console.log('response data:', data);
+    const updated = boards.map(board => board.boardId === data.boardId ? data : board);
+    setBoards(updated);
   };
 
 
