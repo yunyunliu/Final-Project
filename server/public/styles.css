@@ -106,3 +106,12 @@ button {
 .icon-btn:hover {
   border: 0.5px solid #292929;
 }
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: #292929;
+  text-decoration: none;
+}

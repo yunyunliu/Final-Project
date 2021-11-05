@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   const { name, boardId } = board;
@@ -35,45 +36,28 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
     </>
   );
 
-  let timer = 0;
-  let preventSingleClick = false;
-
-  const handleSingleClick = () => {
-    timer = setTimeout(() => {
-      if (!preventSingleClick) {
-        console.log('hello')
-      }
-      preventSingleClick = false;
-    }, 200);
-  };
-
-  const handleDoubleClick = () => {
-    clearTimeout(timer);
-    preventSingleClick = true;
-    setDisplayEdit(true);
-  };
   const boardName = (
     <>
     {/* needs to respond to clicks and double clicks */}
-      <button type='button'
-        id={boardId}
-        className='project-item blue-bg semi-bold no-padding'
-        onDoubleClick={() => handleDoubleClick()}
-        onClick={() => handleSingleClick()}>
-        <p>{name}</p>
-      </button>
-      <button type='button'
-        onClick={() => handleToggle(boardId)}
-        className='icon-btn'>
-        <i className='fas fa-times'></i>
-      </button>
+    <Link to={`/board/${boardId}`}
+      className='blue-bg gray-text semi-bold board-link'>View</Link>
+    <button type='button'
+      id={boardId}
+      onDoubleClick={() => setDisplayEdit(true)}
+      className='project-item blue-bg semi-bold no-padding'>
+      <p>{name}</p>
+    </button>
+    <button type='button'
+      onClick={() => handleToggle(boardId)}
+      className='icon-btn'>
+      <i className='fas fa-times'></i>
+    </button>
     </>
   );
 
   return (
     <li className='project-li'>
         {displayEdit ? editInput : boardName}
-        {/* <Test /> */}
     </li>
   );
 };
