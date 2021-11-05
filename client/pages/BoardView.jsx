@@ -1,21 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Column from './components/Column';
+
+const board = {
+  name: 'secret plans',
+  boardId: 13,
+  userId: 1
+};
 
 const BoardView = () => {
-  const { boardId } = useParams();
-  useEffect(() => {
-    // const { boardId } = useParams();
-    fetch(`/api/users/1/boards/${boardId}`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then(data => console.log('board data:', data));
-  }, []);
+  // const { boardId } = useParams();
+  // const [board, setBoard] = useState({});
+  // setBoard(boardData);
+  // useEffect(() => {
+  //   fetch(`/api/users/1/boards/${boardId}`)
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       }
+  //     })
+  //     .then(data => setBoard(data));
+  // }, []);
   return (
-    <div>  {boardId}</div>
-
+    <div className='container flex'>
+      <Column data={board}/>
+    </div>
   );
 };
 

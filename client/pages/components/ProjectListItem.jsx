@@ -39,7 +39,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   const boardName = (
     <>
     {/* needs to respond to clicks and double clicks */}
-    <Link to={`/api/users/1/boards/${boardId}`}
+    <Link to='/api/users/1/boards/12'
       className='blue-bg gray-text semi-bold board-link'>View</Link>
     <button type='button'
       id={boardId}

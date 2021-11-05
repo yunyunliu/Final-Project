@@ -19,11 +19,12 @@ const App = () => {
         {/* <Route path="/login">
           <HomeView />
         </Route> */}
-        <Route path="/api/users/1/boards/:boardId">
-          <BoardView />
+        <Route path="/api/users/1/boards/12">
+          {/* <BoardView /> */}
         </Route>
         <Route path="/">
-          <HomeView />
+          {/* <HomeView /> */}
+          <BoardView />
         </Route>
       </Switch>
     </Router>
