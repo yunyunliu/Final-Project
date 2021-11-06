@@ -11,13 +11,12 @@ const db = new pg.Pool({
   }
 });
 
-
 const app = express();
 app.use(express.json());
 app.use(staticMiddleware);
 
 app.use(errorMiddleware);
-
+// boards
 app.get('/api/users/:id/boards', (req, res) => {
   const { id } = req.params;
   const sql = `
@@ -33,8 +32,6 @@ app.get('/api/users/:id/boards', (req, res) => {
     });
 });
 
-// boards
-
 app.post('/api/users/:id/boards', async (req, res) => {
   const userId = req.params.id;
   const sql = `
@@ -45,7 +42,7 @@ app.post('/api/users/:id/boards', async (req, res) => {
   const values = [userId];
   const results = await db.query(sql, values);
   const [data] = results.rows;
-  res.json(data);
+  res.status(201).json(data);
 });
 
 app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
@@ -60,7 +57,6 @@ app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
   const results = await db.query(sql, values);
   const [data] = results.rows;
   res.json(data);
-
 });
 
 app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
@@ -104,7 +100,6 @@ app.get('/api/users/:id/boards/:boardId/col', async (req, res) => {
   res.json(data);
 });
 
-
 app.post('/api/users/:id/boards/:boardId/col', async (req, res) => {
   const sql = `
   INSERT INTO "columns" ("boardId", name)
@@ -113,7 +108,18 @@ app.post('/api/users/:id/boards/:boardId/col', async (req, res) => {
 `;
   const results = await db.query(sql);
   const [data] = results.rows;
-  res.json(data);
+  res.status(201).json(data);
+});
+
+app.delete('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
+  const { colId } = req.params;
+  const sql = `
+    DELETE from "columns"
+      WHERE "columnId" = $1
+  `;
+  const val = [colId];
+  await db.query(sql, val);
+  res.sendStatus(204);
 });
 
 app.listen(process.env.PORT, () => {
