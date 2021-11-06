@@ -90,6 +90,21 @@ app.patch('/api/users/:id/boards/:boardId', async (req, res) => {
 });
 
 // columns
+
+app.get('/api/users/:id/boards/:boardId/col', async (req, res) => {
+  const { boardId } = req.params;
+  const sql = `
+    SELECT *
+      FROM "columns"
+    WHERE "boardId" = $1
+  `;
+  const values = [boardId];
+  const result = await db.query(sql, values);
+  const data = result.rows;
+  res.json(data);
+});
+
+
 app.post('/api/users/:id/boards/:boardId/col', async (req, res) => {
   const sql = `
   INSERT INTO "columns" ("boardId", name)
