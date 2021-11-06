@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Column from './components/Column';
 
 const BoardView = () => {
   // const { boardId } = useParams();
   useEffect(() => {
+    // fetch(`/api/users/1/boards/${boardId}/col`)
     fetch('/api/users/1/boards/12/col')
       .then(res => {
         if (res.ok) {
@@ -15,8 +16,11 @@ const BoardView = () => {
   }, []);
   const [columns, setColumns] = useState([]);
 
+  // const handleEdit = () => {
+
+  // };
+
   const handleDelete = async id => {
-    console.log(id)
     await fetch(`/api/users/1/boards/12/col/${id}`,
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
@@ -30,7 +34,7 @@ const BoardView = () => {
     setColumns(updated);
   };
   return (
-    <div className='container flex board-container'>
+    <div className='flex board-container'>
       {columns.map(col => <Column key={col.columnId}
           data={col}
           handleDelete={handleDelete} />)}

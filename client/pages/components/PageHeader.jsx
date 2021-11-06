@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PageHeader = () => (
- <div className='page-header row '>
+ <div className='page-header row width-100'>
    <div className='column-full teal-bg justify-center'>
       <div className='brand flex'>
         <img className='logo' src='./images/Trello.png' alt="logo"/>

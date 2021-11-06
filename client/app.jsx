@@ -16,11 +16,12 @@ const App = () => {
       <PageHeader />
       <Switch>
         {/* swappable views go here */}
-        <Route path="/api/users/1/boards/:boardId">
+        {/* <Route path="/api/users/1/boards/:boardId">
           <BoardView />
-        </Route>
+        </Route> */}
         <Route path="/">
-          <HomeView />
+          {/* <HomeView /> */}
+          <BoardView />
         </Route>
       </Switch>
     </Router>
