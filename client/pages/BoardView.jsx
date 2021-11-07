@@ -29,11 +29,25 @@ const BoardView = () => {
     const updated = columns.concat(data);
     setColumns(updated);
   };
+
+  const handleEdit = async (id, name) => {
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    };
+    const response = await fetch(`/api/users/1/boards/12/col/${id}`, options);
+    const data = await response.json();
+    const updated = columns.map(col => col.columnId === data.columnId ? data : col);
+    setColumns(updated);
+  };
+
   return (
     <div className='flex board-container'>
       {columns.map(col => <Column key={col.columnId}
           data={col}
-          handleDelete={handleDelete} />)}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit} />)}
       <button className='add-project-btn blue-bg semi-bold pink-text add-col'
         onClick={() => handleAdd()}>
         <span className='plus-icon-container'><i className='fas fa-plus'></i></span>

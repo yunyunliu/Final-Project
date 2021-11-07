@@ -22,7 +22,7 @@ const HomeView = () => {
   const handleEdit = async ({ target }, name) => {
     const boardId = target.id;
     const options = {
-      method: 'PATCH',
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
     };
