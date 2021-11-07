@@ -3,10 +3,6 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
-.container {
-  font-family: "Source Sans Pro", sans-serif;
-}
-
 button {
   cursor: pointer;
 }
@@ -95,6 +91,11 @@ button {
 .nav-item {
   display: inline-block;
   margin-left: 10px;
+}
+
+.top-nav {
+  margin-right: 50px;
+  margin-left: 50px;
 }
 
 .icon-btn {
