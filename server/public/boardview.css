@@ -46,9 +46,6 @@
 .board-container {
   justify-content: flex-start;
   margin: 20px 50px;
-
-  /* align-items: center; */
-  /* max-width: 80%; */
 }
 
 .edit-col {
