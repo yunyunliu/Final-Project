@@ -57,6 +57,27 @@ app.put('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
   columns.edit(req, res, db);
 });
 
+// task cards
+
+app.post('/api/users/:id/boards/:boardId/col/:colId/cards', async (req, res) => {
+  const { name, description } = req.body;
+  const { colId, boardId } = req.params;
+  const sql = `
+    INSERT INTO "cards" ("name", "description", "columnId", "boardId")
+      VALUES ($1, $2, $3, $4)
+      RETURNING *
+  `;
+  const values = [name, description, colId, boardId];
+  try {
+    const result = await db.query(sql, values);
+    const [newCard] = result.rows;
+    res.status(201).json(newCard);
+  } catch (err) {
+    console.error('error:', err.message);
+    res.status(500).send({ error: 'something went wrong' });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);
