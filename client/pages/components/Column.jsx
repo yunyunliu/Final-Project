@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 
+import Card from './Card';
+
+const testCard = {
+  columnId: 27,
+  boardId: 12,
+  name: 'style modal backdrop',
+  description: 'research css pseudo elements'
+};
+
 const Column = ({ data, handleDelete, handleEdit }) => {
   const [colName, setColName] = useState(data.name);
   const [displayEdit, setDisplayEdit] = useState(false);
@@ -46,6 +55,7 @@ const Column = ({ data, handleDelete, handleEdit }) => {
   return (
     <div className='col'>
       { displayEdit ? editCol : columnName }
+      <Card card={testCard} />
     </div>
   );
 };
