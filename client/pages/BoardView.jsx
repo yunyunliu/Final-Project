@@ -16,10 +16,6 @@ const BoardView = () => {
   }, []);
   const [columns, setColumns] = useState([]);
 
-  // const handleEdit = () => {
-
-  // };
-
   const handleDelete = async id => {
     await fetch(`/api/users/1/boards/12/col/${id}`,
       { method: 'DELETE' });
