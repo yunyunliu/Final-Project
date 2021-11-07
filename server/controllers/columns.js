@@ -1,4 +1,3 @@
-
 const columns = {
   get: async (req, res, db) => {
     const { boardId } = req.params;
