@@ -79,7 +79,7 @@
 .card {
   display: flex;
   flex-direction: column;
-  margin: 5px 10px;
+  margin: 5px 0;
   padding: 0 10px;
   border: 1px solid #292929;
 }
@@ -89,6 +89,7 @@
   font-weight: 600;
   font-size: 20;
   display: flex;
+  justify-content: space-between;
 }
 
 .card-desc {
@@ -98,4 +99,14 @@
 .edit-card-btn {
   height: 25px;
   margin-left: 10px;
+}
+
+.new-card-btn {
+  margin-bottom: 10px;
+  border: 2px solid #1db9c3;
+  height: 25px;
+}
+
+.card-list {
+  width: 170px;
 }

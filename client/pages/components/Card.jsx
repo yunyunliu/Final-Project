@@ -3,7 +3,7 @@ import React from 'react';
 const Card = ({ cardData }) => {
 
   return (
-    <div className='card blue-bg'>
+    <li className='card blue-bg'>
       <div className='card-name pink-text'>
         {cardData.name}
         <button type='button'
@@ -14,7 +14,7 @@ const Card = ({ cardData }) => {
       <div className='card-desc'>
         {cardData.description}
       </div>
-    </div>
+    </li>
   );
 };
 

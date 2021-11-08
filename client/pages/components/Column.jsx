@@ -79,8 +79,11 @@ const Column = ({ data, handleDelete, handleEdit }) => {
   return (
     <div className='col'>
       { displayEdit ? editCol : columnName }
-      {cards.map(card => <Card key={card.cardId} cardData={card} />)}
+      <ul className='no-bullets no-padding card-list'>
+        {cards.map(card => <Card key={card.cardId} cardData={card} />)}
+      </ul>
       <button type='button'
+        className='new-card-btn blue-bg pink-text semi-bold'
         onClick={() => setDisplayModal(true)}
         ><i className='fas fa-plus'></i> New Card</button>
         {displayModal ? <AddForm setModal={setDisplayModal} handleAdd={handleAdd} /> : null}
