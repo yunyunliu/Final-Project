@@ -6,6 +6,8 @@ const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
+const cards = require('./controllers/cards');
+
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -59,23 +61,12 @@ app.put('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
 
 // task cards
 
-app.post('/api/users/:id/boards/:boardId/col/:colId/cards', async (req, res) => {
-  const { name, description } = req.body;
-  const { colId, boardId } = req.params;
-  const sql = `
-    INSERT INTO "cards" ("name", "description", "columnId", "boardId")
-      VALUES ($1, $2, $3, $4)
-      RETURNING *
-  `;
-  const values = [name, description, colId, boardId];
-  try {
-    const result = await db.query(sql, values);
-    const [newCard] = result.rows;
-    res.status(201).json(newCard);
-  } catch (err) {
-    console.error('error:', err.message);
-    res.status(500).send({ error: 'something went wrong' });
-  }
+app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
+  cards.getAll(req, res, db);
+});
+
+app.post('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
+  cards.create(req, res, db);
 });
 
 app.listen(process.env.PORT, () => {

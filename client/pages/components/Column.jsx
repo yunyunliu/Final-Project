@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import Card from './Card';
-
-const testCard = {
-  columnId: 27,
-  boardId: 12,
-  name: 'style modal backdrop',
-  description: 'research css pseudo elements'
-};
 
 const Column = ({ data, handleDelete, handleEdit }) => {
   const [colName, setColName] = useState(data.name);
   const [displayEdit, setDisplayEdit] = useState(false);
+  const [cards, setCards] = useState([]);
+  // const [colId] = useParams();
+
+  useEffect(() => {
+    fetch('/api/users/1/boards/12/col/33/cards')
+      .then(res => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then(data => setCards(data))
+      .catch(err => {
+        console.error(err);
+      });
+  }, []);
+
+  const handleAdd = async () => {
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: 'yunyun', description: 'learn javascript' })
+    };
+    const response = await fetch('/api/users/1/boards/12/col/33/cards', options);
+    const newCard = await response.json();
+    const updated = cards.concat(newCard);
+    setCards(updated);
+  };
 
   const editCol = (
     <div className='edit-col'>
@@ -55,7 +76,10 @@ const Column = ({ data, handleDelete, handleEdit }) => {
   return (
     <div className='col'>
       { displayEdit ? editCol : columnName }
-      <Card card={testCard} />
+      {cards.map(card => <Card key={card.cardId} cardData={card} />)}
+      <button type='button'
+        onClick={() => handleAdd()}
+        ><i className='fas fa-plus'></i> New Card</button>
     </div>
   );
 };
