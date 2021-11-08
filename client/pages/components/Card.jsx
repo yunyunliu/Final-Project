@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Card = ({ cardData }) => {
+const Card = ({ cardData, handleDelete }) => {
 
   return (
     <li className='card blue-bg'>
@@ -9,6 +9,7 @@ const Card = ({ cardData }) => {
         <div className='card-buttons flex'>
           <button
             type='button'
+            onClick={() => handleDelete(cardData.cardId)}
             className='card-btn no-border no-padding blue-bg'>
             <i className='fas fa-times'></i>
           </button>

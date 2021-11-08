@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 
 import Card from './Card';
 import AddForm from './AddForm';
@@ -10,10 +9,8 @@ const Column = ({ data, handleDelete, handleEdit }) => {
   const [displayModal, setDisplayModal] = useState(false);
   const [cards, setCards] = useState([]);
 
-  // const [colId] = useParams();
-
   useEffect(() => {
-    fetch('/api/users/1/boards/12/col/33/cards')
+    fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -31,15 +28,21 @@ const Column = ({ data, handleDelete, handleEdit }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, description })
     };
-    const response = await fetch('/api/users/1/boards/12/col/33/cards', options);
-    const newCard = await response.json();
-    const updated = cards.concat(newCard);
-    setCards(updated);
+    const response = await fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`, options);
+    if (response.ok) {
+      const newCard = await response.json();
+      const updated = cards.concat(newCard);
+      setCards(updated);
+    }
   };
 
-  // const handleDelete = cardId => {
-  //   fetch(`/api/`)
-  // };
+  const deleteCard = async cardId => {
+    const response = await fetch(`/api/users/1/boards/12/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE'});
+    if (response.ok) {
+      const updated = cards.filter(card => card.cardId !== cardId);
+      setCards(updated);
+    }
+  };
 
   const editCol = (
     <div className='edit-col'>
@@ -82,9 +85,12 @@ const Column = ({ data, handleDelete, handleEdit }) => {
 
   return (
     <div className='col'>
+      {console.log('cards:', cards)}
       { displayEdit ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
-        {cards.map(card => <Card key={card.cardId} cardData={card} />)}
+        {cards.map(card => <Card key={card.cardId}
+          cardData={card}
+          handleDelete={deleteCard} />)}
       </ul>
       <button type='button'
         className='new-card-btn blue-bg pink-text semi-bold'

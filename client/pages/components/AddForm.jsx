@@ -9,10 +9,15 @@ const AddForm = ({ setModal, handleAdd }) => {
       <form className='add-form flex flex-col align-center'>
         <h2 className='form-name'>Add new task card</h2>
         <label className='width-100 semi-bold'>Task:
-          <input className='task-name-input' onChange={({ target }) => setTask(target.value)} />
+          <input className='task-name-input'
+            required='required'
+            onChange={({ target }) => setTask(target.value)} />
         </label>
         <label className='description-label width-100 semi-bold'>Task Description:
-          <textarea className='task-name-input gray-text source-sans' cols='25' onChange={({ target }) => setDescription(target.value)} />
+          <textarea className='task-name-input gray-text source-sans'
+            required='required'
+            cols='25'
+            onChange={({ target }) => setDescription(target.value)} />
         </label>
         <div className='add-btns-container flex width-100'>
           <button
