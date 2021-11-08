@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import CardModal from './CardModal';
+import AddForm from './AddForm';
 
 const Card = ({ cardData, handleDelete }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [editCard, setEditCard] = useState(false);
 
   return (
     <li className='card blue-bg'>
+      {isExpanded ? <CardModal data={cardData} setExpanded={setIsExpanded} /> : null }
+      {/* {editCard ? <AddFrom /> : null} */}
       <div className='card-header'>
         <div className='card-name pink-text'>{cardData.name}</div>
         <div className='card-buttons flex'>

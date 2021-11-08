@@ -85,7 +85,6 @@ const Column = ({ data, handleDelete, handleEdit }) => {
 
   return (
     <div className='col'>
-      {console.log('cards:', cards)}
       { displayEdit ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {cards.map(card => <Card key={card.cardId}
