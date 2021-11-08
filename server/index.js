@@ -70,7 +70,7 @@ app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
   res.sendStatus(204);
 });
 
-app.patch('/api/users/:id/boards/:boardId', async (req, res) => {
+app.put('/api/users/:id/boards/:boardId', async (req, res) => {
   const boardId = Number(req.params.boardId);
   const body = req.body;
   const sql = `
@@ -120,6 +120,25 @@ app.delete('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
   const val = [colId];
   await db.query(sql, val);
   res.sendStatus(204);
+});
+
+app.put('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
+  const { colId } = req.params;
+  const sql = `
+    UPDATE "columns"
+        SET "name" = $1
+      WHERE "columnId" = $2
+    RETURNING *
+  `;
+  const values = [req.body.name, colId];
+  try {
+    const result = await db.query(sql, values);
+    const [record] = result.rows;
+    res.json(record);
+  } catch (err) {
+    console.error('error:', err.message);
+    res.status(500).send({ error: 'something went wrong' });
+  }
 });
 
 app.listen(process.env.PORT, () => {

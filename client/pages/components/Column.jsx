@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Column = ({ data, handleDelete }) => {
+const Column = ({ data, handleDelete, handleEdit }) => {
   const [colName, setColName] = useState(data.name);
   const [displayEdit, setDisplayEdit] = useState(false);
 
@@ -17,7 +17,11 @@ const Column = ({ data, handleDelete }) => {
             Cancel
           </button>
           <button type='button'
-            className='edit-col-btn gray-text'>
+            className='edit-col-btn gray-text'
+            onClick={() => {
+              setDisplayEdit(false);
+              handleEdit(data.columnId, colName);
+            }}>
             Done
           </button>
         </div>
