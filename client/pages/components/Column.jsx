@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import AddForm from './AddForm';
 
+
 const Column = ({ data, handleDelete, handleEdit }) => {
   const [colName, setColName] = useState(data.name);
   const [displayEdit, setDisplayEdit] = useState(false);
   const [displayModal, setDisplayModal] = useState(false);
   const [cards, setCards] = useState([]);
+
 
   useEffect(() => {
     fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`)
@@ -41,6 +43,19 @@ const Column = ({ data, handleDelete, handleEdit }) => {
     if (response.ok) {
       const updated = cards.filter(card => card.cardId !== cardId);
       setCards(updated);
+    }
+  };
+
+  const handleEditCard = async card => {
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(card)
+    };
+    const response = await fetch(`/api/users/1/boards/12/col/${card.columnId}/cards/${card.cardId}`, options);
+    if (response.ok) {
+      const updated = await response.json();
+
     }
   };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import CardModal from './CardModal';
-import AddForm from './AddForm';
+import EditForm from './EditForm';
 
 const Card = ({ cardData, handleDelete }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -9,8 +9,12 @@ const Card = ({ cardData, handleDelete }) => {
 
   return (
     <li className='card blue-bg'>
-      {isExpanded ? <CardModal data={cardData} setExpanded={setIsExpanded} /> : null }
-      {/* {editCard ? <AddFrom /> : null} */}
+       {editCard
+         ? <EditForm data={cardData} setEdit={setEditCard}/>
+         : null}
+      {isExpanded
+        ? <CardModal data={cardData} setExpanded={setIsExpanded} />
+        : null }
       <div className='card-header'>
         <div className='card-name pink-text'>{cardData.name}</div>
         <div className='card-buttons flex'>
@@ -21,7 +25,8 @@ const Card = ({ cardData, handleDelete }) => {
             <i className='fas fa-times'></i>
           </button>
           <button type='button'
-            className={'card-btn no-border no-padding blue-bg'}>
+            className={'card-btn no-border no-padding blue-bg'}
+            onClick={() => setEditCard(true)}>
             <i className='fas fa-edit'></i>
           </button>
         </div>
