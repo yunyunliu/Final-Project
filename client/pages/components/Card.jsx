@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 import CardModal from './CardModal';
 import EditForm from './EditForm';
 
-const Card = ({ cardData, handleDelete }) => {
+const Card = ({ cardData, handleDelete, handleEdit }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [editCard, setEditCard] = useState(false);
 
   return (
     <li className='card blue-bg'>
        {editCard
-         ? <EditForm data={cardData} setEdit={setEditCard}/>
+         ? <EditForm data={cardData} setEdit={setEditCard} handleEdit={handleEdit}/>
          : null}
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} />

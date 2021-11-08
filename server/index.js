@@ -83,6 +83,15 @@ app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res)
   cards.deleteCard(req, res, db);
 });
 
+app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+  try {
+    cards.update(req, res, db);
+  } catch (err) {
+    console.error('error:', err.message);
+    res.status(500).send({ error: 'something went wrong' });
+  }
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

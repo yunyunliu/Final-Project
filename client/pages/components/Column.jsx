@@ -46,16 +46,17 @@ const Column = ({ data, handleDelete, handleEdit }) => {
     }
   };
 
-  const handleEditCard = async card => {
+  const handleEditCard = async editData => {
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(card)
+      body: JSON.stringify(editData)
     };
-    const response = await fetch(`/api/users/1/boards/12/col/${card.columnId}/cards/${card.cardId}`, options);
+    const response = await fetch(`/api/users/1/boards/12/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-
+      const updatedCards = cards.map(card => editData.cardId === updated.cardId ? updated : card);
+      setCards(updatedCards);
     }
   };
 
@@ -104,7 +105,8 @@ const Column = ({ data, handleDelete, handleEdit }) => {
       <ul className='no-bullets no-padding card-list'>
         {cards.map(card => <Card key={card.cardId}
           cardData={card}
-          handleDelete={deleteCard} />)}
+          handleDelete={deleteCard}
+          handleEdit={handleEditCard} />)}
       </ul>
       <button type='button'
         className='new-card-btn blue-bg pink-text semi-bold'

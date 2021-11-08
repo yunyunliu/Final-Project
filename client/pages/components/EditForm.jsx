@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const EditForm = ({ data, setEdit }) => {
-  const [description, setDescription] = useState('data.description');
-  const [task, setTask] = useState('data.name');
+const EditForm = ({ data, setEdit, handleEdit }) => {
+  const [task, setTask] = useState(data.name);
+  const [description, setDescription] = useState(data.description);
 
   return (
   <dialog className='add-modal' open>
@@ -10,12 +10,12 @@ const EditForm = ({ data, setEdit }) => {
       <h2 className='form-name'>Edit task card</h2>
       <label className='width-100 semi-bold'>Task:
         <input className='task-name-input'
-          value={data.name}
+          value={task}
           onChange={({ target }) => setTask(target.value)} />
       </label>
       <label className='description-label width-100 semi-bold'>Task Description:
         <textarea className='task-name-input gray-text source-sans'
-          value={data.description}
+          value={description}
           required='required'
           cols='25'
           onChange={({ target }) => setDescription(target.value)} />
@@ -32,11 +32,12 @@ const EditForm = ({ data, setEdit }) => {
           className='add-form-btn no-border blue-bg gray-text semi-bold'
           onClick={() => {
             const updated = {
+              ...data,
               name: task,
               description
             };
+            handleEdit(updated);
             setEdit(false);
-            // handleEdit(updated);
           }} >
           Done
         </button>
