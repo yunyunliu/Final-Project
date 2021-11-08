@@ -4,12 +4,19 @@ const Card = ({ cardData }) => {
 
   return (
     <li className='card blue-bg'>
-      <div className='card-name pink-text'>
-        {cardData.name}
-        <button type='button'
-          className={'edit-card-btn no-border no-padding blue-bg'}>
-          <i className='fas fa-edit'></i>
-        </button>
+      <div className='card-header'>
+        <div className='card-name pink-text'>{cardData.name}</div>
+        <div className='card-buttons flex'>
+          <button
+            type='button'
+            className='card-btn no-border no-padding blue-bg'>
+            <i className='fas fa-times'></i>
+          </button>
+          <button type='button'
+            className={'card-btn no-border no-padding blue-bg'}>
+            <i className='fas fa-edit'></i>
+          </button>
+        </div>
       </div>
       <div className='card-desc'>
         {cardData.description}
