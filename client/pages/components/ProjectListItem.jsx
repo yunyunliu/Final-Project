@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   const { name, boardId } = board;
@@ -18,7 +19,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
         onChange={e => handleChange(e)}
         />
         <button type='button'
-        className='edit-btn icon-btn source-sans'
+          className='edit-btn icon-btn source-sans'
           id={boardId}
           onClick={e => {
             setDisplayEdit(false);
@@ -37,19 +38,23 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
 
   const boardName = (
     <>
-      <button type='button'
-        id={boardId}
-        className='project-item blue-bg semi-bold no-padding'
-        onDoubleClick={e => setDisplayEdit(true)}>
-        <p>{name}</p>
-      </button>
-      <button type='button'
-        onClick={() => handleToggle(boardId)}
-        className='icon-btn'>
-        <i className='fas fa-times'></i>
-      </button>
+    {/* needs to respond to clicks and double clicks */}
+    <Link to={'/api/users/1/boards/' + boardId}
+      className='blue-bg gray-text semi-bold board-link'>View</Link>
+    <button type='button'
+      id={boardId}
+      onDoubleClick={() => setDisplayEdit(true)}
+      className='project-item blue-bg semi-bold no-padding'>
+      <p>{name}</p>
+    </button>
+    <button type='button'
+      onClick={() => handleToggle(boardId)}
+      className='icon-btn'>
+      <i className='fas fa-times'></i>
+    </button>
     </>
   );
+
   return (
     <li className='project-li'>
         {displayEdit ? editInput : boardName}

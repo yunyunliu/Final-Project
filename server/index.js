@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(staticMiddleware);
 
 app.use(errorMiddleware);
-
+// boards
 app.get('/api/users/:id/boards', (req, res) => {
   const { id } = req.params;
   const sql = `
@@ -34,13 +34,26 @@ app.get('/api/users/:id/boards', (req, res) => {
 
 app.post('/api/users/:id/boards', async (req, res) => {
   const userId = req.params.id;
-
   const sql = `
     INSERT INTO "boards" ("userId", "name")
       VALUES ($1, 'New Project')
       RETURNING *
   `;
   const values = [userId];
+  const results = await db.query(sql, values);
+  const [data] = results.rows;
+  res.status(201).json(data);
+});
+
+app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
+  const board = Number(req.params.boardId);
+  const user = Number(req.params.userId);
+  const sql = `
+  SELECT *
+    FROM "boards"
+  WHERE "boardId" = $1 AND "userId" = $2
+  `;
+  const values = [board, user];
   const results = await db.query(sql, values);
   const [data] = results.rows;
   res.json(data);
@@ -70,6 +83,43 @@ app.patch('/api/users/:id/boards/:boardId', async (req, res) => {
   const result = await db.query(sql, values);
   const [updated] = result.rows;
   res.json(updated);
+});
+
+// columns
+
+app.get('/api/users/:id/boards/:boardId/col', async (req, res) => {
+  const { boardId } = req.params;
+  const sql = `
+    SELECT *
+      FROM "columns"
+    WHERE "boardId" = $1
+  `;
+  const values = [boardId];
+  const result = await db.query(sql, values);
+  const data = result.rows;
+  res.json(data);
+});
+
+app.post('/api/users/:id/boards/:boardId/col', async (req, res) => {
+  const sql = `
+  INSERT INTO "columns" ("boardId", name)
+    VALUES (12, 'New Column')
+    RETURNING *
+`;
+  const results = await db.query(sql);
+  const [data] = results.rows;
+  res.status(201).json(data);
+});
+
+app.delete('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
+  const { colId } = req.params;
+  const sql = `
+    DELETE from "columns"
+      WHERE "columnId" = $1
+  `;
+  const val = [colId];
+  await db.query(sql, val);
+  res.sendStatus(204);
 });
 
 app.listen(process.env.PORT, () => {
