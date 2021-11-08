@@ -37,6 +37,10 @@ const Column = ({ data, handleDelete, handleEdit }) => {
     setCards(updated);
   };
 
+  // const handleDelete = cardId => {
+  //   fetch(`/api/`)
+  // };
+
   const editCol = (
     <div className='edit-col'>
       <input value={colName}

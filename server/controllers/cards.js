@@ -25,14 +25,19 @@ const cards = {
         RETURNING *
     `;
     const values = [name, description, colId, boardId];
-    try {
-      const result = await db.query(sql, values);
-      const [newCard] = result.rows;
-      res.status(201).json(newCard);
-    } catch (err) {
-      console.error('error:', err.message);
-      res.status(500).send({ error: 'something went wrong' });
-    }
+    const result = await db.query(sql, values);
+    const [newCard] = result.rows;
+    res.status(201).json(newCard);
+  },
+  deleteCard: async (req, res, db) => {
+    const { cardId } = req.params;
+    const sql = `
+      DELETE FROM "cards"
+          WHERE "cardId" = $1
+    `;
+    const values = [cardId];
+    await db.query(sql, values);
+    res.sendStatus(204);
   }
 };
 

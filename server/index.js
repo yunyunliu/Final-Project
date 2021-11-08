@@ -22,7 +22,12 @@ app.use(errorMiddleware);
 // boards
 
 app.get('/api/users/:id/boards', (req, res) => {
-  boards.get(req, res, db);
+  try {
+    boards.get(req, res, db);
+  } catch (err) {
+    console.error('error:', err);
+    res.send({ error: 'server error' });
+  }
 });
 
 app.post('/api/users/:id/boards', (req, res) => {
@@ -66,7 +71,16 @@ app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
 });
 
 app.post('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
-  cards.create(req, res, db);
+  try {
+    cards.create(req, res, db);
+  } catch (err) {
+    console.error('error:', err.message);
+    res.status(500).send({ error: 'something went wrong' });
+  }
+});
+
+app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+  cards.deleteCard(req, res, db);
 });
 
 app.listen(process.env.PORT, () => {
