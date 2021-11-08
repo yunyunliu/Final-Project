@@ -25,11 +25,11 @@ const Column = ({ data, handleDelete, handleEdit }) => {
       });
   }, []);
 
-  const handleAdd = async () => {
+  const handleAdd = async (name, description) => {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'yunyun', description: 'learn javascript' })
+      body: JSON.stringify({ name, description })
     };
     const response = await fetch('/api/users/1/boards/12/col/33/cards', options);
     const newCard = await response.json();
@@ -83,7 +83,7 @@ const Column = ({ data, handleDelete, handleEdit }) => {
       <button type='button'
         onClick={() => setDisplayModal(true)}
         ><i className='fas fa-plus'></i> New Card</button>
-        <AddForm />
+        {displayModal ? <AddForm setModal={setDisplayModal} handleAdd={handleAdd} /> : null}
     </div>
   );
 };
