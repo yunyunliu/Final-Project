@@ -45,6 +45,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
   };
 
   const handleEditCard = async editData => {
+    console.log('data send to server:', editData)
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const EditForm = ({ data, setEdit, handleEdit, populateSelect }) => {
   const [task, setTask] = useState(data.name);
   const [description, setDescription] = useState(data.description);
-  const [destinationId, setDestinationId] = useState(null);
+  const [moveTo, setMoveTo] = useState(data.columnId);
 
   return (
   <dialog className='add-modal' open>
@@ -23,7 +23,7 @@ const EditForm = ({ data, setEdit, handleEdit, populateSelect }) => {
       </label>
       <label className='semi-bold width-100'> Move Card:
         <select className='col-select'
-            onChange={e => setDestinationId(Number(e.target.value))}>
+            onChange={e => setMoveTo(Number(e.target.value))}>
           <option value=''>Choose column</option>
           {populateSelect()}
         </select>
@@ -39,13 +39,13 @@ const EditForm = ({ data, setEdit, handleEdit, populateSelect }) => {
           type='button'
           className='add-form-btn no-border blue-bg gray-text semi-bold pink-text'
           onClick={() => {
+            console.log('cardId:', data.cardId)
             const updated = {
               ...data,
-              columnId: destinationId,
+              columnId: moveTo,
               name: task,
               description
             };
-            // console.log('data:', data)
             handleEdit(updated);
             setEdit(false);
           }} >

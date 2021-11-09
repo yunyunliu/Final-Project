@@ -5,7 +5,7 @@ import EditForm from './EditForm';
 
 const Card = ({ cardData, handleDelete, handleEdit, select }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [editCard, setEditCard] = useState(true);
+  const [editCard, setEditCard] = useState(false);
 
   return (
     <li className='card blue-bg'>

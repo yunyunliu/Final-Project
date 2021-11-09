@@ -1,20 +1,12 @@
 import React from 'react';
 
-const testData = {
-  cardId: 9,
-  name: 'learn typescript',
-  description: 'types are important',
-  columnId: 33,
-  boardId: 12
-};
-
 const CardModal = ({ data, setExpanded, setEdit }) => {
   return (
     <dialog className='card-modal flex' open>
-      <h2 className='no-margin card-task-name'>{testData.name}</h2>
+      <h2 className='no-margin card-task-name'>{data.name}</h2>
       <div className='card-modal-description width-100'>
         <h3 className='pink-text no-margin'>Task Description:</h3>
-        <div className='gray-text source-sans'> {testData.description}</div>
+        <div className='gray-text source-sans'> {data.description}</div>
       </div>
       <div className='card-btns-container'>
        <button
