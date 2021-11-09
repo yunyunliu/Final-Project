@@ -16,24 +16,24 @@ const Card = ({ cardData, handleDelete, handleEdit, select }) => {
               populateSelect={select} />
          : null}
       {isExpanded
-        ? <CardModal data={cardData} setExpanded={setIsExpanded} />
+        ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>
         : null }
-      <div className='card-header'>
-        <div className='card-name pink-text'>{cardData.name}</div>
-        <div className='card-buttons flex'>
-          <button
-            type='button'
-            onClick={() => handleDelete(cardData.cardId)}
-            className='card-btn no-border no-padding blue-bg'>
-            <i className='fas fa-times'></i>
-          </button>
-          <button type='button'
-            className={'card-btn no-border no-padding blue-bg'}
-            onClick={() => setEditCard(true)}>
-            <i className='fas fa-edit'></i>
-          </button>
-        </div>
+      <div className='card-btns-container flex'>
+        <button
+          type='button'
+          onClick={() => handleDelete(cardData.cardId)}
+          className='card-btn no-border no-padding blue-bg'>
+          <i className='fas fa-times'></i>
+        </button>
+        <button type='button'
+          className={'card-btn no-border no-padding blue-bg'}
+          onClick={() => setEditCard(true)}>
+          <i className='fas fa-edit'></i>
+        </button>
+        <button type='button' className='card-btn no-border no-padding blue-bg'
+          onClick={() => setIsExpanded(true)}><i className='fas fa-expand'></i></button>
       </div>
+      <div className='card-name pink-text'>{cardData.name}</div>
       <div className='card-desc'>
         {cardData.description}
       </div>

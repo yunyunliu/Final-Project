@@ -16,10 +16,10 @@ const PageHeader = () => (
     <nav className='top-nav width-100 container no-padding'>
         <ul className='top-list no-padding'>
           <li className="nav-item">
-            <Link className='gray-text' to="/">Home</Link>
+            <Link className='gray-text semi-bold' to="/">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className='gray-text' to="/logout">Log Out</Link>
+            <Link className='gray-text semi-bold' to="/logout">Log Out</Link>
           </li>
         </ul>
       </nav>

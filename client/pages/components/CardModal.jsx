@@ -8,7 +8,7 @@ const testData = {
   boardId: 12
 };
 
-const CardModal = ({ data, setExpanded }) => {
+const CardModal = ({ data, setExpanded, setEdit }) => {
   return (
     <dialog className='card-modal flex' open>
       <h2 className='no-margin card-task-name'>{testData.name}</h2>
@@ -24,7 +24,10 @@ const CardModal = ({ data, setExpanded }) => {
         <button
           type='button'
           className='card-btns blue-bg gray-text semi-bold'
-          onClick={() => {''}}>Edit
+          onClick={() => {
+            setExpanded(false);
+            setEdit(true);
+          }}>Edit
         </button>
       </div>
     </dialog>
