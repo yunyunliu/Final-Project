@@ -74,6 +74,9 @@ button {
 }
 
 /* other styles */
+.banner {
+  border-bottom: 2px solid #292929;
+}
 
 .logo {
   width: 80px;

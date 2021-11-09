@@ -3,16 +3,17 @@
   width: 300px;
 }
 
-add-form {
-  width: 200px;
-}
-
 .add-btns-container {
   justify-content: space-between;
 }
 
 .task-name-input {
+  border: 2px solid #1db9c3;
   margin-left: 10px;
+}
+
+.description-input {
+  margin-top: 10px;
 }
 
 .description-label {
@@ -46,8 +47,21 @@ add-form {
   margin: 0 10px;
 }
 
+.card {
+  border: 2px solid #1db9c3;
+}
+
 .card-modal-description {
   width: 100%;
   margin-bottom: 10px;
   text-align: center;
+}
+
+.col-select {
+  margin: 5px 10px;
+  border: 2px solid #1db9c3;
+}
+
+.edit-btns {
+  margin-top: 15px;
 }

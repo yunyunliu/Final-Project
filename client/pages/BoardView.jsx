@@ -18,21 +18,21 @@ const BoardView = () => {
   }, []);
   const [columns, setColumns] = useState([]);
 
-  const handleDelete = async id => {
+  const handleDeleteCol = async id => {
     await fetch(`/api/users/1/boards/12/col/${id}`,
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
     setColumns(updated);
   };
 
-  const handleAdd = async () => {
+  const handleAddCol = async () => {
     const response = await fetch('/api/users/1/boards/12/col', { method: 'POST' });
     const data = await response.json();
     const updated = columns.concat(data);
     setColumns(updated);
   };
 
-  const handleEdit = async (id, name) => {
+  const handleEditCol= async (id, name) => {
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -44,14 +44,23 @@ const BoardView = () => {
     setColumns(updated);
   };
 
+  const populateSelect = () => {
+    return (
+      columns.map(col => <option value={col.columnId}
+        key={col.columnId}>
+      {col.name}</option>)
+    );
+  };
+
   return (
     <div className='flex board-container'>
       {columns.map(col => <Column key={col.columnId}
           data={col}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit} />)}
+          handleDeleteCol={handleDeleteCol}
+          handleEditCol={handleEditCol}
+          populateSelect={populateSelect} />)}
       <button className='add-project-btn blue-bg semi-bold pink-text add-col'
-        onClick={() => handleAdd()}>
+        onClick={() => handleAddCol()}>
         <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
         Add Column
       </button>

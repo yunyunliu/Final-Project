@@ -3,13 +3,11 @@ import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import AddForm from './AddForm';
 
-
-const Column = ({ data, handleDelete, handleEdit }) => {
+const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
   const [colName, setColName] = useState(data.name);
-  const [displayEdit, setDisplayEdit] = useState(false);
-  const [displayModal, setDisplayModal] = useState(false);
+  const [displayEditCol, setDisplayEditCol] = useState(false);
+  const [displayAddCard, setDisplayAddCard] = useState(false);
   const [cards, setCards] = useState([]);
-
 
   useEffect(() => {
     fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`)
@@ -24,7 +22,7 @@ const Column = ({ data, handleDelete, handleEdit }) => {
       });
   }, []);
 
-  const handleAdd = async (name, description) => {
+  const handleAddCard = async (name, description) => {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -69,14 +67,14 @@ const Column = ({ data, handleDelete, handleEdit }) => {
         <div className='edit-btn-container gray-text'>
           <button type='button'
             className='edit-col-btn'
-            onClick={() => setDisplayEdit(false)}>
+            onClick={() => setDisplayEditCol(false)}>
             Cancel
           </button>
           <button type='button'
             className='edit-col-btn gray-text'
             onClick={() => {
-              setDisplayEdit(false);
-              handleEdit(data.columnId, colName);
+              setDisplayEditCol(false);
+              handleEditCol(data.columnId, colName);
             }}>
             Done
           </button>
@@ -88,12 +86,12 @@ const Column = ({ data, handleDelete, handleEdit }) => {
     <div className='col-header flex align-center'>
         <button type='button'
           className='col-name-btn'
-          onDoubleClick={() => setDisplayEdit(true)}>
+          onDoubleClick={() => setDisplayEditCol(true)}>
           <h2 className='col-name gray-text'>{data.name}</h2>
         </button>
         <button type='button'
           className='no-border col-btn'
-          onClick={() => handleDelete(data.columnId)}>
+          onClick={() => handleDeleteCol(data.columnId)}>
           <i className='fas fa-times col-icon semi-bold gray-text'></i>
         </button>
       </div>
@@ -101,18 +99,19 @@ const Column = ({ data, handleDelete, handleEdit }) => {
 
   return (
     <div className='col'>
-      { displayEdit ? editCol : columnName }
+      { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {cards.map(card => <Card key={card.cardId}
           cardData={card}
           handleDelete={deleteCard}
-          handleEdit={handleEditCard} />)}
+          handleEdit={handleEditCard}
+          select={populateSelect} />)}
       </ul>
       <button type='button'
         className='new-card-btn blue-bg pink-text semi-bold'
-        onClick={() => setDisplayModal(true)}
+        onClick={() => setDisplayAddCard(true)}
         ><i className='fas fa-plus'></i> New Card</button>
-        {displayModal ? <AddForm setModal={setDisplayModal} handleAdd={handleAdd} /> : null}
+        {displayAddCard ? <AddForm setModal={setDisplayAddCard} handleAdd={handleAddCard} /> : null}
     </div>
   );
 };

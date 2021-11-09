@@ -41,15 +41,16 @@ const cards = {
   },
   update: async (req, res, db) => {
     const { cardId } = req.params;
-    const { name, description } = req.body;
+    const { name, description, columnId } = req.body;
     const sql = `
       UPDATE "cards"
           SET "name" = $1,
-              "description" = $2
-          WHERE "cardId" = $3
+              "description" = $2,
+              "columnId" = $3
+          WHERE "cardId" = $4
           RETURNING *
     `;
-    const values = [name, description, cardId];
+    const values = [name, description, columnId, cardId];
     const result = await db.query(sql, values);
     const [record] = result.rows;
     if (record) {
