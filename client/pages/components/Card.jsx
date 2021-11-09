@@ -9,6 +9,8 @@ const Card = ({ cardData, handleDelete, handleEdit, select }) => {
 
   return (
     <li className='card blue-bg'>
+      cardId: {cardData.cardId} <br/>
+      card columnId: {cardData.columnId}
        {editCard
          ? <EditForm data={cardData}
               setEdit={setEditCard}

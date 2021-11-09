@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Card from './Card';
 import AddForm from './AddForm';
+import BoardContext from '../BoardContext';
 
 const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
+  const boardData = useContext(BoardContext);
   const [colName, setColName] = useState(data.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
+    console.log('context:', boardData)
     fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`)
       .then(res => {
         if (res.ok) {
@@ -45,7 +48,6 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
   };
 
   const handleEditCard = async editData => {
-    console.log('data send to server:', editData)
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -54,7 +56,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
     const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      const updatedCards = cards.map(card => editData.cardId === updated.cardId ? updated : card);
+      const updatedCards = cards.map(card => card.cardId === updated.cardId ? updated : card);
       setCards(updatedCards);
     }
   };
@@ -100,6 +102,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
 
   return (
     <div className='col'>
+      columnId: {data.columnId}
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {cards.map(card => <Card key={card.cardId}

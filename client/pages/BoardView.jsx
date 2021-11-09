@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
 import CardModal from './components/CardModal';
+import BoardContext from './BoardContext';
 
 const BoardView = () => {
   // const { boardId } = useParams();
@@ -53,7 +54,8 @@ const BoardView = () => {
   };
 
   return (
-    <div className='flex board-container'>
+  <BoardContext.Provider value={{columns, setColumns, populateSelect }}>
+     <div className='flex board-container'>
       {columns.map(col => <Column key={col.columnId}
           data={col}
           handleDeleteCol={handleDeleteCol}
@@ -65,6 +67,7 @@ const BoardView = () => {
         Add Column
       </button>
     </div>
+  </BoardContext.Provider>
   );
 };
 

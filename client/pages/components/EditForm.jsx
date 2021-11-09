@@ -39,7 +39,7 @@ const EditForm = ({ data, setEdit, handleEdit, populateSelect }) => {
           type='button'
           className='add-form-btn no-border blue-bg gray-text semi-bold pink-text'
           onClick={() => {
-            console.log('cardId:', data.cardId)
+            // console.log('cardId:', data.cardId)
             const updated = {
               ...data,
               columnId: moveTo,

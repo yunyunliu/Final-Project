@@ -10,7 +10,7 @@ const AddForm = ({ setModal, handleAdd }) => {
         <h2 className='form-name'>Add new task card</h2>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input'
-            required='required'
+            required
             onChange={({ target }) => setTask(target.value)} />
         </label>
         <label className='description-label width-100 semi-bold'>Task Description:
