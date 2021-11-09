@@ -10,7 +10,11 @@
 }
 
 .hidden {
-  display: none !important;
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
 }
 
 .container {
