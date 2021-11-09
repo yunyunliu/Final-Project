@@ -1,0 +1,53 @@
+.add-modal {
+  border: 3px solid #1db9c3;
+  width: 300px;
+}
+
+add-form {
+  width: 200px;
+}
+
+.add-btns-container {
+  justify-content: space-between;
+}
+
+.task-name-input {
+  margin-left: 10px;
+}
+
+.description-label {
+  margin: 15px 0;
+}
+
+.add-form-btn {
+  border: 2px solid #1db9c3;
+}
+
+.card-modal {
+  border: 3px solid #1db9c3;
+  width: 300px;
+  height: 200px;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.card-btns-container {
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.card-btns {
+  border: 2px solid #1db9c3;
+  width: 75px;
+  height: 30px;
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+.card-modal-description {
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+}

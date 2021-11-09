@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import Column from './components/Column';
+import CardModal from './components/CardModal';
 
 const BoardView = () => {
   // const { boardId } = useParams();

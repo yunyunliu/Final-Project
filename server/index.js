@@ -6,6 +6,8 @@ const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
+const cards = require('./controllers/cards');
+
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
@@ -20,7 +22,12 @@ app.use(errorMiddleware);
 // boards
 
 app.get('/api/users/:id/boards', (req, res) => {
-  boards.get(req, res, db);
+  try {
+    boards.get(req, res, db);
+  } catch (err) {
+    console.error('error:', err);
+    res.send({ error: 'server error' });
+  }
 });
 
 app.post('/api/users/:id/boards', (req, res) => {
@@ -55,6 +62,34 @@ app.delete('/api/users/:id/boards/:boardId/col/:colId', (req, res) => {
 
 app.put('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
   columns.edit(req, res, db);
+});
+
+// task cards
+
+app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
+  cards.getAll(req, res, db);
+});
+
+app.post('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
+  try {
+    cards.create(req, res, db);
+  } catch (err) {
+    console.error('error:', err.message);
+    res.status(500).send({ error: 'something went wrong' });
+  }
+});
+
+app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+  cards.deleteCard(req, res, db);
+});
+
+app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+  try {
+    cards.update(req, res, db);
+  } catch (err) {
+    console.error('error:', err.message);
+    res.status(500).send({ error: 'something went wrong' });
+  }
 });
 
 app.listen(process.env.PORT, () => {

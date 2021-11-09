@@ -24,7 +24,7 @@ const columns = {
   delete: async (req, res, db) => {
     const { colId } = req.params;
     const sql = `
-      DELETE from "columns"
+      DELETE FROM "columns"
         WHERE "columnId" = $1
     `;
     const val = [colId];
