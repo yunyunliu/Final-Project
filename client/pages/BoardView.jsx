@@ -8,7 +8,7 @@ const BoardView = () => {
   // const { boardId } = useParams();
   useEffect(() => {
     // fetch(`/api/users/1/boards/${boardId}/col`)
-    fetch('/api/users/1/boards/12/col')
+    fetch('/api/users/1/boards/1/col')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -19,26 +19,26 @@ const BoardView = () => {
   const [columns, setColumns] = useState([]);
 
   const handleDeleteCol = async id => {
-    await fetch(`/api/users/1/boards/12/col/${id}`,
+    await fetch(`/api/users/1/boards/1/col/${id}`,
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
     setColumns(updated);
   };
 
   const handleAddCol = async () => {
-    const response = await fetch('/api/users/1/boards/12/col', { method: 'POST' });
+    const response = await fetch('/api/users/1/boards/1/col', { method: 'POST' });
     const data = await response.json();
     const updated = columns.concat(data);
     setColumns(updated);
   };
 
-  const handleEditCol= async (id, name) => {
+  const handleEditCol = async (id, name) => {
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
     };
-    const response = await fetch(`/api/users/1/boards/12/col/${id}`, options);
+    const response = await fetch(`/api/users/1/boards/1/col/${id}`, options);
     const data = await response.json();
     const updated = columns.map(col => col.columnId === data.columnId ? data : col);
     setColumns(updated);

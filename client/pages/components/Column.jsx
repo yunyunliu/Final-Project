@@ -28,7 +28,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, description })
     };
-    const response = await fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`, options);
+    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards`, options);
     if (response.ok) {
       const newCard = await response.json();
       const updated = cards.concat(newCard);
@@ -37,7 +37,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
   };
 
   const deleteCard = async cardId => {
-    const response = await fetch(`/api/users/1/boards/12/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE'});
+    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE'});
     if (response.ok) {
       const updated = cards.filter(card => card.cardId !== cardId);
       setCards(updated);
@@ -51,7 +51,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editData)
     };
-    const response = await fetch(`/api/users/1/boards/12/col/${editData.columnId}/cards/${editData.cardId}`, options);
+    const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
       const updatedCards = cards.map(card => editData.cardId === updated.cardId ? updated : card);
