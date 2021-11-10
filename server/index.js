@@ -34,6 +34,7 @@ app.post('/api/users/:id/boards', (req, res) => {
   boards.create(req, res, db);
 });
 
+// get formatted data of all cols and cards associated with boardId
 app.get('/api/users/:userId/boards/:boardId', (req, res) => {
   boards.getOne(req, res, db);
 });

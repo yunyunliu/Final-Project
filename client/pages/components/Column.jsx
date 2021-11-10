@@ -102,7 +102,6 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
 
   return (
     <div className='col'>
-      columnId: {data.columnId}
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {cards.map(card => <Card key={card.cardId}

@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
-import CardModal from './components/CardModal';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
   // const { boardId } = useParams();
   useEffect(() => {
     // fetch(`/api/users/1/boards/${boardId}/col`)
-    fetch('/api/users/1/boards/1/col')
+    fetch('/api/users/1/boards/1/')
       .then(res => {
         if (res.ok) {
           return res.json();
         }
       })
-      .then(data => setColumns(data));
+      .then(data => setBoard(data));
   }, []);
+  const [board, setBoard] = useState([]);
   const [columns, setColumns] = useState([]);
 
   const handleDeleteCol = async id => {
@@ -56,6 +56,7 @@ const BoardView = () => {
   return (
   <BoardContext.Provider value={{columns, setColumns, populateSelect }}>
      <div className='flex board-container'>
+       {console.log(board)}
       {columns.map(col => <Column key={col.columnId}
           data={col}
           handleDeleteCol={handleDeleteCol}
