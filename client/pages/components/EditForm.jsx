@@ -59,7 +59,6 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
               name: task,
               description
             };
-            // console.log('editData:', updated)
             handleEdit(updated, data.columnId);
             setEdit(false);
           }} >

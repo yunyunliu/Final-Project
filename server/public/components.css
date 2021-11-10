@@ -1,6 +1,7 @@
 .add-edit-modal {
   border: 3px solid #1db9c3;
   width: 300px;
+  z-index: 2
 }
 
 .add-btns-container {
@@ -10,7 +11,6 @@
 .task-col-title {
   margin: 10px 0;
 }
-
 
 .task-name-input {
   border: 2px solid #1db9c3;
@@ -40,9 +40,9 @@
 }
 
 .card-btns-container {
-  justify-content: flex-end;
+  flex-direction: row-reverse;
   width: 100%;
-  /* margin-top: 20px; */
+  position: relative;
 }
 
 .card-btns {
@@ -55,6 +55,10 @@
 
 .card {
   border: 2px solid #1db9c3;
+}
+
+.card-bottom {
+  flex-direction: row-reverse;
 }
 
 .card-modal-description {
@@ -70,4 +74,13 @@
 
 .edit-btns {
   margin-top: 15px;
+}
+
+/* card select menu */
+
+.card-col-select {
+  position: absolute;
+  top: 25px;
+  width: 75px;
+  border: 2px solid #1db9c3;
 }
