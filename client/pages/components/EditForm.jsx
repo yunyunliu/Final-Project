@@ -11,7 +11,7 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
 
   return (
   <dialog className='actually-edit-form add-modal' open>
-    {/* {value} */}
+    {value}
     <form className='add-form flex flex-col align-center'>
       <h2 className='form-name'>Edit task card</h2>
       <label className='width-100 semi-bold'>Task:
@@ -59,8 +59,8 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
               name: task,
               description
             };
-            // console.log('editData:', updated)
-            handleEdit(updated);
+            console.log('editData:', updated)
+            handleEdit(updated, data.columnId );
             setEdit(false);
           }} >
           Done

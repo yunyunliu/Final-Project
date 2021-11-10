@@ -32,12 +32,12 @@ const BoardView = () => {
     setColumns(updated);
   };
 
-  const setColumnCards = (colId, cards) => {
-    const { columns } = board;
-    const updated = columns.map(col => (col.columnId === colId)
-      ? { ...col, cards }
-      : col);
-    setBoard({ columns: updated });
+  const setColumnCards = (colId, newCards) => {
+    const columns = board.columns;
+    const columnToUpdate = columns.find(col => col.columnId === colId);
+    columnToUpdate.cards = newCards;
+    const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
+    setBoard({ columns: updatedColumns });
   };
 
   const getColumnCards = colId => {

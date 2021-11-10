@@ -34,7 +34,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
     }
   };
 
-  const handleEditCard = async editData => {
+  const handleEditCard = async (editData, srcColId) => {
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -43,14 +43,21 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
     const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      if (editData.columnId === data.columnId) {
+      // check if card needs to move to another column
+      if (editData.columnId === srcColId) {
+        // if not moving
         const updatedCards = data.cards.map(card => card.cardId === updated.cardId ? updated : card);
         setColumnCards(data.columnId, updatedCards);
       } else {
+        // if moving
         // add card to new column
-        const destinationCards = getColumnCards(editData.columnId).concat(updated);
-        setColumnCards(editData.columnId, destinationCards);
-        // remove card from current column;
+        // const destinationCards = getColumnCards(editData.columnId).concat(updated);
+        // console.log('updated cards in other col:', getColumnCards(editData.columnId).concat(editData));
+
+        setColumnCards(editData.columnId, getColumnCards(editData.columnId).concat(editData));
+        console.log('should match last console.log:', getColumnCards(editData.columnId)) // <- not matching
+
+        // remove card from current column; <-  working
         const updatedCards = data.cards.filter(card => card.cardId !== editData.cardId);
         setColumnCards(data.columnId, updatedCards);
       }
