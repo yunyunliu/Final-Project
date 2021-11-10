@@ -44,12 +44,11 @@ const BoardView = () => {
 
   // };
 
-  const setBoardCards = (colId, cards) => {
+  const setColumnCards = (colId, cards) => {
     const { columns } = board;
     const updated = columns.map(col => (col.columnId === colId)
       ? { ...col, cards }
       : col);
-
     setBoard({ columns: updated });
   };
 
@@ -75,7 +74,7 @@ const BoardView = () => {
 
   if (board) {
     return (
-    <BoardContext.Provider value={{ board, setBoardCards, columns, setColumns, populateSelect }}>
+    <BoardContext.Provider value={{ board, setColumnCards, columns, setColumns, populateSelect }}>
       <div className='flex board-container'>
         {console.log('columns', board)}
         {board.columns.map(col => <Column key={col.columnId}

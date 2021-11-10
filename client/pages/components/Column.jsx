@@ -5,25 +5,10 @@ import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
 
 const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
-  const { setBoardCards, board, setBoard } = useContext(BoardContext);
+  const { setColumnCards, board, setBoard } = useContext(BoardContext);
   const [colName, setColName] = useState(data.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    // console.log('context:', boardData)
-    fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`)
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-      })
-      .then(data => setCards(data))
-      .catch(err => {
-        console.error(err);
-      });
-  }, []);
 
   const handleAddCard = async (name, description) => {
     const options = {
@@ -36,15 +21,15 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
       const newCard = await response.json();
       const updated = data.cards.concat(newCard);
       // console.log('cards after add:', updated)
-      setBoardCards(data.columnId, updated);
+      setColumnCards(data.columnId, updated);
     }
   };
 
   const deleteCard = async cardId => {
     const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE'});
     if (response.ok) {
-      const updated = cards.filter(card => card.cardId !== cardId);
-      setCards(updated);
+      const updated = data.cards.filter(card => card.cardId !== cardId);
+      setColumnCards(data.columnId, updated);
     }
   };
 
@@ -57,8 +42,8 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
     const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      const updatedCards = cards.map(card => card.cardId === updated.cardId ? updated : card);
-      setCards(updatedCards);
+      const updatedCards = data.cards.map(card => card.cardId === updated.cardId ? updated : card);
+      setColumnCards(data.columnId, updatedCards);
     }
   };
 
@@ -103,7 +88,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
 
   return (
     <div className='col'>
-      {console.log('cards', data.cards)}
+      {/* {console.log('cards', data.cards)} */}
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {data.cards.map(card => <Card key={card.cardId}
