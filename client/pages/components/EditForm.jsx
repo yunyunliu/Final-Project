@@ -9,11 +9,17 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
   const [description, setDescription] = useState(data.description);
   const [value, setValue] = useState('label');
 
+  const getColName = colId => {
+    const { columns } = board;
+    const found = columns.find(col => col.columnId === colId);
+    return found.name;
+  };
+
   return (
   <dialog className='add-edit-modal' open>
-    {/* {value} */}
-    <form className='add-form flex flex-col align-center'>
-      <h2 className='form-name'>Edit task card</h2>
+    <form className='flex edit-form flex-col align-center'>
+      <h2 className='form-name no-margin'>Edit task card</h2>
+      <div className='task-col-title'> in <span className='pink-text semi-bold'>{getColName(data.columnId)}</span></div>
       <label className='width-100 semi-bold'>Task:
         <input className='task-name-input'
           value={task}
@@ -31,8 +37,6 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
             value={value}
             onChange={({ target }) => {
               setValue(target.value);
-              // console.log('value:', value)
-              // console.log('e.target.value:', Number(target.value))
             }}>
           <option value='label'>Choose column</option>
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}

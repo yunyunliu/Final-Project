@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import CardModal from './CardModal';
 import EditForm from './EditForm';
 
-const Card = ({ cardData, handleDelete, handleEdit, select }) => {
+const Card = ({ cardData, handleDelete, handleEdit }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [editCard, setEditCard] = useState(false);
 
@@ -12,8 +12,7 @@ const Card = ({ cardData, handleDelete, handleEdit, select }) => {
        {editCard
          ? <EditForm data={cardData}
               setEdit={setEditCard}
-              handleEdit={handleEdit}
-              populateSelect={select} />
+              handleEdit={handleEdit} />
          : null}
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>

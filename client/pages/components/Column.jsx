@@ -21,7 +21,6 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
     if (response.ok) {
       const newCard = await response.json();
       const updated = data.cards.concat(newCard);
-      // console.log('cards after add:', updated)
       setColumnCards(data.columnId, updated);
     }
   };
@@ -51,13 +50,8 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
       } else {
         // if moving
         // add card to new column
-        // const destinationCards = getColumnCards(editData.columnId).concat(updated);
-        // console.log('updated cards in other col:', getColumnCards(editData.columnId).concat(editData));
-
         setColumnCards(editData.columnId, getColumnCards(editData.columnId).concat(editData));
-        console.log('should match last console.log:', getColumnCards(editData.columnId)) // <- not matching
-
-        // remove card from current column; <-  working
+        // remove card from current column
         const updatedCards = data.cards.filter(card => card.cardId !== editData.cardId);
         setColumnCards(data.columnId, updatedCards);
       }
@@ -105,7 +99,6 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
 
   return (
     <div className='col'>
-      {/* {console.log('cards', data.cards)} */}
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {data.cards.map(card => <Card key={card.cardId}
@@ -117,7 +110,11 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
         className='new-card-btn blue-bg pink-text semi-bold'
         onClick={() => setDisplayAddCard(true)}
         ><i className='fas fa-plus'></i> New Card</button>
-        {displayAddCard ? <AddForm setModal={setDisplayAddCard} handleAdd={handleAddCard} /> : null}
+        {displayAddCard
+          ? <AddForm setModal={setDisplayAddCard}
+              handleAdd={handleAddCard}
+              colName={data.name} />
+          : null}
     </div>
   );
 };

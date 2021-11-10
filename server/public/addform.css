@@ -7,6 +7,11 @@
   justify-content: space-between;
 }
 
+.task-col-title {
+  margin: 10px 0;
+}
+
+
 .task-name-input {
   border: 2px solid #1db9c3;
   margin-left: 10px;

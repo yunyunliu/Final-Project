@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
-const AddForm = ({ setModal, handleAdd }) => {
+const AddForm = ({ setModal, handleAdd, colName }) => {
   const [description, setDescription] = useState(null);
   const [task, setTask] = useState(null);
 
   return (
     <dialog className='add-edit-modal' open>
       <form className='add-form flex flex-col align-center'>
-        <h2 className='form-name'>Add new task card</h2>
+        <h2 className='form-name no-margin'>Add new task card</h2>
+          <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input '
             required
