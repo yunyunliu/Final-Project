@@ -12,7 +12,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    console.log('context:', boardData)
+    // console.log('context:', boardData)
     fetch(`/api/users/1/boards/12/col/${data.columnId}/cards`)
       .then(res => {
         if (res.ok) {
@@ -104,7 +104,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
     <div className='col'>
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
-        {cards.map(card => <Card key={card.cardId}
+        {data.cards.map(card => <Card key={card.cardId}
           cardData={card}
           handleDelete={deleteCard}
           handleEdit={handleEditCard}

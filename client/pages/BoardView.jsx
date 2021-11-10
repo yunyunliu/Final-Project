@@ -5,9 +5,17 @@ import Column from './components/Column';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
+  const [board, setBoard] = useState();
+  const [columns, setColumns] = useState([]);
   // const { boardId } = useParams();
   useEffect(() => {
-    // fetch(`/api/users/1/boards/${boardId}/col`)
+    // fetch('/api/users/1/boards/1/col')
+    //   .then(response => {
+    //     if (response.ok) {
+    //       return response.json();
+    //     }
+    //   })
+    //   .then(data => setColumns(data));
     fetch('/api/users/1/boards/1/')
       .then(res => {
         if (res.ok) {
@@ -16,8 +24,6 @@ const BoardView = () => {
       })
       .then(data => setBoard(data));
   }, []);
-  const [board, setBoard] = useState([]);
-  const [columns, setColumns] = useState([]);
 
   const handleDeleteCol = async id => {
     await fetch(`/api/users/1/boards/1/col/${id}`,
@@ -53,23 +59,26 @@ const BoardView = () => {
     );
   };
 
-  return (
-  <BoardContext.Provider value={{columns, setColumns, populateSelect }}>
-     <div className='flex board-container'>
-       {console.log(board)}
-      {columns.map(col => <Column key={col.columnId}
-          data={col}
-          handleDeleteCol={handleDeleteCol}
-          handleEditCol={handleEditCol}
-          populateSelect={populateSelect} />)}
-      <button className='add-project-btn blue-bg semi-bold pink-text add-col'
-        onClick={() => handleAddCol()}>
-        <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
-        Add Column
-      </button>
-    </div>
-  </BoardContext.Provider>
-  );
+  if (board) {
+    return (
+    <BoardContext.Provider value={{ columns, setColumns, populateSelect }}>
+      <div className='flex board-container'>
+        {/* {console.log('boardAtRender:', board)} */}
+        {board.columns.map(col => <Column key={col.columnId}
+            data={col}
+            handleDeleteCol={handleDeleteCol}
+            handleEditCol={handleEditCol}
+            populateSelect={populateSelect} />)}
+        <button className='add-project-btn blue-bg semi-bold pink-text add-col'
+          onClick={() => handleAddCol()}>
+          <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
+          Add Column
+        </button>
+      </div>
+    </BoardContext.Provider>
+    );
+  }
+  return null;
 };
 
 export default BoardView;
