@@ -4,12 +4,14 @@ import BoardContext from '../BoardContext';
 
 const EditForm = ({ data, setEdit, handleEdit }) => {
   const { board } = useContext(BoardContext);
+
   const [task, setTask] = useState(data.name);
   const [description, setDescription] = useState(data.description);
-  const [moveTo, setMoveTo] = useState(data.columnId);
+  const [value, setValue] = useState('label');
 
   return (
-  <dialog className='add-modal' open>
+  <dialog className='actually-edit-form add-modal' open>
+    {/* {value} */}
     <form className='add-form flex flex-col align-center'>
       <h2 className='form-name'>Edit task card</h2>
       <label className='width-100 semi-bold'>Task:
@@ -26,9 +28,17 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
       </label>
       <label className='semi-bold width-100'> Move Card:
         <select className='col-select'
-            onChange={e => setMoveTo(Number(e.target.value))}>
-          <option value=''>Choose column</option>
-          {board.columns.map(col => <option key={col.columnId} value={col.name}>{col.name}</option>)}
+            value={value}
+            onChange={({ target }) => {
+              setValue(target.value);
+              // console.log('value:', value)
+              // console.log('e.target.value:', Number(target.value))
+              // if (target.value) {
+              //   setMoveTo(Number(target.value));
+            }
+            }>
+          <option value='label'>Choose column</option>
+          {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.columnId}{col.name}</option>)}
         </select>
       </label>
       <div className='add-btns-container flex width-100 edit-btns'>
@@ -42,13 +52,14 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
           type='button'
           className='add-form-btn no-border blue-bg gray-text semi-bold pink-text'
           onClick={() => {
-            // console.log('cardId:', data.cardId)
+            // console.log('value:', value)
             const updated = {
               ...data,
-              columnId: moveTo,
+              columnId: value === 'label' ? data.columnId : Number(value),
               name: task,
               description
             };
+            // console.log('editData:', updated)
             handleEdit(updated);
             setEdit(false);
           }} >

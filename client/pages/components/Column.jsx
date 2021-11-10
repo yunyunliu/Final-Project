@@ -6,6 +6,7 @@ import BoardContext from '../BoardContext';
 
 const Column = ({ data, handleDeleteCol, handleEditCol }) => {
   const { setColumnCards, getColumnCards } = useContext(BoardContext);
+
   const [colName, setColName] = useState(data.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
