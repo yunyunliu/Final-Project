@@ -11,11 +11,11 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
 
   return (
   <dialog className='actually-edit-form add-modal' open>
-    {value}
+    {/* {value} */}
     <form className='add-form flex flex-col align-center'>
       <h2 className='form-name'>Edit task card</h2>
       <label className='width-100 semi-bold'>Task:
-        <input className='task-name-input'
+        <input className='task-name-input gray-text'
           value={task}
           onChange={({ target }) => setTask(target.value)} />
       </label>
@@ -33,12 +33,9 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
               setValue(target.value);
               // console.log('value:', value)
               // console.log('e.target.value:', Number(target.value))
-              // if (target.value) {
-              //   setMoveTo(Number(target.value));
-            }
-            }>
+            }}>
           <option value='label'>Choose column</option>
-          {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.columnId}{col.name}</option>)}
+          {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
       <div className='add-btns-container flex width-100 edit-btns'>
@@ -52,15 +49,14 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
           type='button'
           className='add-form-btn no-border blue-bg gray-text semi-bold pink-text'
           onClick={() => {
-            // console.log('value:', value)
             const updated = {
               ...data,
               columnId: value === 'label' ? data.columnId : Number(value),
               name: task,
               description
             };
-            console.log('editData:', updated)
-            handleEdit(updated, data.columnId );
+            // console.log('editData:', updated)
+            handleEdit(updated, data.columnId);
             setEdit(false);
           }} >
           Done
