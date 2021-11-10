@@ -7,6 +7,7 @@ const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
+const tags = require('./controllers/tags');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -90,6 +91,48 @@ app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) =>
   } catch (err) {
     console.error('error:', err.message);
     res.status(500).send({ error: 'something went wrong' });
+  }
+});
+
+// tags
+// temporary
+app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', async (req, res) => {
+  const { boardId } = req.params;
+  const sql = `
+    SELECT *
+      FROM "tags"
+    WHERE "boardId" = $1
+  `;
+  try {
+    const result = await db.query(sql, [boardId]);
+    const tags = result.rows;
+    res.json(tags);
+  } catch (err) {
+    res.status(500).send('error');
+    console.error('error:', err.message);
+  }
+});
+
+app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', async (req, res) => {
+  const { cardId, boardId } = req.params;
+  const { color, text } = req.body;
+
+  const sql = `
+    INSERT INTO "tags" ("color", "text", "boardId")
+          VALUES ($1, $2, $3)
+        RETURNING *;
+  `;
+  try {
+    const result = await db.query(sql, [color, text, boardId]);
+    const [newTag] = result.rows;
+    const tagsCards = `
+      INSERT INTO "tagsCards" ("cardId", "tagId")
+            VALUES ($1, $2)
+    `;
+    await db.query(tagsCards, [cardId, newTag.tagId]);
+    res.json(newTag);
+  } catch (err) {
+    res.send(err.message);
   }
 });
 
