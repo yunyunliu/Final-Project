@@ -1,4 +1,4 @@
-.add-modal {
+.add-edit-modal {
   border: 3px solid #1db9c3;
   width: 300px;
 }
@@ -10,6 +10,7 @@
 .task-name-input {
   border: 2px solid #1db9c3;
   margin-left: 10px;
+  color: #292929
 }
 
 .description-input {

@@ -5,11 +5,11 @@ const AddForm = ({ setModal, handleAdd }) => {
   const [task, setTask] = useState(null);
 
   return (
-    <dialog className='add-modal' open>
+    <dialog className='add-edit-modal' open>
       <form className='add-form flex flex-col align-center'>
         <h2 className='form-name'>Add new task card</h2>
         <label className='width-100 semi-bold'>Task:
-          <input className='task-name-input'
+          <input className='task-name-input '
             required
             onChange={({ target }) => setTask(target.value)} />
         </label>

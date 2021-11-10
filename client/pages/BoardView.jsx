@@ -8,6 +8,7 @@ const BoardView = () => {
   const [board, setBoard] = useState();
   const [columns, setColumns] = useState([]);
   // const { boardId } = useParams();
+  // fetch data once here and set to board;
   useEffect(() => {
     fetch('/api/users/1/boards/1/')
       .then(res => {

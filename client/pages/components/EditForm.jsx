@@ -10,12 +10,12 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
   const [value, setValue] = useState('label');
 
   return (
-  <dialog className='actually-edit-form add-modal' open>
+  <dialog className='add-edit-modal' open>
     {/* {value} */}
     <form className='add-form flex flex-col align-center'>
       <h2 className='form-name'>Edit task card</h2>
       <label className='width-100 semi-bold'>Task:
-        <input className='task-name-input gray-text'
+        <input className='task-name-input'
           value={task}
           onChange={({ target }) => setTask(target.value)} />
       </label>

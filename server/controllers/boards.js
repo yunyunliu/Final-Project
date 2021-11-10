@@ -11,7 +11,7 @@ const boards = {
     const result = await db.query(sql, params);
     res.json(result.rows);
   },
-  // get all card, column, and board data for a board
+  // get all card, column, and board data for one board
   getOne: async (req, res, db) => {
     const { boardId } = req.params;
     const boardQuery = `
@@ -27,17 +27,24 @@ const boards = {
       WHERE "boardId" = $1
     `;
     const colResult = await db.query(colsQuery, [boardId]);
+
     const columns = colResult.rows;
     const cardsQuery = `
         SELECT *
         FROM "cards"
       WHERE "columnId" = $1
     `;
+    // format data by iterating through columns array; at each column make a db query for
+    // cards with columnId that current columns
+    // set the result at property cards
     for (let i = 0; i < columns.length; i++) {
       const col = columns[i];
-      const cardsResult = await db.query(cardsQuery, [col.columnId]);
-      // console.log(cardsResult.rows)
-      col.cards = cardsResult.rows;
+      try {
+        const cardsResult = await db.query(cardsQuery, [col.columnId]);
+        col.cards = cardsResult.rows;
+      } catch (err) {
+        console.error('error:', err.message);
+      }
     }
     board.columns = columns;
     res.json(board);
