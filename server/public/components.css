@@ -93,15 +93,10 @@
   margin: 10px 10px;
 }
 
-.card-task-name {
-
-}
-
-.expanded-label {
-
-}
 .expanded-btns {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
+
+/* add tag input  */

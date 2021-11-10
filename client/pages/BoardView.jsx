@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
+import AddForm from './components/AddForm';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
@@ -63,7 +64,7 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <div className='flex board-container'>
-        {/* {console.log('columns', board)} */}
+        <AddForm colName='todos' />
         {board.columns.map(col => <Column key={col.columnId}
             data={col}
             handleDeleteCol={handleDeleteCol}
