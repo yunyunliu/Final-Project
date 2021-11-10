@@ -37,6 +37,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  z-index: 2
 }
 
 .card-btns-container {
@@ -83,4 +84,24 @@
   top: 25px;
   width: 75px;
   border: 2px solid #1db9c3;
+}
+
+/* expanded card modal */
+
+.expanded-description {
+  text-align: left;
+  margin: 10px 10px;
+}
+
+.card-task-name {
+
+}
+
+.expanded-label {
+
+}
+.expanded-btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

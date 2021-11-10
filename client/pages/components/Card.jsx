@@ -34,7 +34,7 @@ const Card = ({ cardData, handleDelete, handleEdit }) => {
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>
         : null }
-      <div className='card-btns-container flex'>
+      <div className='flex card-btns-container'>
         {showSelect ? colSelect : null}
         <button
           type='button'
