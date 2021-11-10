@@ -3,20 +3,12 @@ import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
-import { createPortal } from 'react-dom';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
   const [columns, setColumns] = useState([]);
   // const { boardId } = useParams();
   useEffect(() => {
-    // fetch('/api/users/1/boards/1/col')
-    //   .then(response => {
-    //     if (response.ok) {
-    //       return response.json();
-    //     }
-    //   })
-    //   .then(data => setColumns(data));
     fetch('/api/users/1/boards/1/')
       .then(res => {
         if (res.ok) {
@@ -40,16 +32,18 @@ const BoardView = () => {
     setColumns(updated);
   };
 
-  // const setOneCard = (cardData, columnId) => {
-
-  // };
-
   const setColumnCards = (colId, cards) => {
     const { columns } = board;
     const updated = columns.map(col => (col.columnId === colId)
       ? { ...col, cards }
       : col);
     setBoard({ columns: updated });
+  };
+
+  const getColumnCards = colId => {
+    const { columns } = board;
+    const targetCol = columns.find(col => col.columnId === colId);
+    return targetCol.cards;
   };
 
   const handleEditCol = async (id, name) => {
@@ -64,24 +58,15 @@ const BoardView = () => {
     setColumns(updated);
   };
 
-  const populateSelect = () => {
-    return (
-      columns.map(col => <option value={col.columnId}
-        key={col.columnId}>
-      {col.name}</option>)
-    );
-  };
-
   if (board) {
     return (
-    <BoardContext.Provider value={{ board, setColumnCards, columns, setColumns, populateSelect }}>
+    <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <div className='flex board-container'>
         {console.log('columns', board)}
         {board.columns.map(col => <Column key={col.columnId}
             data={col}
             handleDeleteCol={handleDeleteCol}
-            handleEditCol={handleEditCol}
-            populateSelect={populateSelect} />)}
+            handleEditCol={handleEditCol} />)}
         <button className='add-project-btn blue-bg semi-bold pink-text add-col'
           onClick={() => handleAddCol()}>
           <span className='plus-icon-container'><i className='fas fa-plus'></i></span>

@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 
 import Card from './Card';
 import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
 
-const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
-  const { setColumnCards, board, setBoard } = useContext(BoardContext);
+const Column = ({ data, handleDeleteCol, handleEditCol }) => {
+  const { setColumnCards, getColumnCards } = useContext(BoardContext);
   const [colName, setColName] = useState(data.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
@@ -42,8 +42,17 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
     const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      const updatedCards = data.cards.map(card => card.cardId === updated.cardId ? updated : card);
-      setColumnCards(data.columnId, updatedCards);
+      if (editData.columnId === data.columnId) {
+        const updatedCards = data.cards.map(card => card.cardId === updated.cardId ? updated : card);
+        setColumnCards(data.columnId, updatedCards);
+      } else {
+        // add card to new column
+        const destinationCards = getColumnCards(editData.columnId).concat(updated);
+        setColumnCards(editData.columnId, destinationCards);
+        // remove card from current column;
+        const updatedCards = data.cards.filter(card => card.cardId !== editData.cardId);
+        setColumnCards(data.columnId, updatedCards);
+      }
     }
   };
 
@@ -94,8 +103,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
         {data.cards.map(card => <Card key={card.cardId}
           cardData={card}
           handleDelete={deleteCard}
-          handleEdit={handleEditCard}
-          select={populateSelect} />)}
+          handleEdit={handleEditCard} />)}
       </ul>
       <button type='button'
         className='new-card-btn blue-bg pink-text semi-bold'

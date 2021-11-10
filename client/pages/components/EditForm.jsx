@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
-const EditForm = ({ data, setEdit, handleEdit, populateSelect }) => {
+import BoardContext from '../BoardContext';
+
+const EditForm = ({ data, setEdit, handleEdit }) => {
+  const { board } = useContext(BoardContext);
   const [task, setTask] = useState(data.name);
   const [description, setDescription] = useState(data.description);
   const [moveTo, setMoveTo] = useState(data.columnId);
@@ -25,7 +28,7 @@ const EditForm = ({ data, setEdit, handleEdit, populateSelect }) => {
         <select className='col-select'
             onChange={e => setMoveTo(Number(e.target.value))}>
           <option value=''>Choose column</option>
-          {populateSelect()}
+          {board.columns.map(col => <option key={col.columnId} value={col.name}>{col.name}</option>)}
         </select>
       </label>
       <div className='add-btns-container flex width-100 edit-btns'>
