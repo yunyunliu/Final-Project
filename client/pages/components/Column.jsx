@@ -5,7 +5,7 @@ import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
 
 const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
-  const boardData = useContext(BoardContext);
+  const { setBoardCards, board, setBoard } = useContext(BoardContext);
   const [colName, setColName] = useState(data.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
@@ -34,8 +34,9 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
     const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards`, options);
     if (response.ok) {
       const newCard = await response.json();
-      const updated = cards.concat(newCard);
-      setCards(updated);
+      const updated = data.cards.concat(newCard);
+      // console.log('cards after add:', updated)
+      setBoardCards(data.columnId, updated);
     }
   };
 
@@ -102,6 +103,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol, populateSelect }) => {
 
   return (
     <div className='col'>
+      {console.log('cards', data.cards)}
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
         {data.cards.map(card => <Card key={card.cardId}

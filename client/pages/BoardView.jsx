@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
+import { createPortal } from 'react-dom';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
@@ -39,6 +40,19 @@ const BoardView = () => {
     setColumns(updated);
   };
 
+  // const setOneCard = (cardData, columnId) => {
+
+  // };
+
+  const setBoardCards = (colId, cards) => {
+    const { columns } = board;
+    const updated = columns.map(col => (col.columnId === colId)
+      ? { ...col, cards }
+      : col);
+
+    setBoard({ columns: updated });
+  };
+
   const handleEditCol = async (id, name) => {
     const options = {
       method: 'PUT',
@@ -61,9 +75,9 @@ const BoardView = () => {
 
   if (board) {
     return (
-    <BoardContext.Provider value={{ columns, setColumns, populateSelect }}>
+    <BoardContext.Provider value={{ board, setBoardCards, columns, setColumns, populateSelect }}>
       <div className='flex board-container'>
-        {/* {console.log('boardAtRender:', board)} */}
+        {console.log('columns', board)}
         {board.columns.map(col => <Column key={col.columnId}
             data={col}
             handleDeleteCol={handleDeleteCol}
