@@ -106,6 +106,16 @@
   justify-content: space-between;
 }
 
+.expanded-tags {
+  font-size: 12px;
+  padding: 2px;
+  margin: 2px;
+}
+
+.expanded-tag-container {
+  justify-content: flex-start;
+  width: 100%;
+}
 /* add tag submenu  */
 
 .sub-menu {
