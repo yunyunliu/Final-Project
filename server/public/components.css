@@ -120,3 +120,30 @@
   height: 15px;
   width: 30px;
 }
+
+.menu-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 15px;
+}
+
+.tag-text-input {
+  border: 2px solid #1db9c3;
+  width: 70%;
+  color: #292929;
+}
+
+.add-tag-form {
+  align-items: center;
+}
+
+.color-row-top {
+  /* justify-content: space-around; */
+  /* width: 100%; */
+}
+
+.color-label  {
+  width: 50px;
+  height: 20px;
+}
