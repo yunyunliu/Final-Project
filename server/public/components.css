@@ -1,7 +1,10 @@
 .add-edit-modal {
   border: 3px solid #1db9c3;
   width: 300px;
-  z-index: 2
+  z-index: 2;
+}
+.add-form {
+  position: relative;
 }
 
 .add-btns-container {
@@ -99,4 +102,10 @@
   justify-content: space-between;
 }
 
-/* add tag input  */
+/* add tag submenu  */
+
+.sub-menu {
+  position: absolute;
+  top: 15px;
+  right: 5px;
+}

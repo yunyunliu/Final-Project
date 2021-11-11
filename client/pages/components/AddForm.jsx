@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import SubMenu from './SubMenu';
 
 const AddForm = ({ setModal, handleAdd, colName }) => {
   const [description, setDescription] = useState(null);
   const [task, setTask] = useState(null);
   const [label, setLabel] = useState('');
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/users/1/boards/1/col/1/cards/1/tags')
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then(data => setTags(data));
+  }, []);
 
   return (
     <dialog className='add-edit-modal' open>
+      {/* {console.log(tags)} */}
       <form className='add-form flex flex-col align-center'>
         <h2 className='form-name no-margin'>Add new task card</h2>
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
@@ -20,9 +34,15 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             cols='25'
             onChange={({ target }) => setDescription(target.value)} />
         </label>
+        <div className='flex label-input'>
+          <input value={label}
+            onChange={e => setLabel(e.target.value)} />
+            <button type='button'
+              onClick={''}
+              >Add tag</button>
+              <SubMenu data={tags}/>
+        </div>
 
-        <input value={label}
-          onChange={e => setLabel(e.target.value)} /><button type='button'>Add tag</button>
         <div className='add-btns-container flex width-100'>
           <button
             className='add-form-btn pink-text no-border blue-bg gray-text semi-bold'
