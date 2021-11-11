@@ -5,18 +5,19 @@ import SubMenu from './SubMenu';
 const AddForm = ({ setModal, handleAdd, colName }) => {
   const [description, setDescription] = useState(null);
   const [task, setTask] = useState(null);
+  const [displaySubMenu, setDisplaySubMenu] = useState(false);
 
-  const [tags, setTags] = useState([]);
+  const [tempTags, setTempTags] = useState([]);
 
-  useEffect(() => {
-    fetch('/api/users/1/boards/1/col/1/cards/1/tags')
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-      })
-      .then(data => setTags(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/api/users/1/boards/1/col/1/cards/1/tags')
+  //     .then(response => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //     })
+  //     .then(data => setTags(data));
+  // }, []);
 
   return (
     <dialog className='add-edit-modal' open>
@@ -34,8 +35,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             onChange={({ target }) => setDescription(target.value)} />
         </label>
         <div className='flex label-input'>
-          <button type='button'>Add tag</button>
-          <SubMenu data={tags} setTags={setTags} />
+          <button type='button' onClick={() => setDisplaySubMenu(true)}>Add tag</button>
+          { displaySubMenu ? <SubMenu setTags={setTempTags} setMenu={setDisplaySubMenu} /> : null }
         </div>
         <div className='add-btns-container flex width-100'>
           <button

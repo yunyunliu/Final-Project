@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SubMenu = ({ data, setTags }) => {
+const SubMenu = ({ data, setTags, setMenu }) => {
   const [selected, setSelected] = useState('purple');
   const [name, setName] = useState('');
 
@@ -20,7 +20,7 @@ const SubMenu = ({ data, setTags }) => {
   return (
     <div className='sub-menu blue-bg flex flex-col'>
       <div className='menu-header semi-bold'>
-        <button className='icon-btn header-btn'><i className="fas fa-arrow-left"></i></button>
+        <button className='icon-btn header-btn' type='button' onClick={() => setMenu(false)}><i className="fas fa-arrow-left"></i></button>
         <h3 className='no-margin'>Create Tag</h3>
         <button className='icon-btn header-btn'><i className="fas fa-times"></i></button>
       </div>
