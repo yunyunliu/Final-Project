@@ -3,6 +3,7 @@
   width: 300px;
   z-index: 2;
 }
+
 .add-form {
   position: relative;
 }
@@ -29,8 +30,11 @@
   margin: 15px 0;
 }
 
-.add-form-btn {
+.form-btn {
   border: 2px solid #1db9c3;
+  background-color: #eafeff;
+  color: #f56fad;
+  font-weight: 700;
 }
 
 .card-modal {
@@ -106,44 +110,47 @@
 
 .sub-menu {
   position: absolute;
+  width: 200px;
   top: 15px;
   right: 5px;
   border: 2px solid #1db9c3;
   padding: 10px;
+  align-items: center;
 }
 
-.tag-item {
-  border: 2px solid #292929;
+.header-btn {
+  font-size: 16px;
 }
 
-.color-label {
-  height: 15px;
-  width: 30px;
+.color-btn {
+  width: 75px;
+  height: 20px;
 }
+
+.color-btn:hover {
+  border: 2px solid #1db9c3;
+}
+
 
 .menu-header {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   margin-bottom: 15px;
+}
+
+.label-item {
+  width: 75px;
 }
 
 .tag-text-input {
   border: 2px solid #1db9c3;
-  width: 70%;
+  width: 60%;
   color: #292929;
+  /* margin-right: 10px; */
 }
 
-.add-tag-form {
-  align-items: center;
-}
-
-.color-row-top {
-  /* justify-content: space-around; */
-  /* width: 100%; */
-}
-
-.color-label  {
-  width: 50px;
-  height: 20px;
+.add-tag-btn {
+  width: 40px;
+  height: 25px;
 }

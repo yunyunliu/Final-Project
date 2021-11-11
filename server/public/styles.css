@@ -57,6 +57,10 @@ button {
   border: none;
 }
 
+.teal-border-2 {
+  border: 2px solid #1db9c3;
+}
+
 .align-center {
   align-items: center;
 }

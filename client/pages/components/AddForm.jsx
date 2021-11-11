@@ -5,7 +5,7 @@ import SubMenu from './SubMenu';
 const AddForm = ({ setModal, handleAdd, colName }) => {
   const [description, setDescription] = useState(null);
   const [task, setTask] = useState(null);
-  const [label, setLabel] = useState('');
+
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,6 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input '
-            required
             onChange={({ target }) => setTask(target.value)} />
         </label>
         <label className='description-label width-100 semi-bold'>Task Description:
@@ -35,14 +34,9 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             onChange={({ target }) => setDescription(target.value)} />
         </label>
         <div className='flex label-input'>
-          <input value={label}
-            onChange={e => setLabel(e.target.value)} />
-            <button type='button'
-              onClick={''}
-              >Add tag</button>
-              <SubMenu data={tags}/>
+          <button type='button'>Add tag</button>
+          <SubMenu data={tags} setTags={setTags} />
         </div>
-
         <div className='add-btns-container flex width-100'>
           <button
             className='add-form-btn pink-text no-border blue-bg gray-text semi-bold'
@@ -52,7 +46,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
           </button>
           <button
             type='button'
-            className='add-form-btn pink-text no-border blue-bg gray-text semi-bold'
+            className='form-btn pink-text no-border blue-bg gray-text semi-bold'
             onClick={() => {
               setModal(false);
               handleAdd(task, description);

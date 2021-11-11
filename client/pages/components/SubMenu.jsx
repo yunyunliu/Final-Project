@@ -1,40 +1,50 @@
 import React, { useState } from 'react';
 
-const SubMenu = ({ data }) => {
-  const [purple, setPurple] = useState(false);
-  const [yellow, setYellow] = useState(false);
-  const [blue, setBlue] = useState(false);
-  const [red, setRed] = useState(false);
-  const [orange, setOrange] = useState(false);
-  const [selected, setSelected] = useState(null);
-
+const SubMenu = ({ data, setTags }) => {
+  const [selected, setSelected] = useState('purple');
   const [name, setName] = useState('');
+
+  const labelColors = [
+    { color: 'purple' },
+    { color: 'yellow' },
+    { color: 'blue' },
+    { color: 'red' },
+    { color: 'orange' },
+    { color: 'green' }
+  ];
+
   const check = (
     <i className="fas fa-check"></i>
   );
 
   return (
-    <div className='sub-menu blue-bg'>
+    <div className='sub-menu blue-bg flex flex-col'>
       <div className='menu-header semi-bold'>
-        <button className='icon-btn'><i className="fas fa-arrow-left"></i></button>
-        Create Tag
-        <button className='icon-btn'><i className="fas fa-times"></i></button>
+        <button className='icon-btn header-btn'><i className="fas fa-arrow-left"></i></button>
+        <h3 className='no-margin'>Create Tag</h3>
+        <button className='icon-btn header-btn'><i className="fas fa-times"></i></button>
       </div>
-      <form className='flex flex-col add-tag-form'>
-        <input className='tag-text-input' placeholder='tag name' onChange={e => setName(e.target.value) }/>
-        <h3>tag color</h3>
-        <div className='flex color-row-top'>
-          <button className='color-label purple' id='purple' type='button' onClick={() => setPurple(!purple)}>{purple ? check : null}</button>
-          <button className='color-label yellow' id='yellow' type='button' onClick={() => setYellow(!yellow)}>{yellow ? check : null}</button>
-          <button className='color-label blue' id='blue' type='button' onClick={() => setBlue(!blue)}>{blue ? check : null}</button>
-        </div>
-        <div className='flex color-row-bot'>
-          <button className='color-label red' id='red' type='button' onClick={() => setRed(!red)}>{red ? check : null}</button>
-          <button className='color-label orange' id='orange' type='button' onClick={() => setOrange(!orange)}>{orange ? check : null}</button>
-          <button className='color-label' id='other' type='button'>Other</button>
+
+      <ul className='no-bullets no-padding color-list'>
+        {labelColors.map((color, i) => (
+          <li className={`label-item width-100  ${color.color}`} key={i}>
+            <button className={`${color.color} color-btn no-border`}
+              type='button'
+              id={color.color}
+              onClick={e => setSelected(e.target.id)}>
+              {selected === color.color ? check : null}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div><label className='tag-input-label' htmlFor='tag-name-input'> Tag Name</label></div>
+      <div className='flex width-100'>
+        <input value={name}
+            id='tag-text-input'
+            className='tag-text-input'
+            onChange={e => setName(e.target.value)} />
+        <button type='button' className='form-btn add-tag-btn'>Add</button>
       </div>
-      <button>Add Tag</button>
-      </form>
     </div>
   );
 };
