@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-const SubMenu = ({ data, setTags, setMenu }) => {
+const SubMenu = ({ setTags, setMenu }) => {
   const [selected, setSelected] = useState('purple');
-  const [name, setName] = useState('');
+  const [text, setText] = useState('');
+  const [tempTags, setTempTags] = useState([]);
 
   const labelColors = [
     { color: 'purple' },
@@ -22,7 +23,7 @@ const SubMenu = ({ data, setTags, setMenu }) => {
       <div className='menu-header semi-bold'>
         <button className='icon-btn header-btn' type='button' onClick={() => setMenu(false)}><i className="fas fa-arrow-left"></i></button>
         <h3 className='no-margin'>Create Tag</h3>
-        <button className='icon-btn header-btn'><i className="fas fa-times"></i></button>
+        <button type='button' onClick={() => setMenu(false)} className='icon-btn header-btn'><i className="fas fa-times"></i></button>
       </div>
 
       <ul className='no-bullets no-padding color-list'>
@@ -42,9 +43,16 @@ const SubMenu = ({ data, setTags, setMenu }) => {
         <input value={name}
             id='tag-text-input'
             className='tag-text-input'
-            onChange={e => setName(e.target.value)} />
-        <button type='button' className='form-btn add-tag-btn'>Add</button>
+            onChange={e => setText(e.target.value)} />
+        <button type='button'
+          onClick={() => setTempTags(tempTags.concat({ text, color: selected }))}
+          className='form-btn add-tag-btn'>Add</button>
       </div>
+      <button type='button'
+        onClick={() => {
+          setTags(tempTags);
+          setMenu(false);
+        }}>done</button>
     </div>
   );
 };

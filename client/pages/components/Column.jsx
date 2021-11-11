@@ -104,6 +104,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
         {data.cards.map(card => <Card key={card.cardId}
           cardData={card}
           handleDelete={deleteCard}
+          colName={data.name}
           handleEdit={handleEditCard} />)}
       </ul>
       <button type='button'

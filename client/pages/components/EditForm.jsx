@@ -1,25 +1,22 @@
 import React, { useState, useContext } from 'react';
 
 import BoardContext from '../BoardContext';
+import SubMenu from './SubMenu';
 
-const EditForm = ({ data, setEdit, handleEdit }) => {
+const EditForm = ({ data, setEdit, handleEdit, colName }) => {
   const { board } = useContext(BoardContext);
 
+  const [displaySubMenu, setDisplaySubMenu] = useState(false);
   const [task, setTask] = useState(data.name);
   const [description, setDescription] = useState(data.description);
   const [value, setValue] = useState('label');
-
-  const getColName = colId => {
-    const { columns } = board;
-    const found = columns.find(col => col.columnId === colId);
-    return found.name;
-  };
+  const [tempTags, setTempTags] = useState([]);
 
   return (
   <dialog className='add-edit-modal' open>
     <form className='flex edit-form flex-col align-center'>
       <h2 className='form-name no-margin'>Edit task card</h2>
-      <div className='task-col-title'> in <span className='pink-text semi-bold'>{getColName(data.columnId)}</span></div>
+      <div className='task-col-title'> in <span className='pink-text semi-bold'>{colName}</span></div>
       <label className='width-100 semi-bold'>Task:
         <input className='task-name-input'
           value={task}
@@ -42,22 +39,27 @@ const EditForm = ({ data, setEdit, handleEdit }) => {
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
+      <div className='flex label-input'>
+          <button type='button' onClick={() => setDisplaySubMenu(true)}>Add tag</button>
+          { displaySubMenu ? <SubMenu setTags={setTempTags} setMenu={setDisplaySubMenu} /> : null }
+        </div>
       <div className='add-btns-container flex width-100 edit-btns'>
         <button
-          className='add-form-btn no-border blue-bg gray-text semi-bold pink-text'
+          className='form-btn'
           type='button'
           onClick={() => setEdit(false)}>
             Cancel
         </button>
         <button
           type='button'
-          className='add-form-btn no-border blue-bg gray-text semi-bold pink-text'
+          className='form-btn'
           onClick={() => {
             const updated = {
               ...data,
               columnId: value === 'label' ? data.columnId : Number(value),
               name: task,
-              description
+              description,
+              tags: tempTags
             };
             handleEdit(updated, data.columnId);
             setEdit(false);

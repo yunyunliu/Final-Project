@@ -4,7 +4,7 @@ import CardModal from './CardModal';
 import EditForm from './EditForm';
 import BoardContext from '../BoardContext';
 
-const Card = ({ cardData, handleDelete, handleEdit }) => {
+const Card = ({ cardData, handleDelete, handleEdit, colName }) => {
   const { board } = useContext(BoardContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -29,7 +29,8 @@ const Card = ({ cardData, handleDelete, handleEdit }) => {
        {editCard
          ? <EditForm data={cardData}
               setEdit={setEditCard}
-              handleEdit={handleEdit} />
+              handleEdit={handleEdit}
+              colName={colName} />
          : null}
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>
@@ -55,6 +56,12 @@ const Card = ({ cardData, handleDelete, handleEdit }) => {
         </button>
       </div>
       <div className='card-name pink-text'>{cardData.name}</div>
+        <div className='tag-section flex'>
+          {
+          cardData.tags.map(tag => <div key={tag.tagId} className={`${tag.color} card-label`}></div>)
+          }
+        </div>
+
       <div className='card-desc'>
         {cardData.description}
       </div>

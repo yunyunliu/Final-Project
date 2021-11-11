@@ -7,17 +7,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
   const [task, setTask] = useState(null);
   const [displaySubMenu, setDisplaySubMenu] = useState(false);
 
-  const [tempTags, setTempTags] = useState([]);
-
-  // useEffect(() => {
-  //   fetch('/api/users/1/boards/1/col/1/cards/1/tags')
-  //     .then(response => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       }
-  //     })
-  //     .then(data => setTags(data));
-  // }, []);
+  const [tags, setTags] = useState([]);
 
   return (
     <dialog className='add-edit-modal' open>
@@ -36,11 +26,11 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
         </label>
         <div className='flex label-input'>
           <button type='button' onClick={() => setDisplaySubMenu(true)}>Add tag</button>
-          { displaySubMenu ? <SubMenu setTags={setTempTags} setMenu={setDisplaySubMenu} /> : null }
+          { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} /> : null }
         </div>
         <div className='add-btns-container flex width-100'>
           <button
-            className='add-form-btn pink-text no-border blue-bg gray-text semi-bold'
+            className='add-form-btn form-btn'
             type='button'
             onClick={() => setModal(false)}>
               Cancel

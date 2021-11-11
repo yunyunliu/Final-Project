@@ -15,8 +15,9 @@ const boards = {
   },
   // get all card, column, and board data for one board
   getOne: async (req, res, db) => {
+    const { boardId } = req.params;
     try {
-      const result = await db.query(sql, [1]);
+      const result = await db.query(sql, [boardId]);
       const [data] = result.rows;
       res.json(data);
     } catch (err) {
