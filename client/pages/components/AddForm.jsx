@@ -6,9 +6,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
   const [description, setDescription] = useState(null);
   const [task, setTask] = useState(null);
   const [displaySubMenu, setDisplaySubMenu] = useState(false);
-
   const [tags, setTags] = useState([]);
-
   return (
     <dialog className='add-edit-modal' open>
       {/* {console.log(tags)} */}

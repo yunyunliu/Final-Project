@@ -64,7 +64,7 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <div className='flex board-container'>
-        {/* <AddForm colName='todos' /> */}
+        {console.log(board)}
         {board.columns.map(col => <Column key={col.columnId}
             data={col}
             handleDeleteCol={handleDeleteCol}

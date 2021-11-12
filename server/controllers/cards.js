@@ -25,7 +25,7 @@ const cards = {
         RETURNING *
     `;
     const relSql = `
-      INSERT INTO "tagsCards" ("tagId", "cardId)
+      INSERT INTO "tagsCards" ("tagId", "cardId")
         VALUES ($1, $2)
     `;
     const result = await db.query(sql, [name, description, colId, boardId]);
