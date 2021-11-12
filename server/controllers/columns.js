@@ -44,11 +44,10 @@ const columns = {
         WHERE "columnId" = $2
       RETURNING *
     `;
-    const values = [req.body.name, colId];
     try {
-      const result = await db.query(sql, values);
-      const [record] = result.rows;
-      res.json(record);
+      const result = await db.query(sql, [req.body.name, colId]);
+      const [column] = result.rows;
+      res.json({ ...column, cards: [] });
     } catch (err) {
       console.error('error:', err.message);
       res.status(500).send({ error: 'something went wrong' });
