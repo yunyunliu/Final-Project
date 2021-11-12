@@ -24,6 +24,7 @@ const Card = ({ cardData, handleDelete, handleEdit, colName }) => {
     </select>
   );
 
+
   return (
     <li className='card blue-bg'>
        {editCard
@@ -60,6 +61,7 @@ const Card = ({ cardData, handleDelete, handleEdit, colName }) => {
           {cardData.tags.map(tag => (<div
             key={tag.tagId}
             className={`${tag.color} card-label`}
+            style={{ backgroundColor: tag.color }}
             > </div>))}
         </div>
 
