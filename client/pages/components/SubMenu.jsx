@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-const SubMenu = ({ setTags, setMenu }) => {
+const SubMenu = ({ setMenu, setTags, tags }) => {
   const [selected, setSelected] = useState('purple');
   const [text, setText] = useState('');
-  const [tempTags, setTempTags] = useState([]);
 
   const labelColors = [
     { color: 'purple' },
@@ -17,6 +16,19 @@ const SubMenu = ({ setTags, setMenu }) => {
   const check = (
     <i className="fas fa-check"></i>
   );
+
+  const handleAddTag = async (text, color) => {
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({ text, color }),
+      headers: { 'Content-Type': 'application/json' }
+    };
+    const response = await fetch('/api/users/1/boards/1/col/1/cards/1/tags', options);
+    if (response.ok) {
+      const data = await response.json();
+      setTags(tags.concat(data));
+    }
+  };
 
   return (
     <div className='sub-menu blue-bg flex flex-col'>
@@ -40,17 +52,16 @@ const SubMenu = ({ setTags, setMenu }) => {
       </ul>
       <div><label className='tag-input-label' htmlFor='tag-name-input'> Tag Name</label></div>
       <div className='flex width-100'>
-        <input value={name}
+        <input value={text}
             id='tag-text-input'
             className='tag-text-input'
             onChange={e => setText(e.target.value)} />
         <button type='button'
-          onClick={() => setTempTags(tempTags.concat({ text, color: selected }))}
+          onClick={() => handleAddTag(text, selected)}
           className='form-btn add-tag-btn'>Add</button>
       </div>
       <button type='button'
         onClick={() => {
-          setTags(tempTags);
           setMenu(false);
         }}>done</button>
     </div>

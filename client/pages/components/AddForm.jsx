@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import SubMenu from './SubMenu';
 
@@ -26,7 +26,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
         </label>
         <div className='flex label-input'>
           <button type='button' onClick={() => setDisplaySubMenu(true)}>Add tag</button>
-          { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} /> : null }
+          { displaySubMenu ? <SubMenu setTags={setTags} tags={tags} setMenu={setDisplaySubMenu} /> : null }
         </div>
         <div className='add-btns-container flex width-100'>
           <button
@@ -40,7 +40,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             className='form-btn pink-text no-border blue-bg gray-text semi-bold'
             onClick={() => {
               setModal(false);
-              handleAdd(task, description);
+              handleAdd(task, description, tags);
             }} >
             Done
           </button>

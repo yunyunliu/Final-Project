@@ -11,16 +11,16 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
 
-  const handleAddCard = async (name, description) => {
+  const handleAddCard = async (name, description, tags) => {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, description })
+      body: JSON.stringify({ name, description, tags })
     };
     const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards`, options);
     if (response.ok) {
       const newCard = await response.json();
-      const updated = data.cards.concat(newCard);
+      const updated = data.cards.concat({ ...newCard, tags });
       setColumnCards(data.columnId, updated);
     }
   };

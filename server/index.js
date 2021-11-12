@@ -113,27 +113,8 @@ app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', async (r
   }
 });
 
-app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', async (req, res) => {
-  const { cardId, boardId } = req.params;
-  const { color, text } = req.body;
-
-  const sql = `
-    INSERT INTO "tags" ("color", "text", "boardId")
-          VALUES ($1, $2, $3)
-        RETURNING *;
-  `;
-  try {
-    const result = await db.query(sql, [color, text, boardId]);
-    const [newTag] = result.rows;
-    const tagsCards = `
-      INSERT INTO "tagsCards" ("cardId", "tagId")
-            VALUES ($1, $2)
-    `;
-    await db.query(tagsCards, [cardId, newTag.tagId]);
-    res.json(newTag);
-  } catch (err) {
-    res.send(err.message);
-  }
+app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
+  tags.create(req, res, db);
 });
 
 app.listen(process.env.PORT, () => {
