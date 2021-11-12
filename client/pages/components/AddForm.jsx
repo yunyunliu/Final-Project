@@ -34,7 +34,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             ))
             : null}
             <button type='button' onClick={() => setDisplaySubMenu(true)} style={{ marginLeft: 10 }} className='form-btn'>Add tag</button>
-        </div>
+          </div>
           { displaySubMenu ? <SubMenu setTags={setTags} tags={tags} setMenu={setDisplaySubMenu} /> : null }
         </div>
         <div className='add-btns-container flex width-100'>

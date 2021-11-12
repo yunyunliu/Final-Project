@@ -36,20 +36,14 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
             value={color}
             className='teal-border-2'
             onChange={e => setColor(e.target.value)} />
-          <ul className='no-bullets no-padding'>
+        </div>
+        <div className='expanded-tag-container flex'>
             {tags.length > 0
               ? tags.map(tag => (
-                <li key={tag.tagId}>
-                  <div className='expanded-tags'
-                    style={{ backgroundColor: tag.color }}>
-                      {tag.text}
-                  </div>
-                </li>
+                <div key={tag.tagId} style={{ backgroundColor: tag.color }} className={`${tag.color} expanded-tags`}>{tag.text}</div>
               ))
-              : null
-            }
-          </ul>
-        </div>
+              : null}
+          </div>
         <div className='flex width-100 tag-text-section'>
           <label style={{ marginRight: 15, fontSize: 18 }} className='semi-bold' htmlFor='tag-name-input'>Text</label>
           <input value={text}
