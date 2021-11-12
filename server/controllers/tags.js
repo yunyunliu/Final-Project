@@ -14,6 +14,22 @@ const tags = {
     } catch (err) {
       res.send(err.message);
     }
+  },
+  get: async (req, res, db) => {
+    const { boardId } = req.params;
+    const sql = `
+      SELECT *
+        FROM "tags"
+      WHERE "boardId" = $1
+    `;
+    try {
+      const result = await db.query(sql, [boardId]);
+      const tags = result.rows;
+      res.json(tags);
+    } catch (err) {
+      res.status(500).send('error');
+      console.error('error:', err.message);
+    }
   }
 };
 

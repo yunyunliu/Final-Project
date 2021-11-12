@@ -31,6 +31,7 @@ const cards = {
     const result = await db.query(sql, [name, description, colId, boardId]);
     const [newCard] = result.rows;
     res.status(201).json(newCard);
+    // add new tags to relationship tagsCards relationship table
     for (let i = 0; i < tags.length; i++) {
       const id = tags[i].tagId;
       await db.query(relSql, [id, newCard.cardId]);
@@ -42,8 +43,7 @@ const cards = {
       DELETE FROM "cards"
           WHERE "cardId" = $1
     `;
-    const values = [cardId];
-    await db.query(sql, values);
+    await db.query(sql, [cardId]);
     res.sendStatus(204);
   },
   update: async (req, res, db) => {
@@ -57,11 +57,12 @@ const cards = {
           WHERE "cardId" = $4
           RETURNING *
     `;
-    const values = [name, description, columnId, cardId];
-    const result = await db.query(sql, values);
+    const result = await db.query(sql, [name, description, columnId, cardId]);
     const [record] = result.rows;
     if (record) {
       res.send(record);
+    } else {
+      res.end();
     }
   }
 };

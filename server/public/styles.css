@@ -105,7 +105,7 @@ button {
   margin-left: 50px;
 }
 
-button:active {
+.btn:active {
   transform: translateY(0.25rem);
 }
 

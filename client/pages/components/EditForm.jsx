@@ -46,19 +46,19 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
         </select>
       </label>
       <div className='flex label-input'>
-          <button type='button' onClick={() => setDisplaySubMenu(true)}>Add tag</button>
+          <button type='button' onClick={() => setDisplaySubMenu(true)} className='btn'>Add tag</button>
           { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} tags={tags} /> : null }
         </div>
       <div className='add-btns-container flex width-100 edit-btns'>
         <button
-          className='form-btn'
+          className='form-btn btn'
           type='button'
           onClick={() => setEdit(false)}>
             Cancel
         </button>
         <button
           type='button'
-          className='form-btn'
+          className='form-btn btn'
           onClick={() => {
             const updated = {
               ...data,

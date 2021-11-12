@@ -31,8 +31,7 @@ const boards = {
         VALUES ($1, 'New Project')
         RETURNING *
     `;
-    const values = [userId];
-    const results = await db.query(sql, values);
+    const results = await db.query(sql, [userId]);
     const [data] = results.rows;
     res.status(201).json(data);
   },
@@ -42,21 +41,19 @@ const boards = {
       DELETE FROM "boards"
         WHERE "boardId" = $1
     `;
-    const values = [boardId];
-    await db.query(sql, values);
+    await db.query(sql, [boardId]);
     res.sendStatus(204);
   },
   edit: async (req, res, db) => {
     const boardId = Number(req.params.boardId);
-    const body = req.body;
+    const { name } = req.body;
     const sql = `
     UPDATE "boards"
         SET "name" = $1
       WHERE "boardId" = $2
       RETURNING *
     `;
-    const values = [body.name, boardId];
-    const result = await db.query(sql, values);
+    const result = await db.query(sql, [name, boardId]);
     const [updated] = result.rows;
     res.json(updated);
   }

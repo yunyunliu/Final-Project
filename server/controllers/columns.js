@@ -12,14 +12,20 @@ const columns = {
     res.json(data);
   },
   create: async (req, res, db) => {
+    const { boardId } = req.params;
     const sql = `
-    INSERT INTO "columns" ("boardId", name)
-      VALUES (12, 'New Column')
+    INSERT INTO "columns" ("boardId", "name")
+      VALUES ($1, 'New Column')
       RETURNING *
   `;
-    const results = await db.query(sql);
-    const [data] = results.rows;
-    res.status(201).json(data);
+    try {
+      const results = await db.query(sql, [boardId]);
+      const [data] = results.rows;
+      res.status(201).json(data);
+    } catch (err) {
+      console.error(err.message);
+      res.send(err.message);
+    }
   },
   delete: async (req, res, db) => {
     const { colId } = req.params;
@@ -27,8 +33,7 @@ const columns = {
       DELETE FROM "columns"
         WHERE "columnId" = $1
     `;
-    const val = [colId];
-    await db.query(sql, val);
+    await db.query(sql, [colId]);
     res.sendStatus(204);
   },
   edit: async (req, res, db) => {

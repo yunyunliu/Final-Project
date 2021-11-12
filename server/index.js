@@ -95,22 +95,8 @@ app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) =>
 });
 
 // tags
-// temporary
-app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', async (req, res) => {
-  const { boardId } = req.params;
-  const sql = `
-    SELECT *
-      FROM "tags"
-    WHERE "boardId" = $1
-  `;
-  try {
-    const result = await db.query(sql, [boardId]);
-    const tags = result.rows;
-    res.json(tags);
-  } catch (err) {
-    res.status(500).send('error');
-    console.error('error:', err.message);
-  }
+app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
+  tags.get(req, res, db);
 });
 
 app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {

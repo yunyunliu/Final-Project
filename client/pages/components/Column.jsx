@@ -63,6 +63,12 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
       <input value={colName}
         className='col-edit-input'
         onChange={({ target }) => setColName(target.value)}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            setDisplayEditCol(false);
+            handleEditCol(data.columnId, colName);
+          }
+        }}
         />
         <div className='edit-btn-container gray-text'>
           <button type='button'
@@ -108,7 +114,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
           handleEdit={handleEditCard} />)}
       </ul>
       <button type='button'
-        className='new-card-btn blue-bg pink-text semi-bold'
+        className='new-card-btn blue-bg pink-text semi-bold btn'
         onClick={() => setDisplayAddCard(true)}
         ><i className='fas fa-plus'></i> New Card</button>
         {displayAddCard

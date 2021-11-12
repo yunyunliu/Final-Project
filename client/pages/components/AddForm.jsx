@@ -29,14 +29,14 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
         </div>
         <div className='add-btns-container flex width-100'>
           <button
-            className='add-form-btn form-btn'
+            className='add-form-btn form-btn btn'
             type='button'
             onClick={() => setModal(false)}>
               Cancel
           </button>
           <button
             type='button'
-            className='form-btn pink-text no-border blue-bg gray-text semi-bold'
+            className='btn form-btn pink-text no-border blue-bg gray-text semi-bold'
             onClick={() => {
               setModal(false);
               handleAdd(task, description, tags);

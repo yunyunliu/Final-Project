@@ -71,7 +71,7 @@ const BoardView = () => {
             handleEditCol={handleEditCol} />)}
         <button className='add-project-btn blue-bg semi-bold pink-text add-col'
           onClick={() => handleAddCol()}>
-          <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
+          <span className='plus-icon-container btn'><i className='fas fa-plus'></i></span>
           Add Column
         </button>
       </div>

@@ -18,7 +18,8 @@ const Card = ({ cardData, handleDelete, handleEdit, colName }) => {
         onChange={({ target }) => {
           setSelectVal(target.value);
           setShowSelect(false);
-        }}>
+        }}
+        >
       <option value='label'>Move to</option>
       {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
     </select>
