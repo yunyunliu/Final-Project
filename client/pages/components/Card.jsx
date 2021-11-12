@@ -2,17 +2,15 @@ import React, { useState, useContext } from 'react';
 
 import CardModal from './CardModal';
 import EditForm from './EditForm';
-import BoardContext from '../BoardContext';
+// import BoardContext from '../BoardContext';
 
 const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
-  const { board } = useContext(BoardContext);
+  // const { board } = useContext(BoardContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [editCard, setEditCard] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   // const [selectVal, setSelectVal] = useState('label');
-
-
 
   return (
     <li className='card blue-bg'>
@@ -41,12 +39,12 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
           onClick={() => setEditCard(true)}>
           <i className='fas fa-edit'></i>
         </button>
-        <button
+        {/* <button
           type='button'
           onClick={() => setShowSelect(!showSelect)}
           className='card-btn no-border no-padding blue-bg'>
           <i className='fas fa-ellipsis-v'></i>
-        </button>
+        </button> */}
       </div>
       <div className='card-name pink-text'>{cardData.name}</div>
         <div className='tag-section flex'>

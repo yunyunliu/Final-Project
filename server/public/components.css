@@ -4,8 +4,14 @@
   z-index: 2;
 }
 
+.label-input {
+  margin-bottom: 20px;
+  /* margin-left: 10px; */
+}
+
 .add-form {
   position: relative;
+  /* justify-content: space-between; */
 }
 
 .add-btns-container {

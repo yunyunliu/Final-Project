@@ -94,6 +94,21 @@ app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) =>
   }
 });
 
+app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/remove/:tagId', async (req, res) => {
+  const { tagId, cardId } = req.params;
+  const sql = `
+  DELETE FROM "tagsCards"
+  WHERE "tagId" = $1 AND "cardId" = $2
+  `;
+  try {
+    await db.query(sql, [tagId, cardId]);
+    res.sendStatus(204);
+  } catch (err) {
+    res.send(err.message);
+    console.error(err.message);
+  }
+});
+
 // tags
 app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
   tags.get(req, res, db);
@@ -103,7 +118,7 @@ app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, r
   tags.create(req, res, db);
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags/:tagId', async (req, res) => {
+app.delete('/api/users/:id/boards/:boardId/tags/:tagId', async (req, res) => {
   const { tagId } = req.params;
   const sqlRel = `
   DELETE FROM "tagsCards"

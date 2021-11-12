@@ -60,7 +60,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
-      <div className='flex label-input'>
+      <div className='flex'>
           <button type='button' onClick={() => setDisplaySubMenu(true)} className='btn'>Add tag</button>
           { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} tags={tags} /> : null }
         </div>
