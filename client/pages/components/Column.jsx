@@ -8,6 +8,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
   const { setColumnCards, getColumnCards } = useContext(BoardContext);
 
   const [colName, setColName] = useState(data.name);
+
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
 
@@ -26,7 +27,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
   };
 
   const deleteCard = async cardId => {
-    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE'});
+    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE' });
     if (response.ok) {
       const updated = data.cards.filter(card => card.cardId !== cardId);
       setColumnCards(data.columnId, updated);

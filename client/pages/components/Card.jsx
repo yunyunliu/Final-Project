@@ -4,13 +4,15 @@ import CardModal from './CardModal';
 import EditForm from './EditForm';
 import BoardContext from '../BoardContext';
 
-const Card = ({ cardData, handleDelete, handleEdit, colName }) => {
-  const { board } = useContext(BoardContext);
+const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
+  const { board, setColumnCards, getColumnCards } = useContext(BoardContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [editCard, setEditCard] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
   const [selectVal, setSelectVal] = useState('label');
+
+
 
   const colSelect = (
     <select className='card-col-select'

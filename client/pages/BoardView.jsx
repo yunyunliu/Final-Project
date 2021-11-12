@@ -64,7 +64,7 @@ const BoardView = () => {
     const response = await fetch(`/api/users/1/boards/1/col/${id}`, options);
     const data = await response.json();
     const updated = columns.map(col => col.columnId === data.columnId ? data : col);
-    console.log('cols after updated col: ' + id, updated);
+    // console.log('cols after updated col: ' + id, updated);
     setColumns(updated);
   };
 
