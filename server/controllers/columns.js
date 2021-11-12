@@ -20,8 +20,8 @@ const columns = {
   `;
     try {
       const results = await db.query(sql, [boardId]);
-      const [data] = results.rows;
-      res.status(201).json(data);
+      const [newCol] = results.rows;
+      res.status(201).json({ ...newCol, cards: [] });
     } catch (err) {
       console.error(err.message);
       res.send(err.message);

@@ -17,13 +17,18 @@ const BoardView = () => {
           return res.json();
         }
       })
-      .then(data => setBoard(data));
+      .then(data => {
+        setBoard(data);
+        setColumns(data.columns);
+      });
   }, []);
 
   const handleDeleteCol = async id => {
+    // console.log('cols after before' + id + ' :', columns);
     await fetch(`/api/users/1/boards/1/col/${id}`,
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
+    // console.log('cols after delete' + id + ' :', updated);
     setColumns(updated);
   };
 
@@ -31,7 +36,9 @@ const BoardView = () => {
     const response = await fetch('/api/users/1/boards/1/col', { method: 'POST' });
     const data = await response.json();
     const updated = columns.concat(data);
+    // console.log('cols after add', 'new col: ' +  data.columnId, updated);
     setColumns(updated);
+
   };
 
   const setColumnCards = (colId, newCards) => {
@@ -64,8 +71,8 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <div className='flex board-container'>
-        {/* {console.log(board)} */}
-        {board.columns.map(col => <Column key={col.columnId}
+        {/* {console.log(columns)} */}
+        {columns.map(col => <Column key={col.columnId}
             data={col}
             handleDeleteCol={handleDeleteCol}
             handleEditCol={handleEditCol} />)}

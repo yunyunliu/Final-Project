@@ -7,7 +7,7 @@ import {
 
 import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
-import BoardView from './pages/BoardView';
+import BoardView from './pages/BoardView';;
 
 const App = () => {
   return (
