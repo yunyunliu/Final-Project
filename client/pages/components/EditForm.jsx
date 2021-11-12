@@ -3,19 +3,34 @@ import React, { useState, useContext } from 'react';
 import BoardContext from '../BoardContext';
 import SubMenu from './SubMenu';
 
-const EditForm = ({ data, setEdit, handleEdit, colName }) => {
+const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded }) => {
   const { board } = useContext(BoardContext);
 
-  const [displaySubMenu, setDisplaySubMenu] = useState(true);
+  const [displaySubMenu, setDisplaySubMenu] = useState(false);
   const [task, setTask] = useState(data.name);
   const [description, setDescription] = useState(data.description ? data.description : '');
   const [value, setValue] = useState('label');
   const [tags, setTags] = useState(data.tags);
 
+  const backButton = (
+    <button
+      type='button'
+      style={{ backgroundColor: 'white', border: 'none', marginRight: 20 }}
+      onClick={() => {
+        setEdit(false);
+        setExpanded(true);
+      }}
+      className='btn'><i className="fas fa-arrow-left"></i>
+    </button>
+  );
+
   return (
   <dialog className='add-edit-modal' open>
     <form className='flex edit-form flex-col align-center'>
-      <h2 className='form-name no-margin'>Edit task card</h2>
+      <div className='flex'>
+      {expanded ? backButton : null}
+        <h2 className='form-name no-margin'>Edit task card</h2>
+      </div>
       <div className='task-col-title'> in <span className='pink-text semi-bold'>{colName}</span></div>
       <label className='width-100 semi-bold'>Task:
         <input className='task-name-input'

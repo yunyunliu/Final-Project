@@ -103,6 +103,26 @@ app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, r
   tags.create(req, res, db);
 });
 
+app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags/:tagId', async (req, res) => {
+  const { tagId } = req.params;
+  const sqlRel = `
+  DELETE FROM "tagsCards"
+    WHERE "tagId" = $1
+  `;
+  const sql = `
+  DELETE FROM "tags"
+    WHERE "tagId" = $1
+  `;
+  try {
+    await db.query(sqlRel, [tagId]);
+    await db.query(sql, [tagId]);
+    res.sendStatus(204);
+  } catch (err) {
+    res.send(err.message);
+    console.error('error:', err.message);
+  }
+});
+
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`express server listening on port ${process.env.PORT}`);

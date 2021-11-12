@@ -5,40 +5,31 @@ import EditForm from './EditForm';
 import BoardContext from '../BoardContext';
 
 const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
-  const { board, setColumnCards, getColumnCards } = useContext(BoardContext);
+  const { board } = useContext(BoardContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [editCard, setEditCard] = useState(false);
   const [showSelect, setShowSelect] = useState(false);
-  const [selectVal, setSelectVal] = useState('label');
+  // const [selectVal, setSelectVal] = useState('label');
 
 
 
-  const colSelect = (
-    <select className='card-col-select'
-        value={selectVal}
-        onChange={({ target }) => {
-          setSelectVal(target.value);
-          setShowSelect(false);
-        }}
-        >
-      <option value='label'>Move to</option>
-      {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
-    </select>
-  );
   return (
     <li className='card blue-bg'>
        {editCard
          ? <EditForm data={cardData}
               setEdit={setEditCard}
               handleEdit={handleEdit}
-              colName={colName} />
+              colName={colName}
+              expanded={isExpanded}
+              setExpanded={setIsExpanded}
+               />
          : null}
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>
         : null }
       <div className='flex card-btns-container'>
-        {showSelect ? colSelect : null}
+        {/* {showSelect ? colSelect : null} */}
         <button
           type='button'
           onClick={() => handleDelete(cardData.cardId)}
@@ -65,7 +56,6 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
             style={{ backgroundColor: tag.color }}
             > </div>))}
         </div>
-
       <div className='card-desc'>
         {cardData.description}
       </div>

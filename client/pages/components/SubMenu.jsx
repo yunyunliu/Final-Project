@@ -6,7 +6,7 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
   // const [tagsCreated, setTagsCreated] = useState([]);
 
   const handleAddTag = async (text, color) => {
-    console.log('color @ handleAddTag:', color)
+    // console.log('color @ handleAddTag:', color)
     const options = {
       method: 'POST',
       body: JSON.stringify({ text, color }),
@@ -15,7 +15,7 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
     const response = await fetch('/api/users/1/boards/1/col/1/cards/1/tags', options);
     if (response.ok) {
       const data = await response.json();
-      console.log('response to post:', data)
+      // console.log('response to post:', data)
       setTags(tags.concat(data));
       setText('');
       // setTagsCreated(tagsCreated.concat(data));
@@ -57,7 +57,7 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
               onChange={e => setText(e.target.value)} />
           <button type='button'
             onClick={() => {
-              console.log(color)
+              // console.log(color)
               handleAddTag(text, color);
             }}
             className='form-btn add-tag-btn'>Add

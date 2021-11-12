@@ -44,7 +44,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  z-index: 2
+  z-index: 1
 }
 
 .card-btns-container {
@@ -140,7 +140,6 @@
 .color-btn:hover {
   border: 2px solid #1db9c3;
 }
-
 
 .menu-header {
   width: 100%;

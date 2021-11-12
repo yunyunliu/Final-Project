@@ -6,7 +6,7 @@ const CardModal = ({ data, setExpanded, setEdit }) => {
       <h2 className='no-margin card-task-name'>{data.name}</h2>
       <div className='expanded-tag-container flex'>
           {
-          data.tags.map(tag => <div key={tag.tagId} className={`${tag.color} expanded-tags`}>{tag.text}</div>)
+          data.tags.map(tag => <div key={tag.tagId} style={{ backgroundColor: tag.color }} className={`${tag.color} expanded-tags`}>{tag.text}</div>)
           }
         </div>
       <div className='card-modal-description width-100'>
@@ -22,7 +22,7 @@ const CardModal = ({ data, setExpanded, setEdit }) => {
           type='button'
           className='form-btn'
           onClick={() => {
-            setExpanded(false);
+            // setExpanded(false);
             setEdit(true);
           }}>Edit
         </button>
