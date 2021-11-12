@@ -22,6 +22,13 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
           value={task}
           onChange={({ target }) => setTask(target.value)} />
       </label>
+      <div className='tag-section flex'>
+          {tags.map(tag => (<div
+            key={tag.tagId}
+            className={`${tag.color} card-label`}
+            style={{ backgroundColor: tag.color }}
+            > </div>))}
+        </div>
       <label className='description-label width-100 semi-bold'>Task Description:
         <textarea className='task-name-input gray-text source-sans description-input'
           value={description}

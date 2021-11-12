@@ -105,6 +105,10 @@ button {
   margin-left: 50px;
 }
 
+button:active {
+  transform: translateY(0.25rem);
+}
+
 .icon-btn {
   background-color: #eafeff;
   border: none;
