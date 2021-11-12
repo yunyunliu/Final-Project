@@ -25,6 +25,10 @@ button {
   background-color: #1db9c3;
 }
 
+.white-bg {
+  background-color: white;
+}
+
 .gray-text {
   color: #292929;
 }
