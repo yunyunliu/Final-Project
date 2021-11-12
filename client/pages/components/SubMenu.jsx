@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 
 const SubMenu = ({ setMenu, setTags, tags }) => {
-  const [color, setColor] = useState('purple');
+  const [color, setColor] = useState('');
   const [text, setText] = useState('');
-  const [tagsCreated, setTagsCreated] = useState([]);
+  // const [tagsCreated, setTagsCreated] = useState([]);
 
   const handleAddTag = async (text, color) => {
     const options = {
       method: 'POST',
-      body: JSON.stringify({ text, color: color.slice(1) }),
+      body: JSON.stringify({ text, color: color.slice(12) }),
       headers: { 'Content-Type': 'application/json' }
     };
     const response = await fetch('/api/users/1/boards/1/col/1/cards/1/tags', options);
     if (response.ok) {
       const data = await response.json();
       setTags(tags.concat(data));
+      setText('');
+      // setTagsCreated(tagsCreated.concat(data));
     }
   };
 
@@ -31,16 +33,19 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
           <input type='color'
             value={color}
             onChange={e => setColor(e.target.value)} />
-            <ul>
-            {tagsCreated.map(tag => (
-              <li key={tag.tagId}>
-                <div className='expanded-tags'
-                  style={`background-color:${color}`}>
-                    {tag.text}
-                </div>
-              </li>
-            ))}
-            </ul>
+          <ul className='no-bullets no-padding'>
+            {tags.length > 0
+              ? tags.map(tag => (
+                <li key={tag.tagId}>
+                  <div className='expanded-tags'
+                    style={{ backgroundColor: tag.color }}>
+                      {tag.text}
+                  </div>
+                </li>
+              ))
+              : null
+            }
+          </ul>
         </div>
         <div><label className='tag-input-label' htmlFor='tag-name-input'> Tag Name</label></div>
         <div className='flex width-100'>
@@ -49,7 +54,10 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
               className='tag-text-input'
               onChange={e => setText(e.target.value)} />
           <button type='button'
-            onClick={() => handleAddTag(text, color)}
+            onClick={() => {
+              console.log(color)
+              handleAddTag(text, color);
+            }}
             className='form-btn add-tag-btn'>Add
           </button>
         </div>

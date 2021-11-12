@@ -20,6 +20,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
         <label className='description-label width-100 semi-bold'>Task Description:
           <textarea className='task-name-input gray-text source-sans'
             cols='25'
+            value={description}
             onChange={({ target }) => setDescription(target.value)} />
         </label>
         <div className='flex label-input'>

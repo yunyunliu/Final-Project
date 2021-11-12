@@ -6,11 +6,11 @@ import SubMenu from './SubMenu';
 const EditForm = ({ data, setEdit, handleEdit, colName }) => {
   const { board } = useContext(BoardContext);
 
-  const [displaySubMenu, setDisplaySubMenu] = useState(false);
+  const [displaySubMenu, setDisplaySubMenu] = useState(true);
   const [task, setTask] = useState(data.name);
-  const [description, setDescription] = useState(data.description);
+  const [description, setDescription] = useState(data.description ? data.description : '');
   const [value, setValue] = useState('label');
-  const [tempTags, setTempTags] = useState([]);
+  const [tags, setTags] = useState(data.tags);
 
   return (
   <dialog className='add-edit-modal' open>
@@ -25,7 +25,6 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
       <label className='description-label width-100 semi-bold'>Task Description:
         <textarea className='task-name-input gray-text source-sans description-input'
           value={description}
-          required='required'
           cols='25'
           onChange={({ target }) => setDescription(target.value)} />
       </label>
@@ -41,7 +40,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
       </label>
       <div className='flex label-input'>
           <button type='button' onClick={() => setDisplaySubMenu(true)}>Add tag</button>
-          { displaySubMenu ? <SubMenu setTags={setTempTags} setMenu={setDisplaySubMenu} /> : null }
+          { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} tags={tags} /> : null }
         </div>
       <div className='add-btns-container flex width-100 edit-btns'>
         <button
@@ -59,7 +58,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
               columnId: value === 'label' ? data.columnId : Number(value),
               name: task,
               description,
-              tags: tempTags
+              tags
             };
             handleEdit(updated, data.columnId);
             setEdit(false);

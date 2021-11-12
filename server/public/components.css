@@ -164,3 +164,7 @@
   width: 40px;
   height: 25px;
 }
+
+.add-tag-btn:active {
+  transform: translateY(0.25rem)
+}

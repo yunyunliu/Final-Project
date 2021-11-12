@@ -23,8 +23,6 @@ const Card = ({ cardData, handleDelete, handleEdit, colName }) => {
       {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
     </select>
   );
-
-
   return (
     <li className='card blue-bg'>
        {editCard
