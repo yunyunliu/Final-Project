@@ -13,6 +13,9 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
         className='edit-input gray-text'
         onChange={({ target }) => setProjectName(target.value)}
         onKeyDown={e => {
+          if (e.key === 'Escape') {
+            setDisplayEdit(false);
+          }
           if (e.key === 'Enter') {
             setDisplayEdit(false);
             handleEdit(e, projectName);

@@ -22,7 +22,6 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
         // setTagsCreated(tagsCreated.concat(data));
       }
     }
-
   };
 
   return (
@@ -40,11 +39,16 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
             className='teal-border-2'
             onChange={e => setColor(e.target.value)} />
         </div>
-        <div className='expanded-tag-container flex'>
+        <div className='expanded-tag-container flex' style={{ marginTop: 15 }}>
             {tags.length > 0
               ? tags.map(tag => (
-                <div key={tag.tagId} style={{ backgroundColor: tag.color }} className={`${tag.color} expanded-tags`}>{tag.text}</div>
-              ))
+                <div key={tag.tagId}
+                            className={`${tag.color} card-label tooltip`}
+                            style={{ backgroundColor: tag.color }}>
+                              <span className='tooltiptext'> {tag.text}
+                                {/* <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button> */}
+                              </span>
+                        </div>))
               : null}
           </div>
         <div className='flex width-100 tag-text-section'>

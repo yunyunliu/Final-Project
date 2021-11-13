@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
-// import AddForm from './components/AddForm';
+import AddForm from './components/AddForm';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
@@ -13,7 +13,7 @@ const BoardView = () => {
   // fetch data once here and set to board;
   useEffect(() => {
     // console.log('boardid:', boardId)
-    fetch(`/api/users/1/boards/${boardId}`)
+    fetch('/api/users/1/boards/1')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -22,7 +22,8 @@ const BoardView = () => {
       .then(data => {
         setBoard(data);
         setColumns(data.columns);
-      });
+      })
+      .catch(err => console.error(err.message));
   }, []);
 
   const handleDeleteCol = async id => {

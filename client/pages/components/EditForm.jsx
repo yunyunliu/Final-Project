@@ -12,6 +12,14 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
   const [value, setValue] = useState('label');
   const [tags, setTags] = useState(data.tags);
 
+  const removeTag = async tagId => {
+    const response = await fetch(`/api/users/1/boards/${data.boardId}/col/${data.columnId}/cards/${data.cardId}/remove/${tagId}`, { method: 'DELETE' });
+    if (response.ok) {
+      const updatedTags = tags.filter(tag => tag.tagId !== tagId);
+      setTags(updatedTags);
+    }
+  };
+
   const backButton = (
     <button
       type='button'
@@ -56,9 +64,12 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
       <div className='tag-section flex'>
         <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
        {tags.map(tag => (<div key={tag.tagId}
-                    className={`${tag.color} card-label tooltip`}
-                    style={{ backgroundColor: tag.color }}><span className='tooltiptext'>{tag.text}</span>
-                              </div>))}
+                            className={`${tag.color} card-label tooltip`}
+                            style={{ backgroundColor: tag.color }}>
+                              <span className='tooltiptext'> {tag.text}
+                                <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button>
+                              </span>
+                        </div>))}
 
       </div>
       <button type='button' onClick={() => setDisplaySubMenu(true)} className='btn form-btn'>Add tag</button>

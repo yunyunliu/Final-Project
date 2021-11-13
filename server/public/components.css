@@ -210,3 +210,13 @@ form-btn:hover {
 .add-tag-btn:active {
   transform: translateY(0.25rem)
 }
+
+.remove-tag-btn {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  left: 90%;
+  bottom: 90%;
+  border: none;
+  font-size: 12px;
+}
