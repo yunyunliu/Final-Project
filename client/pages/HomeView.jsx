@@ -18,7 +18,7 @@ const HomeView = () => {
       });
   }, []);
 
-  const handleEdit = async ({ target }, name) => {
+  const handleEditBoard = async ({ target }, name) => {
     const boardId = target.id;
     const options = {
       method: 'PUT',
@@ -60,7 +60,7 @@ const HomeView = () => {
   return (
     <div className='container flex flex-col align-center'>
       <div className='boardView-header'>
-      <h1 style={{ fontSize: '32px' }} className='pink-text semi-bold'>Projects</h1>
+      <h1 style={{ fontSize: '48px', marginTop: 0 }} className='pink-text semi-bold'>Projects</h1>
         <button className='add-project-btn blue-bg semi-bold pink-text'
           onClick={() => handleAddNew()}>
           <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
@@ -79,7 +79,7 @@ const HomeView = () => {
                     key={board.boardId}
                     board={board}
                     handleToggle={handleDeleteClick}
-                    handleEdit={handleEdit}
+                    handleEdit={handleEditBoard}
                     />
             );
           })

@@ -10,18 +10,20 @@ import PageHeader from './pages/components/PageHeader';
 import BoardView from './pages/BoardView';
 
 const App = () => {
+  // const { boards } = useContext( boardContext )
+
   return (
     <Router>
       {/* stuff outside Switch will apear in every view */}
       <PageHeader />
       <Switch>
         {/* swappable views go here */}
-        <Route path="/api/users/1/boards/:boardId">
+        <Route path="/boards/:boardId">
           <BoardView />
         </Route>
         <Route path="/">
           <HomeView />
-          {/* <BoardView /> */}
+          <BoardView />
         </Route>
       </Switch>
     </Router>

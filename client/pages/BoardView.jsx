@@ -9,6 +9,7 @@ const BoardView = () => {
   const [board, setBoard] = useState();
   const [columns, setColumns] = useState([]);
   const { boardId } = useParams();
+
   // fetch data once here and set to board;
   useEffect(() => {
     // console.log('boardid:', boardId)
@@ -67,6 +68,7 @@ const BoardView = () => {
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
+      <h1 style={{ textAlign: 'center', marginTop: 0 }} >{board.name}</h1>
       <div className='flex board-container'>
         {/* {<AddForm colName='todos'/>} */}
         {columns.map(col => <Column key={col.columnId}

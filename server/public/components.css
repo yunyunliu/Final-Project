@@ -59,6 +59,10 @@
   font-weight: 700;
 }
 
+form-btn:hover {
+  border: 4px solid #1db9c3;
+}
+
 .card-modal {
   border: 3px solid #1db9c3;
   width: 300px;

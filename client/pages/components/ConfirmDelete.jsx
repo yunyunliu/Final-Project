@@ -7,11 +7,11 @@ const ConfirmDelete = ({ cancel, handleDelete, deleteId }) => {
       <div className='confirm-text'>Deleting a project board also deletes its columns, tasks, and labels.</div>
       <div className='confirm-buttons '>
       <button onClick={() => cancel()}
-          className='confirm-btn gray-text blue-bg no-margin no-padding'>
+          className='form-btn'>
             Cancel
       </button>
       <button onClick={() => handleDelete(deleteId)}
-        className='confirm-btn gray-text blue-bg no-margin no-padding'>
+        className='form-btn'>
         Delete
       </button>
       </div>

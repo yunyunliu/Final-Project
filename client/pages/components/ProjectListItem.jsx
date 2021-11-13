@@ -6,17 +6,18 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   const [projectName, setProjectName] = useState(name);
   const [displayEdit, setDisplayEdit] = useState(false);
 
-  const handleChange = ({ target }) => {
-    const text = target.value;
-    setProjectName(text);
-  };
-
   const editInput = (
     <>
       <div className='edit-element'>
         <input value={projectName}
         className='edit-input gray-text'
-        onChange={e => handleChange(e)}
+        onChange={({ target }) => setProjectName(target.value)}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            setDisplayEdit(false);
+            handleEdit(e, projectName);
+          }
+        }}
         />
         <button type='button'
           className='edit-btn icon-btn source-sans'
@@ -38,10 +39,9 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
 
   const boardName = (
     <div className='link-container'>
-      <Link to={`/api/users/1/boards/${boardId}`}>
+      <Link to={`/boards/${boardId}`}>
         <button type='button'
           // id={boardId}
-          onDoubleClick={() => setDisplayEdit(true)}
           className='project-item blue-bg semi-bold no-padding btn'>
           <p>{name}</p>
         </button>
@@ -51,13 +51,21 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
 
   return (
     <li className='project-li'>
-        {displayEdit ? editInput : boardName}
       <button type='button'
-      onClick={() => handleToggle(boardId)}
-      style={{ height: 80, width: 80 }}
-      className='icon-btn'>
-      <i className='fas fa-times'></i>
-    </button>
+        onClick={() => setDisplayEdit(true)}
+        style={{ height: 80, width: 80 }}
+        className='icon-btn'>
+        <i className='fas fa-edit'></i>
+      </button>
+        {displayEdit ? editInput : boardName}
+        {displayEdit
+          ? null
+          : (<button type='button'
+                onClick={() => handleToggle(boardId)}
+                style={{ height: 80, width: 80 }}
+                className='icon-btn'>
+                <i className='fas fa-times'></i>
+              </button>)}
     </li>
   );
 };

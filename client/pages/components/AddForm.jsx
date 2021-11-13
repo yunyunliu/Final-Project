@@ -16,7 +16,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input'
-          style={{ width: 200}}
+          style={{ width: 200 }}
             onChange={({ target }) => setTask(target.value)} />
         </label>
         <label className='description-label width-100 semi-bold'>Task Description:
