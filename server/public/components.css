@@ -33,7 +33,23 @@
 }
 
 .description-label {
-  margin: 15px 0;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.close-edit-btn {
+  font-size: 20px;
+  height: 30px;
+  width: 30px;
+  background-color: white;
+  border: none;
+}
+
+.edit-form-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .form-btn {
@@ -88,6 +104,7 @@
 
 .edit-btns {
   margin-top: 15px;
+  flex-direction: row-reverse;
 }
 
 /* card select menu */
@@ -114,8 +131,10 @@
 
 .expanded-tags {
   font-size: 12px;
-  padding: 2px;
+  width: 40px;
+  height: 20px;
   margin: 2px;
+  border-radius: 4px;
 }
 
 .expanded-tag-container {
@@ -169,6 +188,13 @@
 
 .tag-text-section {
   margin: 15px 5px;
+}
+
+.tag-section {
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  margin: 10px;
 }
 
 .add-tag-btn {

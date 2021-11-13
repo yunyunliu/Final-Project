@@ -8,9 +8,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
   // const { board } = useContext(BoardContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const [editCard, setEditCard] = useState(false);
-  const [showSelect, setShowSelect] = useState(false);
-  // const [selectVal, setSelectVal] = useState('label');
+  const [editCard, setEditCard] = useState(true);
 
   return (
     <li className='card blue-bg'>
@@ -27,7 +25,6 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>
         : null }
       <div className='flex card-btns-container'>
-        {/* {showSelect ? colSelect : null} */}
         <button
           type='button'
           onClick={() => handleDelete(cardData.cardId)}
@@ -39,20 +36,15 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
           onClick={() => setEditCard(true)}>
           <i className='fas fa-edit'></i>
         </button>
-        {/* <button
-          type='button'
-          onClick={() => setShowSelect(!showSelect)}
-          className='card-btn no-border no-padding blue-bg'>
-          <i className='fas fa-ellipsis-v'></i>
-        </button> */}
       </div>
       <div className='card-name pink-text'>{cardData.name}</div>
-        <div className='tag-section flex'>
+        <div className='flex' style={{ margin: '5 10' }}>
           {cardData.tags.map(tag => (<div
             key={tag.tagId}
-            className={`${tag.color} card-label`}
-            style={{ backgroundColor: tag.color }}
-            > </div>))}
+            className={`${tag.color} card-label tooltip`}
+            style={{ backgroundColor: tag.color }}>
+            <span className='tooltiptext'>{tag.text}</span>
+          </div>))}
         </div>
       <div className='card-desc'>
         {cardData.description}

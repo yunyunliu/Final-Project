@@ -7,19 +7,22 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
 
   const handleAddTag = async (text, color) => {
     // console.log('color @ handleAddTag:', color)
-    const options = {
-      method: 'POST',
-      body: JSON.stringify({ text, color }),
-      headers: { 'Content-Type': 'application/json' }
-    };
-    const response = await fetch('/api/users/1/boards/1/col/1/cards/1/tags', options);
-    if (response.ok) {
-      const data = await response.json();
-      // console.log('response to post:', data)
-      setTags(tags.concat(data));
-      setText('');
-      // setTagsCreated(tagsCreated.concat(data));
+    if (color) {
+      const options = {
+        method: 'POST',
+        body: JSON.stringify({ text, color }),
+        headers: { 'Content-Type': 'application/json' }
+      };
+      const response = await fetch('/api/users/1/boards/1/col/1/cards/1/tags', options);
+      if (response.ok) {
+        const data = await response.json();
+        // console.log('response to post:', data)
+        setTags(tags.concat(data));
+        setText('');
+        // setTagsCreated(tagsCreated.concat(data));
+      }
     }
+
   };
 
   return (

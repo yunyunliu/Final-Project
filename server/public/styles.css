@@ -163,3 +163,23 @@ a:visited {
   background-color: purple;
   color: white;
 }
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  border-radius: 6px;
+  background-color: #292929;
+  color:#eafeff;
+  position: absolute;
+  z-index: 2;
+  bottom: 100%;
+  font-size: 12px;
+  padding: 2px 3px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}

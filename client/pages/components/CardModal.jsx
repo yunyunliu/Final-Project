@@ -5,10 +5,13 @@ const CardModal = ({ data, setExpanded, setEdit }) => {
     <dialog className='card-modal flex' open>
       <h2 className='no-margin card-task-name'>{data.name}</h2>
       <div className='expanded-tag-container flex'>
-          {
-          data.tags.map(tag => <div key={tag.tagId} style={{ backgroundColor: tag.color }} className={`${tag.color} expanded-tags`}>{tag.text}</div>)
-          }
-        </div>
+        {data.tags.map(tag => (<div
+          key={tag.tagId}
+          style={{ backgroundColor: tag.color }}
+          className={`${tag.color} expanded-tags tooltip`}>
+          <span className='tooltiptext'>{tag.text}</span>
+          </div>))}
+      </div>
       <div className='card-modal-description width-100'>
         <h3 className='pink-text no-margin expanded-description'>Task Description:</h3>
         <div className='gray-text source-sans expanded-description'> {data.description}</div>
@@ -22,7 +25,6 @@ const CardModal = ({ data, setExpanded, setEdit }) => {
           type='button'
           className='form-btn'
           onClick={() => {
-            // setExpanded(false);
             setEdit(true);
           }}>Edit
         </button>

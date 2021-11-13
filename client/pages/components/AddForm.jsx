@@ -5,7 +5,7 @@ import SubMenu from './SubMenu';
 const AddForm = ({ setModal, handleAdd, colName }) => {
   const [description, setDescription] = useState('');
   const [task, setTask] = useState(null);
-  const [displaySubMenu, setDisplaySubMenu] = useState(true);
+  const [displaySubMenu, setDisplaySubMenu] = useState(false);
   const [tags, setTags] = useState([]);
 
   return (

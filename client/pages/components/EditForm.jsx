@@ -15,7 +15,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
   const backButton = (
     <button
       type='button'
-      style={{ backgroundColor: 'white', border: 'none', marginRight: 20 }}
+      style={{ backgroundColor: 'white', border: 'none', fontSize: 20 }}
       onClick={() => {
         setEdit(false);
         setExpanded(true);
@@ -23,13 +23,13 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
       className='btn'><i className="fas fa-arrow-left"></i>
     </button>
   );
-
   return (
   <dialog className='add-edit-modal' open>
     <form className='flex edit-form flex-col align-center'>
-      <div className='flex'>
+      <div className='edit-form-header'>
       {expanded ? backButton : null}
-        <h2 className='form-name no-margin'>Edit task card</h2>
+        <h2 className='no-margin'>Edit task card</h2>
+        <button type='button' className='close-edit-btn' onClick={() => setEdit(false)}><i className='fas fa-times'></i></button>
       </div>
       <div className='task-col-title'> in <span className='pink-text semi-bold'>{colName}</span></div>
       <label className='width-100 semi-bold'>Task:
@@ -37,13 +37,6 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
           value={task}
           onChange={({ target }) => setTask(target.value)} />
       </label>
-      <div className='tag-section flex'>
-          {tags.map(tag => (<div
-            key={tag.tagId}
-            className={`${tag.color} card-label`}
-            style={{ backgroundColor: tag.color }}
-            > </div>))}
-        </div>
       <label className='description-label width-100 semi-bold'>Task Description:
         <textarea className='task-name-input gray-text source-sans description-input'
           value={description}
@@ -60,17 +53,18 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
-      <div className='flex'>
-          <button type='button' onClick={() => setDisplaySubMenu(true)} className='btn'>Add tag</button>
+      <div className='tag-section flex'>
+        <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
+       {tags.map(tag => (<div key={tag.tagId}
+                    className={`${tag.color} card-label tooltip`}
+                    style={{ backgroundColor: tag.color }}><span className='tooltiptext'>{tag.text}</span>
+                              </div>))}
+
+      </div>
+      <button type='button' onClick={() => setDisplaySubMenu(true)} className='btn form-btn'>Add tag</button>
           { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} tags={tags} /> : null }
-        </div>
-      <div className='add-btns-container flex width-100 edit-btns'>
-        <button
-          className='form-btn btn'
-          type='button'
-          onClick={() => setEdit(false)}>
-            Cancel
-        </button>
+
+      <div className='flex width-100 edit-btns'>
         <button
           type='button'
           className='form-btn btn'
