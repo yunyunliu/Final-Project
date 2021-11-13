@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
-import AddForm from './components/AddForm';
+// import AddForm from './components/AddForm';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
   const [columns, setColumns] = useState([]);
-  // const { boardId } = useParams();
+  const { boardId } = useParams();
   // fetch data once here and set to board;
   useEffect(() => {
-    fetch('/api/users/1/boards/1/')
+    // console.log('boardid:', boardId)
+    fetch(`/api/users/1/boards/${boardId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -24,21 +25,17 @@ const BoardView = () => {
   }, []);
 
   const handleDeleteCol = async id => {
-    // console.log('cols after before' + id + ' :', columns);
     await fetch(`/api/users/1/boards/1/col/${id}`,
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
-    // console.log('cols after delete' + id + ' :', updated);
     setColumns(updated);
   };
 
   const handleAddCol = async () => {
-    const response = await fetch('/api/users/1/boards/1/col', { method: 'POST' });
+    const response = await fetch(`/api/users/1/boards/${boardId}/col`, { method: 'POST' });
     const data = await response.json();
     const updated = columns.concat(data);
-    // console.log('cols after add', 'new col: ' +  data.columnId, updated);
     setColumns(updated);
-
   };
 
   const setColumnCards = (colId, newCards) => {
@@ -64,7 +61,6 @@ const BoardView = () => {
     const response = await fetch(`/api/users/1/boards/1/col/${id}`, options);
     const data = await response.json();
     const updated = columns.map(col => col.columnId === data.columnId ? data : col);
-    // console.log('cols after updated col: ' + id, updated);
     setColumns(updated);
   };
 

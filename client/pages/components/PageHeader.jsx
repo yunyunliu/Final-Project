@@ -13,7 +13,7 @@ const PageHeader = () => (
         </div>
       </div>
    </div>
-    <nav className='top-nav width-100 container no-padding'>
+    <nav className='top-nav no-padding'>
         <ul className='top-list no-padding'>
           <li className="nav-item">
             <Link className='gray-text semi-bold' to="/">Home</Link>

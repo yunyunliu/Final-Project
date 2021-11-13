@@ -7,7 +7,7 @@ import {
 
 import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
-import BoardView from './pages/BoardView';;
+import BoardView from './pages/BoardView';
 
 const App = () => {
   return (
@@ -16,12 +16,12 @@ const App = () => {
       <PageHeader />
       <Switch>
         {/* swappable views go here */}
-        {/* <Route path="/api/users/1/boards/:boardId">
+        <Route path="/api/users/1/boards/:boardId">
           <BoardView />
-        </Route> */}
+        </Route>
         <Route path="/">
-          {/* <HomeView /> */}
-          <BoardView />
+          <HomeView />
+          {/* <BoardView /> */}
         </Route>
       </Switch>
     </Router>

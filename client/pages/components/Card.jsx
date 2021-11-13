@@ -8,7 +8,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
   // const { board } = useContext(BoardContext);
 
   const [isExpanded, setIsExpanded] = useState(false);
-  const [editCard, setEditCard] = useState(true);
+  const [editCard, setEditCard] = useState(false);
 
   return (
     <li className='card blue-bg'>

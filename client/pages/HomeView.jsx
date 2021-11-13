@@ -4,11 +4,10 @@ import ConfirmDelete from './components/ConfirmDelete';
 
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
-  // refactor this to be in ProjectListItem like update
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
   useEffect(() => {
-    fetch('/api/users/1/boards')
+    fetch('/api/users/1/boards/')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -60,7 +59,15 @@ const HomeView = () => {
 
   return (
     <div className='container flex flex-col align-center'>
-      <h1 className='pink-text semi-bold center-text'>Projects</h1>
+      <div className='boardView-header'>
+      <h1 style={{ fontSize: '32px' }} className='pink-text semi-bold'>Projects</h1>
+        <button className='add-project-btn blue-bg semi-bold pink-text'
+          onClick={() => handleAddNew()}>
+          <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
+          New Project
+        </button>
+      </div>
+
       {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
         : null}
@@ -78,11 +85,7 @@ const HomeView = () => {
           })
         }
       </ul>
-      <button className='add-project-btn blue-bg semi-bold pink-text'
-        onClick={() => handleAddNew()}>
-        <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
-        New Project
-      </button>
+
     </div>
   );
 };

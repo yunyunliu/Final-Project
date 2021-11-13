@@ -40,7 +40,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
       <label className='description-label width-100 semi-bold'>Task Description:
         <textarea className='task-name-input gray-text source-sans description-input'
           value={description}
-          cols='25'
+          cols='35'
           onChange={({ target }) => setDescription(target.value)} />
       </label>
       <label className='semi-bold width-100'> Move Card:

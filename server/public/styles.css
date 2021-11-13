@@ -102,11 +102,14 @@ button {
 .nav-item {
   display: inline-block;
   margin-left: 10px;
+  font-size: 22px;
+  font-weight: 600;
 }
 
 .top-nav {
-  margin-right: 50px;
-  margin-left: 50px;
+  display: flex;
+  margin: 10px 150px;
+  width: 100%;
 }
 
 .btn:active {

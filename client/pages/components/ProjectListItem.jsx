@@ -37,27 +37,27 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
   );
 
   const boardName = (
-    <>
-    {/* needs to respond to clicks and double clicks */}
-    <Link to={'/api/users/1/boards/' + boardId}
-      className='blue-bg gray-text semi-bold board-link'>View</Link>
-    <button type='button'
-      id={boardId}
-      onDoubleClick={() => setDisplayEdit(true)}
-      className='project-item blue-bg semi-bold no-padding'>
-      <p>{name}</p>
-    </button>
-    <button type='button'
-      onClick={() => handleToggle(boardId)}
-      className='icon-btn'>
-      <i className='fas fa-times'></i>
-    </button>
-    </>
+    <div className='link-container'>
+      <Link to={`/api/users/1/boards/${boardId}`}>
+        <button type='button'
+          // id={boardId}
+          onDoubleClick={() => setDisplayEdit(true)}
+          className='project-item blue-bg semi-bold no-padding btn'>
+          <p>{name}</p>
+        </button>
+      </Link>
+    </div>
   );
 
   return (
     <li className='project-li'>
         {displayEdit ? editInput : boardName}
+      <button type='button'
+      onClick={() => handleToggle(boardId)}
+      style={{ height: 80, width: 80 }}
+      className='icon-btn'>
+      <i className='fas fa-times'></i>
+    </button>
     </li>
   );
 };
