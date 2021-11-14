@@ -71,14 +71,14 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
           }
         }}
         />
-        <div className='edit-btn-container gray-text'>
+        <div className='edit-btn-container gray-text btn'>
           <button type='button'
             className='edit-col-btn'
             onClick={() => setDisplayEditCol(false)}>
             Cancel
           </button>
           <button type='button'
-            className='edit-col-btn gray-text'
+            className='edit-col-btn gray-text btn'
             onClick={() => {
               setDisplayEditCol(false);
               handleEditCol(data.columnId, colName);

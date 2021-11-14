@@ -44,24 +44,22 @@ const HomeView = () => {
     setToDelete(null);
   };
 
-  const handleDelete = async boardId => {
-    await fetch(`/api/users/1/boards/${boardId}`,
+  const handleDelete = async () => {
+    await fetch(`/api/users/1/boards/${toDelete}`,
       { method: 'DELETE' });
-    const updated = boards.filter(board => board.boardId !== boardId);
+    const updated = boards.filter(board => board.boardId !== toDelete);
     setBoards(updated);
     handleCancel();
   };
 
-  const handleDeleteClick = id => {
-    setToDelete(id);
-    setDisplayModal(true);
-  };
-
   return (
     <div className='container flex flex-col align-center'>
+      {/* {console.log('todelete', toDelete)}
+      {console.log('boards', boards)} */}
       <div className='boardView-header'>
+       {/* to delete: {toDelete} */}
       <h1 style={{ fontSize: '48px', marginTop: 0 }} className='pink-text semi-bold'>Projects</h1>
-        <button className='add-project-btn blue-bg semi-bold pink-text'
+        <button className='add-project-btn blue-bg semi-bold pink-text btn'
           onClick={() => handleAddNew()}>
           <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
           New Project
@@ -78,8 +76,10 @@ const HomeView = () => {
               <ProjectListItem
                     key={board.boardId}
                     board={board}
-                    handleToggle={handleDeleteClick}
+                    id={board.boardId}
+                    setDisplayModal={setDisplayModal}
                     handleEdit={handleEditBoard}
+                    setToDelete={setToDelete}
                     />
             );
           })
