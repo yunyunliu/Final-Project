@@ -38,12 +38,12 @@ INSERT INTO "tags" ("boardId", "text", "color")
             (1, 'research', '#840ff2')
         RETURNING *;
 
--- INSERT INTO "tagsCards" ("cardId", "tagId")
---     VALUES (1, 1),
---             (1, 2),
---             (2, 3),
---             (2, 4),
---             (3, 5),
---             (1, 6),
---             (4, 7)
---         RETURNING *;
+INSERT INTO "tagsCards" ("cardId", "tagId")
+    VALUES (1, 1),
+            (1, 2),
+            (2, 3),
+            (2, 4),
+            (3, 5),
+            (1, 6),
+            (4, 7)
+        RETURNING *;

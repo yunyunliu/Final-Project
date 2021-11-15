@@ -54,10 +54,7 @@ const HomeView = () => {
 
   return (
     <div className='container flex flex-col align-center'>
-      {/* {console.log('todelete', toDelete)}
-      {console.log('boards', boards)} */}
       <div className='boardView-header'>
-       {/* to delete: {toDelete} */}
       <h1 style={{ fontSize: '48px', marginTop: 0 }} className='pink-text semi-bold'>Projects</h1>
         <button className='add-project-btn blue-bg semi-bold pink-text btn'
           onClick={() => handleAddNew()}>
@@ -65,7 +62,6 @@ const HomeView = () => {
           New Project
         </button>
       </div>
-
       {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
         : null}

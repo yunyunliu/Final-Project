@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
-import AddForm from './components/AddForm';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
@@ -12,8 +11,7 @@ const BoardView = () => {
 
   // fetch data once here and set to board;
   useEffect(() => {
-    // console.log('boardid:', boardId)
-    fetch('/api/users/1/boards/1')
+    fetch(`/api/users/1/boards/${boardId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -27,7 +25,7 @@ const BoardView = () => {
   }, []);
 
   const handleDeleteCol = async id => {
-    await fetch(`/api/users/1/boards/1/col/${id}`,
+    await fetch(`/api/users/1/boards/${boardId}/col/${id}`,
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
     setColumns(updated);
@@ -60,7 +58,7 @@ const BoardView = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
     };
-    const response = await fetch(`/api/users/1/boards/1/col/${id}`, options);
+    const response = await fetch(`/api/users/1/boards/${boardId}/col/${id}`, options);
     const data = await response.json();
     const updated = columns.map(col => col.columnId === data.columnId ? data : col);
     setColumns(updated);
@@ -71,7 +69,6 @@ const BoardView = () => {
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <h1 style={{ textAlign: 'center', marginTop: 0 }} >{board.name}</h1>
       <div className='flex board-container'>
-        {/* {<AddForm colName='todos'/>} */}
         {columns.map(col => <Column key={col.columnId}
             data={col}
             handleDeleteCol={handleDeleteCol}

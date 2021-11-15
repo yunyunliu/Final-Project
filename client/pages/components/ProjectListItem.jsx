@@ -44,7 +44,6 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
     <div className='link-container'>
       <Link to={`/boards/${boardId}`}>
         <button type='button'
-          // id={boardId}
           className='project-item blue-bg semi-bold no-padding btn'>
           <p>{name}</p>
         </button>
@@ -54,7 +53,6 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
 
   return (
     <li className='project-li'>
-      {/* {boardId} */}
       <button type='button'
         onClick={() => setDisplayEdit(true)}
         style={{ height: 80, width: 80 }}
