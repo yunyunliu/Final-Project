@@ -18,7 +18,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, description, tags })
     };
-    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards`, options);
+    const response = await fetch(`/api/users/1/boards/${data.boardId}/col/${data.columnId}/cards`, options);
     if (response.ok) {
       const newCard = await response.json();
       const updated = data.cards.concat({ ...newCard, tags });
@@ -27,7 +27,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
   };
 
   const deleteCard = async cardId => {
-    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE' });
+    const response = await fetch(`/api/users/1/boards/${data.boardId}/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE' });
     if (response.ok) {
       const updated = data.cards.filter(card => card.cardId !== cardId);
       setColumnCards(data.columnId, updated);
@@ -40,19 +40,14 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editData)
     };
-    const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
+    const response = await fetch(`/api/users/1/boards/${data.boardId}/col/${editData.columnId}/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      // check if card needs to move to another column
       if (editData.columnId === srcColId) {
-        // if not moving
         const updatedCards = data.cards.map(card => card.cardId === updated.cardId ? updated : card);
         setColumnCards(data.columnId, updatedCards);
       } else {
-        // if moving
-        // add card to new column
         setColumnCards(editData.columnId, getColumnCards(editData.columnId).concat(editData));
-        // remove card from current column
         const updatedCards = data.cards.filter(card => card.cardId !== editData.cardId);
         setColumnCards(data.columnId, updatedCards);
       }

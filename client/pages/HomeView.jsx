@@ -81,7 +81,6 @@ const HomeView = () => {
           })
         }
       </ul>
-
     </div>
   );
 };

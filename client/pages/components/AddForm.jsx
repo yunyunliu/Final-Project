@@ -7,10 +7,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
   const [task, setTask] = useState(null);
   const [displaySubMenu, setDisplaySubMenu] = useState(false);
   const [tags, setTags] = useState([]);
-
   return (
     <dialog className='add-edit-modal' open>
-      {/* {console.log(styles)} */}
       <form className='add-form flex flex-col align-center'>
         <h2 className='form-name no-margin'>Add new task card</h2>
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
