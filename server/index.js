@@ -81,7 +81,7 @@ app.post('/api/cards', (req, res) => {
   }
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+app.delete('/api/cards/:cardId', (req, res) => {
   cards.deleteCard(req, res, db);
 });
 

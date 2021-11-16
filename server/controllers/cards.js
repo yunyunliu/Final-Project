@@ -18,7 +18,6 @@ const cards = {
   },
   create: async (req, res, db) => {
     const { name, description, tags, columnId, boardId } = req.body;
-    console.log('boardId:', boardId, 'columnId:', columnId)
     const sql = `
       INSERT INTO "cards" ("name", "description", "columnId", "boardId")
         VALUES ($1, $2, $3, $4)
