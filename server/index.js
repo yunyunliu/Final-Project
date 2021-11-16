@@ -54,11 +54,11 @@ app.get('/api/users/:id/boards/:boardId/col', (req, res) => {
   columns.get(req, res, db);
 });
 
-app.post('/api/users/:id/boards/:boardId/col', (req, res) => {
+app.post('/api/columns', (req, res) => {
   columns.create(req, res, db);
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId', (req, res) => {
+app.delete('/api/columns/:colId', (req, res) => {
   columns.delete(req, res, db);
 });
 

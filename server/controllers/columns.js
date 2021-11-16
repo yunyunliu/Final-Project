@@ -12,7 +12,7 @@ const columns = {
     res.json(data);
   },
   create: async (req, res, db) => {
-    const { boardId } = req.params;
+    const { boardId } = req.body;
     const sql = `
     INSERT INTO "columns" ("boardId", "name")
       VALUES ($1, 'New Column')
