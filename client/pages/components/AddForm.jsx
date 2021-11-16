@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import BoardContext from '../BoardContext';
 
 import SubMenu from './SubMenu';
 
 const AddForm = ({ setModal, handleAdd, colName }) => {
+  const { board } = useContext(BoardContext);
   const [description, setDescription] = useState('');
   const [task, setTask] = useState(null);
-  const [displaySubMenu, setDisplaySubMenu] = useState(false);
+  // const [displaySubMenu, setDisplaySubMenu] = useState(false);
   const [tags, setTags] = useState([]);
 
   return (
     <dialog className='add-edit-modal' open>
-      {/* {console.log(styles)} */}
       <form className='add-form flex flex-col align-center'>
         <h2 className='form-name no-margin'>Add new task card</h2>
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
@@ -27,6 +28,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
         </label>
         <div className='flex label-input width-100'>
           Tags:
+          <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
           <div className='expanded-tag-container flex'>
           {tags.length > 0
             ? tags.map(tag => (<div key={tag.tagId}
@@ -37,9 +39,9 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
                 </span>
           </div>))
             : null}
-            <button type='button' onClick={() => setDisplaySubMenu(true)} style={{ marginLeft: 10 }} className='form-btn'>Add tag</button>
+
           </div>
-          { displaySubMenu ? <SubMenu setTags={setTags} tags={tags} setMenu={setDisplaySubMenu} /> : null }
+
         </div>
         <div className='add-btns-container flex width-100'>
           <button

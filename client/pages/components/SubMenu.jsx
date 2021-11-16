@@ -13,7 +13,7 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
         body: JSON.stringify({ text, color }),
         headers: { 'Content-Type': 'application/json' }
       };
-      const response = await fetch('/api/users/1/boards/1/col/1/cards/1/tags', options);
+      const response = await fetch('/api/tags', options);
       if (response.ok) {
         const data = await response.json();
         // console.log('response to post:', data)
@@ -59,18 +59,11 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
               onChange={e => setText(e.target.value)} />
           <button type='button'
             onClick={() => {
-              // console.log(color)
               handleAddTag(text, color);
             }}
             className='form-btn add-tag-btn'>Add
           </button>
         </div>
-        <button type='button'
-          className='form-btn'
-          onClick={() => {
-            setMenu(false);
-          }}>done
-        </button>
       </div>
     </div>
   );

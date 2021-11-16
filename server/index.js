@@ -114,11 +114,11 @@ app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, re
   tags.get(req, res, db);
 });
 
-app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
+app.post('/api/tags', (req, res) => {
   tags.create(req, res, db);
 });
 
-app.delete('/api/users/:id/boards/:boardId/tags/:tagId', async (req, res) => {
+app.delete('/api/tags/:tagId', async (req, res) => {
   const { tagId } = req.params;
   const sqlRel = `
   DELETE FROM "tagsCards"
