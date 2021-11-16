@@ -4,19 +4,19 @@ import Card from './Card';
 import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
 
-const Column = ({ columnData, handleDeleteCol, handleEditCol, boardId }) => {
+const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   const { setColumnCards, getColumnCards } = useContext(BoardContext);
 
   const [colName, setColName] = useState(columnData.name);
-
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
 
   const handleAddCard = async (name, description, tags) => {
+    const { boardId, columnId } = columnData;
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, description, tags, boardId, columnId: columnData.columnId })
+      body: JSON.stringify({ name, description, tags, boardId, columnId })
     };
     const response = await fetch('/api/cards', options);
     if (response.ok) {

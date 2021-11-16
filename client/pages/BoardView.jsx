@@ -34,6 +34,7 @@ const BoardView = () => {
   };
 
   const handleAddCol = async () => {
+    console.log('boardId', board.boardId)
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -77,7 +78,7 @@ const BoardView = () => {
       {/* {console.log('board:', board)} */}
       <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
       <div className='flex board-container'>
-        {<AddForm colName='todos'/>}
+        {/* {<AddForm colName='todos'/>} */}
         { columns.map(col => (
           <Column
             key={col.columnId}

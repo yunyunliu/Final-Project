@@ -29,9 +29,7 @@ const cards = {
     `;
     const result = await db.query(sql, [name, description, columnId, boardId]);
     const [newCard] = result.rows;
-    // newCard.tags = [];
-    res.status(201).json(newCard);
-    // add new tags to relationship tagsCards relationship table
+    res.status(201).json({ ...newCard, tags: [] });
     for (let i = 0; i < tags.length; i++) {
       const id = tags[i].tagId;
       await db.query(relSql, [id, newCard.cardId]);
