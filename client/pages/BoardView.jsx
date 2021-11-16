@@ -34,7 +34,11 @@ const BoardView = () => {
   };
 
   const handleAddCol = async () => {
-    const options = { method: 'POST', body: JSON.stringify({ boardId: board.boardId }) };
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ boardId: board.boardId })
+    };
     const response = await fetch('/api/columns', options);
     const data = await response.json();
     const updated = columns.concat(data);
