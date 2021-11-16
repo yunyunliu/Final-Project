@@ -40,7 +40,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol, boardId }) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editData)
     };
-    const response = await fetch(`/api/users/1/boards/1/col/${editData.columnId}/cards/${editData.cardId}`, options);
+    const response = await fetch(`/api/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
       // check if card needs to move to another column

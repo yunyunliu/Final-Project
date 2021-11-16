@@ -85,7 +85,7 @@ app.delete('/api/cards/:cardId', (req, res) => {
   cards.deleteCard(req, res, db);
 });
 
-app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+app.put('/api/cards/:cardId', (req, res) => {
   try {
     cards.update(req, res, db);
   } catch (err) {
