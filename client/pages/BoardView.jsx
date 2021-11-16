@@ -74,15 +74,16 @@ const BoardView = () => {
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-      <h1 style={{ textAlign: 'center', marginTop: 0 }} >{board.name}</h1>
-      {/* column boardIds { JSON.stringify(columns.map(col => col.boardId))} */}
+      {/* {console.log('board:', board)} */}
+      <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
       <div className='flex board-container'>
-        {/* {<AddForm colName='todos'/>} */}
-        {columns.map(col => <Column key={col.columnId}
-            boardId={board.boardId}
+        {<AddForm colName='todos'/>}
+        { columns.map(col => (
+          <Column
+            key={col.columnId}
             columnData={col}
             handleDeleteCol={handleDeleteCol}
-            handleEditCol={handleEditCol} />)}
+            handleEditCol={handleEditCol} />))}
         <button className='add-project-btn blue-bg semi-bold pink-text add-col'
           onClick={() => handleAddCol()}>
           <span className='plus-icon-container btn'><i className='fas fa-plus'></i></span>
