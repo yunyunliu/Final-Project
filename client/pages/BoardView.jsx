@@ -75,10 +75,12 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <h1 style={{ textAlign: 'center', marginTop: 0 }} >{board.name}</h1>
+      {/* column boardIds { JSON.stringify(columns.map(col => col.boardId))} */}
       <div className='flex board-container'>
         {/* {<AddForm colName='todos'/>} */}
         {columns.map(col => <Column key={col.columnId}
-            data={col}
+            boardId={board.boardId}
+            columnData={col}
             handleDeleteCol={handleDeleteCol}
             handleEditCol={handleEditCol} />)}
         <button className='add-project-btn blue-bg semi-bold pink-text add-col'

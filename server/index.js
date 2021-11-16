@@ -72,7 +72,7 @@ app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
   cards.getAll(req, res, db);
 });
 
-app.post('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
+app.post('/api/cards', (req, res) => {
   try {
     cards.create(req, res, db);
   } catch (err) {

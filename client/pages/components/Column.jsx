@@ -4,10 +4,10 @@ import Card from './Card';
 import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
 
-const Column = ({ data, handleDeleteCol, handleEditCol }) => {
+const Column = ({ columnData, handleDeleteCol, handleEditCol, boardId }) => {
   const { setColumnCards, getColumnCards } = useContext(BoardContext);
 
-  const [colName, setColName] = useState(data.name);
+  const [colName, setColName] = useState(columnData.name);
 
   const [displayEditCol, setDisplayEditCol] = useState(false);
   const [displayAddCard, setDisplayAddCard] = useState(false);
@@ -16,21 +16,21 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, description, tags })
+      body: JSON.stringify({ name, description, tags, boardId, columnId: columnData.columnId })
     };
-    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards`, options);
+    const response = await fetch('/api/cards', options);
     if (response.ok) {
       const newCard = await response.json();
-      const updated = data.cards.concat({ ...newCard, tags });
-      setColumnCards(data.columnId, updated);
+      const updated = columnData.cards.concat({ ...newCard, tags });
+      setColumnCards(columnData.columnId, updated);
     }
   };
 
   const deleteCard = async cardId => {
-    const response = await fetch(`/api/users/1/boards/1/col/${data.columnId}/cards/${cardId}`, { method: 'DELETE' });
+    const response = await fetch(`/api/users/1/boards/1/col/${columnData.columnId}/cards/${cardId}`, { method: 'DELETE' });
     if (response.ok) {
-      const updated = data.cards.filter(card => card.cardId !== cardId);
-      setColumnCards(data.columnId, updated);
+      const updated = columnData.cards.filter(card => card.cardId !== cardId);
+      setColumnCards(columnData.columnId, updated);
     }
   };
 
@@ -46,15 +46,15 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
       // check if card needs to move to another column
       if (editData.columnId === srcColId) {
         // if not moving
-        const updatedCards = data.cards.map(card => card.cardId === updated.cardId ? updated : card);
-        setColumnCards(data.columnId, updatedCards);
+        const updatedCards = columnData.cards.map(card => card.cardId === updated.cardId ? updated : card);
+        setColumnCards(columnData.columnId, updatedCards);
       } else {
         // if moving
         // add card to new column
         setColumnCards(editData.columnId, getColumnCards(editData.columnId).concat(editData));
         // remove card from current column
-        const updatedCards = data.cards.filter(card => card.cardId !== editData.cardId);
-        setColumnCards(data.columnId, updatedCards);
+        const updatedCards = columnData.cards.filter(card => card.cardId !== editData.cardId);
+        setColumnCards(columnData.columnId, updatedCards);
       }
     }
   };
@@ -67,7 +67,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
         onKeyDown={e => {
           if (e.key === 'Enter') {
             setDisplayEditCol(false);
-            handleEditCol(data.columnId, colName);
+            handleEditCol(columnData.columnId, colName);
           }
         }}
         />
@@ -81,7 +81,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
             className='edit-col-btn gray-text'
             onClick={() => {
               setDisplayEditCol(false);
-              handleEditCol(data.columnId, colName);
+              handleEditCol(columnData.columnId, colName);
             }}>
             Done
           </button>
@@ -94,11 +94,11 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
         <button type='button'
           className='col-name-btn'
           onDoubleClick={() => setDisplayEditCol(true)}>
-          <h2 className='col-name gray-text'>{data.name}</h2>
+          <h2 className='col-name gray-text'>{columnData.name}</h2>
         </button>
         <button type='button'
           className='no-border col-btn'
-          onClick={() => handleDeleteCol(data.columnId)}>
+          onClick={() => handleDeleteCol(columnData.columnId)}>
           <i className='fas fa-times col-icon semi-bold gray-text'></i>
         </button>
       </div>
@@ -108,10 +108,10 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
     <div className='col'>
       { displayEditCol ? editCol : columnName }
       <ul className='no-bullets no-padding card-list'>
-        {data.cards.map(card => <Card key={card.cardId}
+        {columnData.cards.map(card => <Card key={card.cardId}
           cardData={card}
           handleDelete={deleteCard}
-          colName={data.name}
+          colName={columnData.name}
           handleEdit={handleEditCard} />)}
       </ul>
       <button type='button'
@@ -121,7 +121,7 @@ const Column = ({ data, handleDeleteCol, handleEditCol }) => {
         {displayAddCard
           ? <AddForm setModal={setDisplayAddCard}
               handleAdd={handleAddCard}
-              colName={data.name} />
+              colName={columnData.name} />
           : null}
     </div>
   );

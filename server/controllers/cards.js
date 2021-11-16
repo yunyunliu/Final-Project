@@ -17,8 +17,8 @@ const cards = {
     }
   },
   create: async (req, res, db) => {
-    const { name, description, tags } = req.body;
-    const { colId, boardId } = req.params;
+    const { name, description, tags, columnId, boardId } = req.body;
+    console.log('boardId:', boardId, 'columnId:', columnId)
     const sql = `
       INSERT INTO "cards" ("name", "description", "columnId", "boardId")
         VALUES ($1, $2, $3, $4)
@@ -28,8 +28,9 @@ const cards = {
       INSERT INTO "tagsCards" ("tagId", "cardId")
         VALUES ($1, $2)
     `;
-    const result = await db.query(sql, [name, description, colId, boardId]);
+    const result = await db.query(sql, [name, description, columnId, boardId]);
     const [newCard] = result.rows;
+    // newCard.tags = [];
     res.status(201).json(newCard);
     // add new tags to relationship tagsCards relationship table
     for (let i = 0; i < tags.length; i++) {
