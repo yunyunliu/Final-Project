@@ -65,7 +65,7 @@ const BoardView = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
     };
-    const response = await fetch(`/api/users/1/boards/1/col/${id}`, options);
+    const response = await fetch(`/api/columns/${id}`, options);
     const data = await response.json();
     const updated = columns.map(col => col.columnId === data.columnId ? data : col);
     setColumns(updated);

@@ -62,7 +62,7 @@ app.delete('/api/columns/:colId', (req, res) => {
   columns.delete(req, res, db);
 });
 
-app.put('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
+app.put('/api/columns/:colId', async (req, res) => {
   columns.edit(req, res, db);
 });
 
