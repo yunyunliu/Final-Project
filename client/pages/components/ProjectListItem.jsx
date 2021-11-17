@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
+const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisplayModal }) => {
   const { name, boardId } = board;
   const [projectName, setProjectName] = useState(name);
   const [displayEdit, setDisplayEdit] = useState(false);
@@ -63,7 +63,10 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
         {displayEdit
           ? null
           : (<button type='button'
-                onClick={() => handleToggle(boardId)}
+                onClick={() => {
+                  setToDelete(boardId);
+                  setDisplayModal(true);
+                }}
                 style={{ height: 80, width: 80 }}
                 className='icon-btn'>
                 <i className='fas fa-times'></i>

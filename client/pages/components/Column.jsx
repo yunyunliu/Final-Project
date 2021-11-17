@@ -43,14 +43,11 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
     const response = await fetch(`/api/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      // check if card needs to move to another column
       if (editData.columnId === srcColId) {
         // if not moving
         const updatedCards = columnData.cards.map(card => card.cardId === updated.cardId ? updated : card);
         setColumnCards(columnData.columnId, updatedCards);
       } else {
-        // if moving
-        // add card to new column
         setColumnCards(editData.columnId, getColumnCards(editData.columnId).concat(editData));
         // remove card from current column
         const updatedCards = columnData.cards.filter(card => card.cardId !== editData.cardId);
@@ -71,14 +68,14 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
           }
         }}
         />
-        <div className='edit-btn-container gray-text'>
+        <div className='edit-btn-container gray-text btn'>
           <button type='button'
             className='edit-col-btn'
             onClick={() => setDisplayEditCol(false)}>
             Cancel
           </button>
           <button type='button'
-            className='edit-col-btn gray-text'
+            className='edit-col-btn gray-text btn'
             onClick={() => {
               setDisplayEditCol(false);
               handleEditCol(columnData.columnId, colName);

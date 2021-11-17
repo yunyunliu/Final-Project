@@ -13,7 +13,6 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
     const removed = tags.filter(tag => tag.tagId != tagId);
     setTags(removed);
   };
-
   return (
     <dialog className='add-edit-modal' open>
       <form className='add-form flex flex-col align-center'>

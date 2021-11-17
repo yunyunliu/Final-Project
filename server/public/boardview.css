@@ -123,6 +123,11 @@
   height: 25px;
 }
 
+new-card-btn:hover {
+  border: 4px solid #292929;
+}
+
+
 .card-list {
   width: 170px;
 }

@@ -4,7 +4,7 @@ INSERT INTO "users" ("email", "password")
 
 INSERT INTO "boards" ("userId", "name")
   VALUES (1, 'code journal' ),
-          (1, 'secret project'),
+          (1, 'ajax project'),
           (1, 'typescript project')
   RETURNING *;
 
@@ -15,12 +15,17 @@ INSERT INTO "columns" ("boardId", "name")
           (1, 'done'),
           (2, 'backlog'),
           (2, 'under review')
+          (2, 'current'),
+          (2, 'under review'),
+          (3, 'planning')
    RETURNING *;
 
+
 INSERT INTO "cards" ("columnId", "boardId", "name", "description")
-    VALUES (1, 1, 'sql outer join', 'is it the same as mongo populate?'),
-          (1, 1, 'react context', 'would it help?'),
-          (1, 1, 'drag and drop', 'should I use react beautiful dnd. what is react ref?')
+    VALUES (1, 1, 'style confirm modal', 'use a div with position:fixed'),
+          (1, 1, 'add react context', 'decide where what contexts are needed and where to put provider components'),
+          (1, 1, 'implement drag and drop', 'research html drag and drop api'),
+          (2, 1, 'create endpoints', '')
 RETURNING *;
 
 INSERT INTO "tags" ("boardId", "text", "color")
@@ -40,5 +45,7 @@ INSERT INTO "tagsCards" ("cardId", "tagId")
             (1, 2),
             (2, 3),
             (2, 4),
-            (3, 5)
+            (3, 5),
+            (1, 6),
+            (4, 7)
         RETURNING *;

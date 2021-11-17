@@ -26,6 +26,7 @@ const CardModal = ({ data, setExpanded, setEdit }) => {
           className='form-btn'
           onClick={() => {
             setEdit(true);
+            setExpanded(false);
           }}>Edit
         </button>
       </div>
