@@ -48,6 +48,7 @@ const cards = {
   },
   deleteCard: async (req, res, db) => {
     const { cardId } = req.params;
+    console.log('cardId', cardId)
     const sql = `
       DELETE FROM "cards"
           WHERE "cardId" = $1

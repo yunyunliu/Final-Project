@@ -12,7 +12,9 @@ INSERT INTO "boards" ("userId", "name")
 INSERT INTO "columns" ("boardId", "name")
   VALUES (1, 'todos'),
           (1, 'in progress'),
-          (1, 'done')
+          (1, 'done'),
+          (2, 'backlog'),
+          (2, 'under review')
    RETURNING *;
 
 INSERT INTO "cards" ("columnId", "boardId", "name", "description")

@@ -27,6 +27,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   };
 
   const deleteCard = async cardId => {
+    console.log('cardid', cardId)
     const response = await fetch(`/api/cards/${cardId}`, { method: 'DELETE' });
     if (response.ok) {
       const updated = columnData.cards.filter(card => card.cardId !== cardId);
