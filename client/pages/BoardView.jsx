@@ -1,28 +1,24 @@
 import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
-import AddForm from './components/AddForm';
 import BoardContext from './BoardContext';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
-  // const [columns, setColumns] = useState([]);
-  // const { boardId } = useParams();
+  const { boardId } = useParams();
 
   // fetch data once here and set to board;
   useEffect(() => {
-    // fetch(`/api/users/1/boards/${boardId}`) // get boardId from URL, for when board is no longer hard coded
-    fetch('/api/users/1/boards/1') // hardcoded board id
+    console.log('params', boardId)
+    fetch(`/api/users/1/boards/${boardId}`) // get boardId from URL, for when board is no longer hard coded
+    // fetch('/api/users/1/boards/1') // hardcoded board id
       .then(res => {
         if (res.ok) {
           return res.json();
         }
       })
-      .then(data => {
-        setBoard(data);
-        // setColumns(data.columns);
-      })
+      .then(data => setBoard(data))
       .catch(err => console.error(err.message));
   }, []);
 

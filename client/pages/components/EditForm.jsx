@@ -82,7 +82,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
                             className={`${tag.color} card-label tooltip`}
                             style={{ backgroundColor: tag.color }}>
                               <span className='tooltiptext'> {tag.text}
-                                {/* <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button> */}
+                                <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button>
                               </span>
                         </div>))}
 

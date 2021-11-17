@@ -45,7 +45,7 @@ const boards = {
     res.sendStatus(204);
   },
   edit: async (req, res, db) => {
-    const boardId = Number(req.params.boardId);
+    const { boardId } = req.params;
     const { name } = req.body;
     const sql = `
     UPDATE "boards"
@@ -53,9 +53,15 @@ const boards = {
       WHERE "boardId" = $2
       RETURNING *
     `;
-    const result = await db.query(sql, [name, boardId]);
-    const [updated] = result.rows;
-    res.json(updated);
+    try {
+      const result = await db.query(sql, [name, boardId]);
+      const [updated] = result.rows;
+      res.json(updated);
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    }
+
   }
 };
 

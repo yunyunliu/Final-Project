@@ -18,8 +18,8 @@ const HomeView = () => {
       });
   }, []);
 
-  const handleEditBoard = async ({ target }, name) => {
-    const boardId = target.id;
+  const handleEditBoard = async (id, name) => {
+    const boardId = id;
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

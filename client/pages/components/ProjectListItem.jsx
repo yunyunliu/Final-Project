@@ -27,7 +27,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit }) => {
           id={boardId}
           onClick={e => {
             setDisplayEdit(false);
-            handleEdit(e, projectName);
+            handleEdit(Number(e.target.id), projectName);
           }}>Done
         </button>
       </div>
