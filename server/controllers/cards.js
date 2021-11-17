@@ -81,14 +81,19 @@ const cards = {
           JOIN "cards" USING ("cardId")
         WHERE "cardId" = $1
     `;
-    const result = await db.query(sql, [name, description, columnId, cardId]);
-    const [edited] = result.rows;
-    for (let i = 0; i < tags.length; i++) {
-      const id = tags[i].tagId;
-      await db.query(relSql, [id, cardId]);
+    try {
+      const result = await db.query(sql, [name, description, columnId, cardId]);
+      const [edited] = result.rows;
+      // for (let i = 0; i < tags.length; i++) {
+      //   const id = tags[i].tagId;
+      //   await db.query(relSql, [id, cardId]);
+      // }
+      const tagsResult = await db.query(tagSql, [cardId]);
+      res.json({ ...edited, tags: tagsResult.rows });
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
     }
-    const tagsResult = await db.query(tagSql, [cardId]);
-    res.json({ ...edited, tags: tagsResult.rows });
   }
 };
 
