@@ -94,7 +94,7 @@ app.put('/api/cards/:cardId', (req, res) => {
   }
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/remove/:tagId', async (req, res) => {
+app.delete('/api/cards/:cardId/remove/:tagId', async (req, res) => {
   const { tagId, cardId } = req.params;
   const sql = `
   DELETE FROM "tagsCards"

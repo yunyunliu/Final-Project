@@ -13,7 +13,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
   const [tags, setTags] = useState(data.tags);
 
   const removeTag = async tagId => {
-    const response = await fetch(`/api/users/1/boards/${data.boardId}/col/${data.columnId}/cards/${data.cardId}/remove/${tagId}`, { method: 'DELETE' });
+    const response = await fetch(`/api/cards/${data.cardId}/remove/${tagId}`, { method: 'DELETE' });
     if (response.ok) {
       const updatedTags = tags.filter(tag => tag.tagId !== tagId);
       setTags(updatedTags);
