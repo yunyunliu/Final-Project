@@ -26,22 +26,9 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             value={description}
             onChange={({ target }) => setDescription(target.value)} />
         </label>
-        <div className='flex label-input width-100'>
-          Tags:
+        <div style={{ fontSize: 16, fontWeight: 600, width: '100%' }}>Tags:</div>
+        <div className='flex label-input width-100' style={{ marginTop: 15 }}>
           <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
-          <div className='expanded-tag-container flex'>
-          {tags.length > 0
-            ? tags.map(tag => (<div key={tag.tagId}
-              className={`${tag.color} card-label tooltip`}
-              style={{ backgroundColor: tag.color }}>
-                <span className='tooltiptext'> {tag.text}
-                  <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button>
-                </span>
-          </div>))
-            : null}
-
-          </div>
-
         </div>
         <div className='add-btns-container flex width-100'>
           <button
