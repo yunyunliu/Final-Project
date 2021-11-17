@@ -10,8 +10,6 @@ import PageHeader from './pages/components/PageHeader';
 import BoardView from './pages/BoardView';
 
 const App = () => {
-  // const { boards } = useContext( boardContext )
-
   return (
     <Router>
       {/* stuff outside Switch will apear in every view */}
@@ -23,7 +21,6 @@ const App = () => {
         </Route>
         <Route path="/">
           <HomeView />
-          {/* <BoardView /> */}
         </Route>
       </Switch>
     </Router>

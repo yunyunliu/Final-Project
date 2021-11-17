@@ -10,9 +10,7 @@ const BoardView = () => {
 
   // fetch data once here and set to board;
   useEffect(() => {
-    console.log('params', boardId)
-    fetch(`/api/users/1/boards/${boardId}`) // get boardId from URL, for when board is no longer hard coded
-    // fetch('/api/users/1/boards/1') // hardcoded board id
+    fetch(`/api/users/1/boards/${boardId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -26,35 +24,26 @@ const BoardView = () => {
     await fetch(`/api/columns/${id}`,
       { method: 'DELETE' });
     const updated = board.columns.filter(col => col.columnId !== id);
-    // setColumns(updated);
     setBoard({ ...board, columns: updated });
   };
 
   const handleAddCol = async () => {
-    console.log(board)
-    console.log('boardId', board.boardId)
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ boardId: board.boardId })
     };
     const response = await fetch('/api/columns', options);
-    // console.log('response', response)
     if (response.ok) {
       const data = await response.json();
-      console.log('data', data)
       const updated = board.columns.concat(data);
-      // setColumns(updated);
       setBoard({ ...board, columns: updated });
     }
   };
 
   const setColumnCards = (colId, newCards) => {
-    console.log('set to col', colId, 'cards', newCards)
     const columns = board.columns;
-    console.log('columns', columns)
     const columnToUpdate = columns.find(col => col.columnId == colId);
-    console.log('colto update', columnToUpdate)
     columnToUpdate.cards = newCards;
     const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
     // setColumns(updatedColumns);
@@ -76,17 +65,14 @@ const BoardView = () => {
     const response = await fetch(`/api/columns/${id}`, options);
     const data = await response.json();
     const updated = board.columns.map(col => col.columnId === data.columnId ? { ...col, name: data.name } : col);
-    // setColumns(updated);
     setBoard({ ...board, columns: updated });
   };
 
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-      {/* {console.log('board:', board)} */}
       <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
       <div className='flex board-container'>
-        {/* {<AddForm colName='todos'/>} */}
         { board.columns.map(col => (
           <Column
             key={col.columnId}

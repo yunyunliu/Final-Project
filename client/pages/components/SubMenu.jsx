@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
-// const colorList = ['green', 'light-blue', 'gray', 'blue', 'pink', 'purple', 'orange', 'yellow', 'red', 'none'];
-
 const SubMenu = ({ setTags, tags, board }) => {
   const [tagColor, setTagColor] = useState('green');
   const [selected, setSelected] = useState('');
   const [options, setOptions] = useState([]);
-  // const [tagsCreated, setTagsCreated] = useState([]);
 
   useEffect(() => {
     fetch('/api/tags/1')
@@ -26,7 +23,6 @@ const SubMenu = ({ setTags, tags, board }) => {
   return (
       <div className='sub-menu'>
           <div className=''>
-            {/* <div style={{ fontSize: 16, fontWeight: 600, width: '100%' }}>Tag Color</div> */}
             <ul className='color-list'>
               {options.map(opt => (
                 <li key={opt.tagId}
@@ -40,18 +36,6 @@ const SubMenu = ({ setTags, tags, board }) => {
               ))}
             </ul>
           </div>
-          {/* <div className='tag-text-section'>
-            <input value={text}
-                id='tag-text-input'
-                className='tag-text-input'
-                onChange={e => setText(e.target.value)} />
-            <button type='button'
-              onClick={() => {
-                handleAddTag(text, tagColor);
-              }}
-              className='form-btn add-tag-btn'>Add
-            </button>
-          </div> */}
       </div>
   );
 };
