@@ -41,9 +41,11 @@ const BoardView = () => {
       body: JSON.stringify({ boardId: board.boardId })
     };
     const response = await fetch('/api/columns', options);
-    const data = await response.json();
-    const updated = columns.concat(data);
-    setColumns(updated);
+    if (response.ok) {
+      const data = await response.json();
+      const updated = columns.concat(data);
+      setColumns(updated);
+    }
   };
 
   const setColumnCards = (colId, newCards) => {

@@ -13,12 +13,15 @@ const columns = {
   },
   create: async (req, res, db) => {
     const { boardId } = req.body;
-    // console.log('board', boardId)
+    console.log('board', boardId)
+    console.log('type', typeof boardId)
+
     const sql = `
     INSERT INTO "columns" ("boardId", "name")
       VALUES ($1, 'New Column')
       RETURNING *
   `;
+  // res.end()
     try {
       const results = await db.query(sql, [boardId]);
       const [newCol] = results.rows;
