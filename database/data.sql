@@ -23,10 +23,14 @@ RETURNING *;
 
 INSERT INTO "tags" ("boardId", "text", "color")
     VALUES (1, 'refactor', 'yellow'),
-            (1, 'bugfix', 'red'),
+            (1, 'bug', 'red'),
             (1, 'feature', 'blue'),
-            (1, 'needs review', 'green'),
-            (1, 'database', 'pink')
+            (1, 'research', 'green'),
+            (1, 'database', 'pink'),
+            (1, 'UI/CSS', 'light-blue'),
+            (1, 'backend', 'gray'),
+            (1, 'testing', 'orange'),
+            (1, 'HTML',  'purple')
         RETURNING *;
 
 INSERT INTO "tagsCards" ("cardId", "tagId")

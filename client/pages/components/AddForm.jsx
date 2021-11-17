@@ -9,12 +9,9 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
   const [task, setTask] = useState('');
   const [tags, setTags] = useState([]);
 
-  const deleteTag = async tagId => {
-    const response = await fetch(`/api/tags/${tagId}`, { method: 'DELETE' });
-    if (response.ok) {
-      const updated = tags.filter(tag => tag.tagId !== tagId);
-      setTags(updated);
-    }
+  const removeTag = tagId => {
+    const removed = tags.filter(tag => tag.tagId != tagId);
+    setTags(removed);
   };
 
   return (
@@ -44,12 +41,11 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
                     <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
                     <button type='button'
                       className='delete-tag-btn'
-                      onClick={() => deleteTag(tag.tagId)}
+                      onClick={() => removeTag(tag.tagId)}
                       ><i className='fas fa-times'></i></button>
                   </div>
                 </li>))}
             </ul>
-
         </div>
       </div>
         <div className='flex label-input width-100' style={{ marginTop: 15 }}>

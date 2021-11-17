@@ -1,43 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const colorList = ['green', 'light-blue', 'gray', 'blue', 'pink', 'purple', 'orange', 'yellow', 'red', 'none'];
+// const colorList = ['green', 'light-blue', 'gray', 'blue', 'pink', 'purple', 'orange', 'yellow', 'red', 'none'];
 
 const SubMenu = ({ setTags, tags, board }) => {
   const [tagColor, setTagColor] = useState('green');
-  const [text, setText] = useState('');
+  const [selected, setSelected] = useState('');
+  const [options, setOptions] = useState([]);
   // const [tagsCreated, setTagsCreated] = useState([]);
 
-  const handleAddTag = async (text, color) => {
-    if (color) {
-      const options = {
-        method: 'POST',
-        body: JSON.stringify({ text, color, boardId: board }),
-        headers: { 'Content-Type': 'application/json' }
-      };
-      const response = await fetch('/api/tags', options);
-      if (response.ok) {
-        const data = await response.json();
-        setTags(tags.concat(data));
-        setText('');
-      }
+  useEffect(() => {
+    fetch('/api/tags/1')
+      .then(response => response.json())
+      .then(tags => setOptions(tags))
+      .catch(err => console.error(err.message));
+  }, []);
+
+  const handleSelect = async tagId => {
+    const check = tags.find(tag => tag.tagId == tagId);
+    if (!check) {
+      const tag = options.find(opt => opt.tagId == tagId);
+      setTags(tags.concat(tag));
     }
   };
 
   return (
       <div className='sub-menu'>
           <div className=''>
-            <div style={{ fontSize: 16, fontWeight: 600, width: '100%' }}>Tag Color</div>
+            {/* <div style={{ fontSize: 16, fontWeight: 600, width: '100%' }}>Tag Color</div> */}
             <ul className='color-list'>
-              {colorList.map((color, i) => (
-                <li key={i}>
+              {options.map(opt => (
+                <li key={opt.tagId}
+                  style={{ margin: '5 2' }}>
                   <button type='button'
-                    onClick={() => setTagColor(color)}
-                    className={`color-btn ${color}`}>{tagColor === color ? <i className='fas fa-check'></i> : null}</button>
+                    onClick={() => handleSelect(opt.tagId)}
+                    className={`color-btn ${opt.color}`}>{opt.text}
+                    <span>{tagColor === opt.color ? <i className='fas fa-check'></i> : null}</span>
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
-          <div className='tag-text-section'>
+          {/* <div className='tag-text-section'>
             <input value={text}
                 id='tag-text-input'
                 className='tag-text-input'
@@ -48,7 +51,7 @@ const SubMenu = ({ setTags, tags, board }) => {
               }}
               className='form-btn add-tag-btn'>Add
             </button>
-          </div>
+          </div> */}
       </div>
   );
 };
