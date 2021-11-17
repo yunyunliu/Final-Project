@@ -21,14 +21,13 @@ const columns = {
       VALUES ($1, 'New Column')
       RETURNING *
   `;
-  // res.end()
     try {
       const results = await db.query(sql, [boardId]);
       const [newCol] = results.rows;
       res.status(201).json({ ...newCol, cards: [] });
     } catch (err) {
       console.error(err.message);
-      res.send(err.message);
+      res.status(400).json({ error: err.message});
     }
   },
   delete: async (req, res, db) => {

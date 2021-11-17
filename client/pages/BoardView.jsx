@@ -31,29 +31,38 @@ const BoardView = () => {
       { method: 'DELETE' });
     const updated = columns.filter(col => col.columnId !== id);
     setColumns(updated);
+    setBoard({ ...board, columns: updated });
   };
 
   const handleAddCol = async () => {
-    // console.log('boardId', board.boardId)
+    console.log(board)
+    console.log('boardId', board.boardId)
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ boardId: board.boardId })
     };
     const response = await fetch('/api/columns', options);
+    // console.log('response', response)
     if (response.ok) {
       const data = await response.json();
+      console.log('data', data)
       const updated = columns.concat(data);
       setColumns(updated);
+      setBoard({ ...board, columns: updated });
     }
   };
 
   const setColumnCards = (colId, newCards) => {
+    console.log('set to col', colId, 'cards', newCards)
     const columns = board.columns;
-    const columnToUpdate = columns.find(col => col.columnId === colId);
+    console.log('columns', columns)
+    const columnToUpdate = columns.find(col => col.columnId == colId);
+    console.log('colto update', columnToUpdate)
     columnToUpdate.cards = newCards;
     const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
-    setBoard({ columns: updatedColumns });
+    setColumns(updatedColumns);
+    setBoard({ ...board, columns: updatedColumns });
   };
 
   const getColumnCards = colId => {
