@@ -34,7 +34,7 @@ const BoardView = () => {
   };
 
   const handleAddCol = async () => {
-    console.log('boardId', board.boardId)
+    // console.log('boardId', board.boardId)
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

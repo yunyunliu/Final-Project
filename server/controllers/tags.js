@@ -29,6 +29,25 @@ const tags = {
       res.status(500).send('error');
       console.error('error:', err.message);
     }
+  },
+  delete: async (req, res, db) => {
+    const { tagId } = req.params;
+    const sqlRel = `
+    DELETE FROM "tagsCards"
+      WHERE "tagId" = $1
+    `;
+    const sql = `
+    DELETE FROM "tags"
+      WHERE "tagId" = $1
+    `;
+    try {
+      await db.query(sqlRel, [tagId]);
+      await db.query(sql, [tagId]);
+      res.sendStatus(204);
+    } catch (err) {
+      res.send(err.message);
+      console.error('error:', err.message);
+    }
   }
 };
 

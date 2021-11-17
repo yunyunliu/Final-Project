@@ -118,24 +118,8 @@ app.post('/api/tags', (req, res) => {
   tags.create(req, res, db);
 });
 
-app.delete('/api/tags/:tagId', async (req, res) => {
-  const { tagId } = req.params;
-  const sqlRel = `
-  DELETE FROM "tagsCards"
-    WHERE "tagId" = $1
-  `;
-  const sql = `
-  DELETE FROM "tags"
-    WHERE "tagId" = $1
-  `;
-  try {
-    await db.query(sqlRel, [tagId]);
-    await db.query(sql, [tagId]);
-    res.sendStatus(204);
-  } catch (err) {
-    res.send(err.message);
-    console.error('error:', err.message);
-  }
+app.delete('/api/tags/:tagId', (req, res) => {
+  tags.delete(req, res, db);
 });
 
 app.listen(process.env.PORT, () => {

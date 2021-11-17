@@ -9,6 +9,14 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
   const [task, setTask] = useState('');
   const [tags, setTags] = useState([]);
 
+  const deleteTag = async tagId => {
+    const response = await fetch(`/api/tags/${tagId}`, { method: 'DELETE' });
+    if (response.ok) {
+      const updated = tags.filter(tag => tag.tagId !== tagId);
+      setTags(updated);
+    }
+  };
+
   return (
     <dialog className='add-edit-modal' open>
       <form className='add-form flex flex-col align-center'>
@@ -26,7 +34,24 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             value={description}
             onChange={({ target }) => setDescription(target.value)} />
         </label>
-        <div style={{ fontSize: 16, fontWeight: 600, width: '100%' }}>Tags:</div>
+        <div className='tag-section flex'>
+          <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
+          <div className='flex'>
+            <ul className='no-bullets'>
+              {tags.map(tag => (
+                <li key={tag.tagId} style={{ display: 'inline-block', margin: 5 }}>
+                  <div className='flex'>
+                    <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
+                    <button type='button'
+                      className='delete-tag-btn'
+                      onClick={() => deleteTag(tag.tagId)}
+                      ><i className='fas fa-times'></i></button>
+                  </div>
+                </li>))}
+            </ul>
+
+        </div>
+      </div>
         <div className='flex label-input width-100' style={{ marginTop: 15 }}>
           <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
         </div>

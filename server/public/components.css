@@ -54,7 +54,7 @@
   font-weight: 700;
 }
 
-form-btn:hover {
+.form-btn:hover {
   border: 4px solid #1db9c3;
 }
 
@@ -208,4 +208,15 @@ form-btn:hover {
   bottom: 90%;
   border: none;
   font-size: 12px;
+}
+
+.delete-tag-btn {
+  background-color: white;
+  font-size: 12px;
+  border: none;
+  margin-left: 2px;
+}
+
+.delete-tag-btn:active {
+  transform: translateY(0.25rem)
 }
