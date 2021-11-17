@@ -136,35 +136,42 @@ a:visited {
 }
 
 .yellow {
-  background-color: yellow;
+  background-color: #f2e82c;
 
 }
 
 .red {
-  background-color: red;
+  background-color: #f2300a;
 }
 
 .orange {
-  background-color: orange;
+  background-color: #fa9a46;
 }
 
 .green {
-  background-color: green;
+  background-color: #0fd170;
+}
+
+.light-blue {
+  background-color: #28c4eb;
+}
+
+.gray {
+  background-color: #050636;
   color: white;
 }
 
 .blue {
-  background-color: blue;
+  background-color: #1251e0;
   color: white;
 }
 
 .pink {
-  background-color: pink;
+  background-color: #f22ce4;
 }
 
 .purple {
-  background-color: purple;
-  color: white;
+  background-color: #990af2;
 }
 
 .tooltip {

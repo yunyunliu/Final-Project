@@ -1,7 +1,6 @@
 const tags = {
   create: async (req, res, db) => {
-    const { boardId } = req.params;
-    const { color, text } = req.body;
+    const { color, text, boardId } = req.body;
     const sql = `
       INSERT INTO "tags" ("color", "text", "boardId")
             VALUES ($1, $2, $3)
@@ -10,7 +9,7 @@ const tags = {
     try {
       const result = await db.query(sql, [color, text, boardId]);
       const [newTag] = result.rows;
-      res.json(newTag);
+      res.status(201).json(newTag);
     } catch (err) {
       res.send(err.message);
     }
@@ -28,6 +27,25 @@ const tags = {
       res.json(tags);
     } catch (err) {
       res.status(500).send('error');
+      console.error('error:', err.message);
+    }
+  },
+  delete: async (req, res, db) => {
+    const { tagId } = req.params;
+    const sqlRel = `
+    DELETE FROM "tagsCards"
+      WHERE "tagId" = $1
+    `;
+    const sql = `
+    DELETE FROM "tags"
+      WHERE "tagId" = $1
+    `;
+    try {
+      await db.query(sqlRel, [tagId]);
+      await db.query(sql, [tagId]);
+      res.sendStatus(204);
+    } catch (err) {
+      res.send(err.message);
       console.error('error:', err.message);
     }
   }

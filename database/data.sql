@@ -17,6 +17,7 @@ INSERT INTO "columns" ("boardId", "name")
           (2, 'current'),
           (2, 'under review'),
           (3, 'planning')
+          (2, 'under review')
    RETURNING *;
 
 
@@ -36,6 +37,15 @@ INSERT INTO "tags" ("boardId", "text", "color")
             (1, 'ui', '#f2810f'),
             (1, 'planning', '#0ff2ea'),
             (1, 'research', '#840ff2')
+    VALUES (1, 'refactor', 'yellow'),
+            (1, 'bug', 'red'),
+            (1, 'feature', 'blue'),
+            (1, 'research', 'green'),
+            (1, 'database', 'pink'),
+            (1, 'UI/CSS', 'light-blue'),
+            (1, 'backend', 'gray'),
+            (1, 'testing', 'orange'),
+            (1, 'HTML',  'purple')
         RETURNING *;
 
 INSERT INTO "tagsCards" ("cardId", "tagId")

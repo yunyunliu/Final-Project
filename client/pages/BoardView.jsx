@@ -6,7 +6,6 @@ import BoardContext from './BoardContext';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
-  const [columns, setColumns] = useState([]);
   const { boardId } = useParams();
 
   // fetch data once here and set to board;
@@ -17,33 +16,38 @@ const BoardView = () => {
           return res.json();
         }
       })
-      .then(data => {
-        setBoard(data);
-        setColumns(data.columns);
-      })
+      .then(data => setBoard(data))
       .catch(err => console.error(err.message));
   }, []);
 
   const handleDeleteCol = async id => {
-    await fetch(`/api/users/1/boards/${boardId}/col/${id}`,
+    await fetch(`/api/columns/${id}`,
       { method: 'DELETE' });
-    const updated = columns.filter(col => col.columnId !== id);
-    setColumns(updated);
+    const updated = board.columns.filter(col => col.columnId !== id);
+    setBoard({ ...board, columns: updated });
   };
 
   const handleAddCol = async () => {
-    const response = await fetch(`/api/users/1/boards/${boardId}/col`, { method: 'POST' });
-    const data = await response.json();
-    const updated = columns.concat(data);
-    setColumns(updated);
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ boardId: board.boardId })
+    };
+    const response = await fetch('/api/columns', options);
+    if (response.ok) {
+      const data = await response.json();
+      const updated = board.columns.concat(data);
+      setBoard({ ...board, columns: updated });
+    }
   };
 
   const setColumnCards = (colId, newCards) => {
     const columns = board.columns;
-    const columnToUpdate = columns.find(col => col.columnId === colId);
+    const columnToUpdate = columns.find(col => col.columnId == colId);
     columnToUpdate.cards = newCards;
     const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
-    setBoard({ columns: updatedColumns });
+    // setColumns(updatedColumns);
+    setBoard({ ...board, columns: updatedColumns });
   };
 
   const getColumnCards = colId => {
@@ -58,22 +62,24 @@ const BoardView = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
     };
-    const response = await fetch(`/api/users/1/boards/${boardId}/col/${id}`, options);
+    const response = await fetch(`/api/columns/${id}`, options);
     const data = await response.json();
-    const updated = columns.map(col => col.columnId === data.columnId ? data : col);
-    setColumns(updated);
+    const updated = board.columns.map(col => col.columnId === data.columnId ? { ...col, name: data.name } : col);
+    setBoard({ ...board, columns: updated });
   };
 
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-      <h1 style={{ textAlign: 'center', marginTop: 0 }} >{board.name}</h1>
+      <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
       <div className='flex board-container'>
-        {columns.map(col => <Column key={col.columnId}
-            data={col}
+        { board.columns.map(col => (
+          <Column
+            key={col.columnId}
+            columnData={col}
             handleDeleteCol={handleDeleteCol}
-            handleEditCol={handleEditCol} />)}
-        <button className='add-project-btn blue-bg semi-bold pink-text add-col btn'
+            handleEditCol={handleEditCol} />))}
+        <button className='add-project-btn blue-bg semi-bold pink-text add-col'
           onClick={() => handleAddCol()}>
           <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
           Add Column

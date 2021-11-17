@@ -17,8 +17,7 @@ const cards = {
     }
   },
   create: async (req, res, db) => {
-    const { name, description, tags } = req.body;
-    const { colId, boardId } = req.params;
+    const { name, description, tags, columnId, boardId } = req.body;
     const sql = `
       INSERT INTO "cards" ("name", "description", "columnId", "boardId")
         VALUES ($1, $2, $3, $4)
@@ -28,17 +27,28 @@ const cards = {
       INSERT INTO "tagsCards" ("tagId", "cardId")
         VALUES ($1, $2)
     `;
-    const result = await db.query(sql, [name, description, colId, boardId]);
+    const tagSql = `
+      SELECT "tagId",
+              "text",
+              "color",
+              "tags"."boardId"
+          FROM "tags"
+          JOIN "tagsCards" USING ("tagId")
+          JOIN "cards" USING ("cardId")
+        WHERE "cardId" = $1
+    `;
+    const result = await db.query(sql, [name, description, columnId, boardId]);
     const [newCard] = result.rows;
-    res.status(201).json(newCard);
-    // add new tags to relationship tagsCards relationship table
     for (let i = 0; i < tags.length; i++) {
       const id = tags[i].tagId;
       await db.query(relSql, [id, newCard.cardId]);
     }
+    const tagsResult = await db.query(tagSql, [newCard.cardId]);
+    res.status(201).json({ ...newCard, tags: tagsResult.rows });
   },
   deleteCard: async (req, res, db) => {
     const { cardId } = req.params;
+    console.log('cardId', cardId)
     const sql = `
       DELETE FROM "cards"
           WHERE "cardId" = $1
@@ -48,7 +58,7 @@ const cards = {
   },
   update: async (req, res, db) => {
     const { cardId } = req.params;
-    const { name, description, columnId } = req.body;
+    const { name, description, columnId, tags } = req.body;
     const sql = `
       UPDATE "cards"
           SET "name" = $1,
@@ -57,12 +67,32 @@ const cards = {
           WHERE "cardId" = $4
           RETURNING *
     `;
-    const result = await db.query(sql, [name, description, columnId, cardId]);
-    const [record] = result.rows;
-    if (record) {
-      res.send(record);
-    } else {
-      res.end();
+    const relSql = `
+      INSERT INTO "tagsCards" ("tagId", "cardId")
+        VALUES ($1, $2)
+    `;
+    const tagSql = `
+      SELECT "tagId",
+              "text",
+              "color",
+              "tags"."boardId"
+          FROM "tags"
+          JOIN "tagsCards" USING ("tagId")
+          JOIN "cards" USING ("cardId")
+        WHERE "cardId" = $1
+    `;
+    try {
+      const result = await db.query(sql, [name, description, columnId, cardId]);
+      const [edited] = result.rows;
+      // for (let i = 0; i < tags.length; i++) {
+      //   const id = tags[i].tagId;
+      //   await db.query(relSql, [id, cardId]);
+      // }
+      const tagsResult = await db.query(tagSql, [cardId]);
+      res.json({ ...edited, tags: tagsResult.rows });
+    } catch (err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
     }
   }
 };

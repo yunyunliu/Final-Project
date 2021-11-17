@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import BoardContext from '../BoardContext';
 
 import SubMenu from './SubMenu';
 
 const AddForm = ({ setModal, handleAdd, colName }) => {
+  const { board } = useContext(BoardContext);
   const [description, setDescription] = useState('');
-  const [task, setTask] = useState(null);
-  const [displaySubMenu, setDisplaySubMenu] = useState(false);
+  const [task, setTask] = useState('');
   const [tags, setTags] = useState([]);
+
+  const removeTag = tagId => {
+    const removed = tags.filter(tag => tag.tagId != tagId);
+    setTags(removed);
+  };
+
   return (
     <dialog className='add-edit-modal' open>
       <form className='add-form flex flex-col align-center'>
@@ -14,7 +21,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input'
-          style={{ width: 200 }}
+            style={{ width: 200 }}
+            value={task}
             onChange={({ target }) => setTask(target.value)} />
         </label>
         <label className='description-label width-100 semi-bold'>Task Description:
@@ -23,21 +31,25 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             value={description}
             onChange={({ target }) => setDescription(target.value)} />
         </label>
-        <div className='flex label-input width-100'>
-          Tags:
-          <div className='expanded-tag-container flex'>
-          {tags.length > 0
-            ? tags.map(tag => (<div key={tag.tagId}
-              className={`${tag.color} card-label tooltip`}
-              style={{ backgroundColor: tag.color }}>
-                <span className='tooltiptext'> {tag.text}
-                  {/* <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button> */}
-                </span>
-          </div>))
-            : null}
-            <button type='button' onClick={() => setDisplaySubMenu(true)} style={{ marginLeft: 10 }} className='form-btn'>Add tag</button>
-          </div>
-          { displaySubMenu ? <SubMenu setTags={setTags} tags={tags} setMenu={setDisplaySubMenu} /> : null }
+        <div className='tag-section flex'>
+          <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
+          <div className='flex'>
+            <ul className='no-bullets'>
+              {tags.map(tag => (
+                <li key={tag.tagId} style={{ display: 'inline-block', margin: 5 }}>
+                  <div className='flex'>
+                    <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
+                    <button type='button'
+                      className='delete-tag-btn'
+                      onClick={() => removeTag(tag.tagId)}
+                      ><i className='fas fa-times'></i></button>
+                  </div>
+                </li>))}
+            </ul>
+        </div>
+      </div>
+        <div className='flex label-input width-100' style={{ marginTop: 15 }}>
+          <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
         </div>
         <div className='add-btns-container flex width-100'>
           <button

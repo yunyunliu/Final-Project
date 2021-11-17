@@ -56,10 +56,10 @@ CREATE TABLE "tagsCards" (
 ) WITH (
   OIDS=FALSE
 );
-ALTER TABLE "boards" ADD CONSTRAINT "boards_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId");
+ALTER TABLE "boards" ADD CONSTRAINT "boards_fk0" FOREIGN KEY ("userId") REFERENCES "users"("userId") ON DELETE CASCADE;
 ALTER TABLE "columns" ADD CONSTRAINT "columns_fk0" FOREIGN KEY ("boardId") REFERENCES "boards"("boardId") ON DELETE CASCADE;
 ALTER TABLE "cards" ADD CONSTRAINT "cards_fk0" FOREIGN KEY ("columnId") REFERENCES "columns"("columnId") ON DELETE CASCADE;
 ALTER TABLE "cards" ADD CONSTRAINT "cards_fk1" FOREIGN KEY ("boardId") REFERENCES "boards"("boardId") ON DELETE CASCADE;
-ALTER TABLE "tags" ADD CONSTRAINT "tags_fk0" FOREIGN KEY ("boardId") REFERENCES "boards"("boardId") ON DELETE CASCADE;
+ALTER TABLE "tags" ADD CONSTRAINT "tags_fk0" FOREIGN KEY ("boardId") REFERENCES "boards"("boardId");
 ALTER TABLE "tagsCards" ADD CONSTRAINT "tagsCards_fk0" FOREIGN KEY ("cardId") REFERENCES "cards"("cardId") ON DELETE CASCADE;
 ALTER TABLE "tagsCards" ADD CONSTRAINT "tagsCards_fk1" FOREIGN KEY ("tagId") REFERENCES "tags"("tagId");

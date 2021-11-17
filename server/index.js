@@ -54,15 +54,15 @@ app.get('/api/users/:id/boards/:boardId/col', (req, res) => {
   columns.get(req, res, db);
 });
 
-app.post('/api/users/:id/boards/:boardId/col', (req, res) => {
+app.post('/api/columns', (req, res) => {
   columns.create(req, res, db);
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId', (req, res) => {
+app.delete('/api/columns/:colId', (req, res) => {
   columns.delete(req, res, db);
 });
 
-app.put('/api/users/:id/boards/:boardId/col/:colId', async (req, res) => {
+app.put('/api/columns/:colId', async (req, res) => {
   columns.edit(req, res, db);
 });
 
@@ -72,7 +72,7 @@ app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
   cards.getAll(req, res, db);
 });
 
-app.post('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
+app.post('/api/cards', (req, res) => {
   try {
     cards.create(req, res, db);
   } catch (err) {
@@ -81,11 +81,11 @@ app.post('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {
   }
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+app.delete('/api/cards/:cardId', (req, res) => {
   cards.deleteCard(req, res, db);
 });
 
-app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) => {
+app.put('/api/cards/:cardId', (req, res) => {
   try {
     cards.update(req, res, db);
   } catch (err) {
@@ -94,7 +94,7 @@ app.put('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId', (req, res) =>
   }
 });
 
-app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/remove/:tagId', async (req, res) => {
+app.delete('/api/cards/:cardId/remove/:tagId', async (req, res) => {
   const { tagId, cardId } = req.params;
   const sql = `
   DELETE FROM "tagsCards"
@@ -110,32 +110,16 @@ app.delete('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/remove/:tagI
 });
 
 // tags
-app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
+app.get('/api/tags/:boardId', (req, res) => {
   tags.get(req, res, db);
 });
 
-app.post('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
+app.post('/api/tags', (req, res) => {
   tags.create(req, res, db);
 });
 
-app.delete('/api/users/:id/boards/:boardId/tags/:tagId', async (req, res) => {
-  const { tagId } = req.params;
-  const sqlRel = `
-  DELETE FROM "tagsCards"
-    WHERE "tagId" = $1
-  `;
-  const sql = `
-  DELETE FROM "tags"
-    WHERE "tagId" = $1
-  `;
-  try {
-    await db.query(sqlRel, [tagId]);
-    await db.query(sql, [tagId]);
-    res.sendStatus(204);
-  } catch (err) {
-    res.send(err.message);
-    console.error('error:', err.message);
-  }
+app.delete('/api/tags/:tagId', (req, res) => {
+  tags.delete(req, res, db);
 });
 
 app.listen(process.env.PORT, () => {

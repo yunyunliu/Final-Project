@@ -18,8 +18,8 @@ const HomeView = () => {
       });
   }, []);
 
-  const handleEditBoard = async ({ target }, name) => {
-    const boardId = target.id;
+  const handleEditBoard = async (id, name) => {
+    const boardId = id;
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -35,7 +35,7 @@ const HomeView = () => {
     const response = await fetch('/api/users/1/boards',
       { method: 'POST' });
     const data = await response.json(); // response.json is async!!
-    const updated = boards.concat(data);
+    const updated = [data].concat(boards);
     setBoards(updated);
   };
 
@@ -54,11 +54,13 @@ const HomeView = () => {
 
   return (
     <div className='container flex flex-col align-center'>
-      <div className='boardView-header'>
+      <div className='homeview-header'>
       <h1 style={{ fontSize: '48px', marginTop: 0 }} className='pink-text semi-bold'>Projects</h1>
-        <button className='add-project-btn blue-bg semi-bold pink-text btn'
+        <button
+          className='add-project-btn blue-bg semi-bold pink-text add-col btn'
+          style={{ margin: 0 }}
           onClick={() => handleAddNew()}>
-          <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
+          <span className='plus-icon-container btn'><i className='fas fa-plus'></i></span>
           New Project
         </button>
       </div>

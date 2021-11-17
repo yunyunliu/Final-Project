@@ -12,7 +12,10 @@ const columns = {
     res.json(data);
   },
   create: async (req, res, db) => {
-    const { boardId } = req.params;
+    const { boardId } = req.body;
+    console.log('board', boardId)
+    console.log('type', typeof boardId)
+
     const sql = `
     INSERT INTO "columns" ("boardId", "name")
       VALUES ($1, 'New Column')
@@ -24,7 +27,7 @@ const columns = {
       res.status(201).json({ ...newCol, cards: [] });
     } catch (err) {
       console.error(err.message);
-      res.send(err.message);
+      res.status(400).json({ error: err.message});
     }
   },
   delete: async (req, res, db) => {

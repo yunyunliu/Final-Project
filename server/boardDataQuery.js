@@ -19,7 +19,8 @@ const sql = `with "cardTags" as (
     'cardId', "cardId",
     'name', "name",
     'description', "description",
-    'tags', "tags"
+    'tags', "tags",
+    'columnId', c."columnId"
   ))) as matching
   from (
     select
@@ -34,6 +35,7 @@ const sql = `with "cardTags" as (
   group by c."columnId"
 ), "cols" as (
   select cols."boardId", array_to_json(array_agg(json_build_object(
+    'boardId', cols."boardId",
     'columnId', "columnId",
     'name', "name",
     'cards', "cards"
@@ -53,6 +55,6 @@ select
   "name",
   coalesce((select matching from "cols" where "cols"."boardId" = b."boardId"), '[]'::json) as columns
 from boards b
-where b."boardId" = $1`;
+where b."boardId" = $1;`;
 
 module.exports = { sql };
