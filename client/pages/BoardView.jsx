@@ -7,7 +7,7 @@ import BoardContext from './BoardContext';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
-  const [columns, setColumns] = useState([]);
+  // const [columns, setColumns] = useState([]);
   // const { boardId } = useParams();
 
   // fetch data once here and set to board;
@@ -21,7 +21,7 @@ const BoardView = () => {
       })
       .then(data => {
         setBoard(data);
-        setColumns(data.columns);
+        // setColumns(data.columns);
       })
       .catch(err => console.error(err.message));
   }, []);
@@ -29,8 +29,8 @@ const BoardView = () => {
   const handleDeleteCol = async id => {
     await fetch(`/api/columns/${id}`,
       { method: 'DELETE' });
-    const updated = columns.filter(col => col.columnId !== id);
-    setColumns(updated);
+    const updated = board.columns.filter(col => col.columnId !== id);
+    // setColumns(updated);
     setBoard({ ...board, columns: updated });
   };
 
@@ -47,8 +47,8 @@ const BoardView = () => {
     if (response.ok) {
       const data = await response.json();
       console.log('data', data)
-      const updated = columns.concat(data);
-      setColumns(updated);
+      const updated = board.columns.concat(data);
+      // setColumns(updated);
       setBoard({ ...board, columns: updated });
     }
   };
@@ -61,7 +61,7 @@ const BoardView = () => {
     console.log('colto update', columnToUpdate)
     columnToUpdate.cards = newCards;
     const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
-    setColumns(updatedColumns);
+    // setColumns(updatedColumns);
     setBoard({ ...board, columns: updatedColumns });
   };
 
@@ -79,8 +79,9 @@ const BoardView = () => {
     };
     const response = await fetch(`/api/columns/${id}`, options);
     const data = await response.json();
-    const updated = columns.map(col => col.columnId === data.columnId ? data : col);
-    setColumns(updated);
+    const updated = board.columns.map(col => col.columnId === data.columnId ? { ...col, name: data.name } : col);
+    // setColumns(updated);
+    setBoard({ ...board, columns: updated });
   };
 
   if (board) {
@@ -90,7 +91,7 @@ const BoardView = () => {
       <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
       <div className='flex board-container'>
         {/* {<AddForm colName='todos'/>} */}
-        { columns.map(col => (
+        { board.columns.map(col => (
           <Column
             key={col.columnId}
             columnData={col}
