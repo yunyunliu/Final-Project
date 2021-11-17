@@ -1,6 +1,7 @@
 require('dotenv/config');
 const pg = require('pg');
 const express = require('express');
+const path = require('path');
 
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
@@ -120,6 +121,14 @@ app.post('/api/tags', (req, res) => {
 
 app.delete('/api/tags/:tagId', (req, res) => {
   tags.delete(req, res, db);
+});
+
+app.use((req, res) => {
+  res.sendFile('/index.html', {
+    // you'll need to require the built-in path module
+    // into your server code if you haven't already
+    root: path.join(__dirname, 'public')
+  });
 });
 
 app.listen(process.env.PORT, () => {

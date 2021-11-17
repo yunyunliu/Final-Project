@@ -12,12 +12,7 @@ INSERT INTO "boards" ("userId", "name")
 INSERT INTO "columns" ("boardId", "name")
   VALUES (1, 'todos'),
           (1, 'in progress'),
-          (1, 'done'),
-          (2, 'backlog'),
-          (2, 'current'),
-          (2, 'under review'),
-          (3, 'planning')
-          (2, 'under review')
+          (1, 'done')
    RETURNING *;
 
 
@@ -29,14 +24,6 @@ INSERT INTO "cards" ("columnId", "boardId", "name", "description")
 RETURNING *;
 
 INSERT INTO "tags" ("boardId", "text", "color")
-    VALUES (1, 'refactor', '#e5f054'),
-            (1, 'bugfix', '#e33310'),
-            (1, 'feature', '#1e6ae6'),
-            (1, 'needs review', '#2ccc27'),
-            (1, 'database', '#f20f88'),
-            (1, 'ui', '#f2810f'),
-            (1, 'planning', '#0ff2ea'),
-            (1, 'research', '#840ff2')
     VALUES (1, 'refactor', 'yellow'),
             (1, 'bug', 'red'),
             (1, 'feature', 'blue'),
@@ -54,6 +41,5 @@ INSERT INTO "tagsCards" ("cardId", "tagId")
             (2, 3),
             (2, 4),
             (3, 5),
-            (1, 6),
-            (4, 7)
+            (1, 6)
         RETURNING *;

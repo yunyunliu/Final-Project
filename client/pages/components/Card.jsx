@@ -4,10 +4,6 @@ import CardModal from './CardModal';
 import EditForm from './EditForm';
 
 const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
-<<<<<<< HEAD
-
-=======
->>>>>>> fix-tags
   const [isExpanded, setIsExpanded] = useState(false);
   const [editCard, setEditCard] = useState(false);
 
