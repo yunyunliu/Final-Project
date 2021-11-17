@@ -6,8 +6,7 @@ import SubMenu from './SubMenu';
 const AddForm = ({ setModal, handleAdd, colName }) => {
   const { board } = useContext(BoardContext);
   const [description, setDescription] = useState('');
-  const [task, setTask] = useState(null);
-  // const [displaySubMenu, setDisplaySubMenu] = useState(false);
+  const [task, setTask] = useState('');
   const [tags, setTags] = useState([]);
 
   return (
@@ -17,7 +16,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
           <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input'
-          style={{ width: 200 }}
+            style={{ width: 200 }}
+            value={task}
             onChange={({ target }) => setTask(target.value)} />
         </label>
         <label className='description-label width-100 semi-bold'>Task Description:

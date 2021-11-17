@@ -27,13 +27,24 @@ const cards = {
       INSERT INTO "tagsCards" ("tagId", "cardId")
         VALUES ($1, $2)
     `;
+    const tagSql = `
+      SELECT "tagId",
+              "text",
+              "color",
+              "tags"."boardId"
+          FROM "tags"
+          JOIN "tagsCards" USING ("tagId")
+          JOIN "cards" USING ("cardId")
+        WHERE "cardId" = $1
+    `;
     const result = await db.query(sql, [name, description, columnId, boardId]);
     const [newCard] = result.rows;
-    res.status(201).json({ ...newCard, tags: [] });
     for (let i = 0; i < tags.length; i++) {
       const id = tags[i].tagId;
       await db.query(relSql, [id, newCard.cardId]);
     }
+    const tagsResult = await db.query(tagSql, [newCard.cardId]);
+    res.status(201).json({ ...newCard, tags: tagsResult.rows });
   },
   deleteCard: async (req, res, db) => {
     const { cardId } = req.params;

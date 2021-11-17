@@ -2,16 +2,17 @@ import React, { useState } from 'react';
 
 const colorList = ['green', 'light-blue', 'gray', 'blue', 'pink', 'purple', 'orange', 'yellow', 'red', 'none'];
 
-const SubMenu = ({ setMenu, setTags, tags }) => {
-  const [color, setColor] = useState('');
+const SubMenu = ({ setMenu, setTags, tags, board }) => {
+  const [tagColor, setTagColor] = useState('green');
   const [text, setText] = useState('');
   // const [tagsCreated, setTagsCreated] = useState([]);
 
   const handleAddTag = async (text, color) => {
+    // console.log(board)
     if (color) {
       const options = {
         method: 'POST',
-        body: JSON.stringify({ text, color }),
+        body: JSON.stringify({ text, color, boardId: board }),
         headers: { 'Content-Type': 'application/json' }
       };
       const response = await fetch('/api/tags', options);
@@ -30,7 +31,9 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
             <ul className='color-list'>
               {colorList.map((color, i) => (
                 <li key={i}>
-                  <button type='button' className={`color-btn ${color}`}></button>
+                  <button type='button'
+                    onClick={() => setTagColor(color)}
+                    className={`color-btn ${color}`}>{tagColor === color ? <i className='fas fa-check'></i> : null}</button>
                 </li>
               ))}
             </ul>
@@ -42,7 +45,7 @@ const SubMenu = ({ setMenu, setTags, tags }) => {
                 onChange={e => setText(e.target.value)} />
             <button type='button'
               onClick={() => {
-                handleAddTag(text, color);
+                handleAddTag(text, tagColor);
               }}
               className='form-btn add-tag-btn'>Add
             </button>
