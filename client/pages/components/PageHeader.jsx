@@ -6,7 +6,7 @@ const PageHeader = () => (
  <div className='page-header row width-100'>
    <div className='column-full teal-bg justify-center banner'>
       <div className='brand flex'>
-        <img className='logo' src='./images/Trello.png' alt="logo"/>
+        <img className='logo' src='/images/Trello.png' alt="logo"/>
         <div className='header-text semi-bold'>
           <h1 className="no-margin gray-text">Kanban</h1>
           <h2 className='pink-text no-margin'>Visualize and organize</h2>
