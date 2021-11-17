@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import BoardContext from '../BoardContext';
 import SubMenu from './SubMenu';
@@ -6,11 +6,19 @@ import SubMenu from './SubMenu';
 const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded }) => {
   const { board } = useContext(BoardContext);
 
-  const [displaySubMenu, setDisplaySubMenu] = useState(false);
+  // const [displaySubMenu, setDisplaySubMenu] = useState(false);
   const [task, setTask] = useState(data.name);
   const [description, setDescription] = useState(data.description ? data.description : '');
   const [value, setValue] = useState('label');
   const [tags, setTags] = useState(data.tags);
+  const [display, setDisplay] = useState(false);
+  const [options, setOptions] = useState([]);
+  const [toAdd, setToAdd] = useState('');
+
+  const getSelected = id => {
+    const selected = options.find(opt => opt.tagId === id);
+    return selected;
+  };
 
   const removeTag = async tagId => {
     const response = await fetch(`/api/cards/${data.cardId}/remove/${tagId}`, { method: 'DELETE' });
@@ -19,6 +27,13 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
       setTags(updatedTags);
     }
   };
+
+  useEffect(() => {
+    fetch(`/api/tags/${board.boardId}`)
+      .then(response => response.json())
+      .then(tags => setOptions(tags))
+      .catch(err => console.error(err.message));
+  }, []);
 
   const backButton = (
     <button
@@ -55,7 +70,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
         <select className='col-select'
             value={value}
             onChange={({ target }) => {
-              setValue(target.value);
+              setValue(Number(target.value));
             }}>
           <option value='label'>Choose column</option>
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
@@ -67,13 +82,26 @@ const EditForm = ({ data, setEdit, handleEdit, colName, expanded, setExpanded })
                             className={`${tag.color} card-label tooltip`}
                             style={{ backgroundColor: tag.color }}>
                               <span className='tooltiptext'> {tag.text}
-                                <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button>
+                                {/* <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button> */}
                               </span>
                         </div>))}
 
       </div>
-      <button type='button' onClick={() => setDisplaySubMenu(true)} className='btn form-btn'>Add tag</button>
-          { displaySubMenu ? <SubMenu setTags={setTags} setMenu={setDisplaySubMenu} tags={tags} /> : null }
+      {/* <button type='button' onClick={() => setDisplay(true)} className='btn form-btn'>Add Tags</button>
+          {display ? <SubMenu setTags={setTags} tags={tags} /> : null} */}
+      <div>
+      <label className='semi-bold width-100'> Add tag
+        <select
+          value={toAdd}
+          onChange={({ target }) => setToAdd(target.value) }>
+            {options.map(opt => (
+              <option key={opt.tagId}
+                className={opt.color}
+                value={opt.tagId}>{opt.text}</option>))}
+        </select>
+      </label>
+      <div style={{ width: 40, height: 20 }}></div>
+      </div>
 
       <div className='flex width-100 edit-btns'>
         <button

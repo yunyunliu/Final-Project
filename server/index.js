@@ -110,7 +110,7 @@ app.delete('/api/cards/:cardId/remove/:tagId', async (req, res) => {
 });
 
 // tags
-app.get('/api/users/:id/boards/:boardId/col/:colId/cards/:cardId/tags', (req, res) => {
+app.get('/api/tags/:boardId', (req, res) => {
   tags.get(req, res, db);
 });
 

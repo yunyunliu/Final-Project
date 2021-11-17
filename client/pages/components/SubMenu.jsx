@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 
 const colorList = ['green', 'light-blue', 'gray', 'blue', 'pink', 'purple', 'orange', 'yellow', 'red', 'none'];
 
-const SubMenu = ({ setMenu, setTags, tags, board }) => {
+const SubMenu = ({ setTags, tags, board }) => {
   const [tagColor, setTagColor] = useState('green');
   const [text, setText] = useState('');
   // const [tagsCreated, setTagsCreated] = useState([]);
 
   const handleAddTag = async (text, color) => {
-    // console.log(board)
     if (color) {
       const options = {
         method: 'POST',
