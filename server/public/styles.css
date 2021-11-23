@@ -135,6 +135,10 @@ a:visited {
   text-decoration: none;
 }
 
+a:hover {
+  color: #1db9c3;
+}
+
 .yellow {
   background-color: #f2e82c;
 
