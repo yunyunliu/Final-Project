@@ -55,7 +55,8 @@ const HomeView = () => {
   return (
     <div className='container flex flex-col align-center'>
       <div className='homeview-header'>
-      <h1 style={{ fontSize: '48px', marginTop: 0 }} className='pink-text semi-bold'>Projects</h1>
+        <h1 style={{ fontSize: '48px', marginTop: 0, fontWeight: 700, color: '#f56fad' }}
+          className='pink-text semi-bold'>Projects</h1>
         <button
           className='add-project-btn blue-bg semi-bold pink-text add-col btn'
           style={{ margin: 0 }}
@@ -67,7 +68,7 @@ const HomeView = () => {
       {displayModal
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
         : null}
-      <ul className='no-bullets project-list'>
+      <ul className='project-list'>
          {
           boards.map(board => {
             return (

@@ -3,11 +3,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const PageHeader = () => (
- <div className='page-header row width-100'>
-   <div className='column-full teal-bg justify-center banner'>
-      <div className='brand flex'>
-        <img className='logo' src='/images/Trello.png' alt="logo"/>
-        <div className='header-text semi-bold'>
+ <header>
+   <div className='justify-center banner'>
+      <div className='justify-center'>
+        <img style={{ height: 80, width: 80 }} src='/images/Trello.png' alt="logo"/>
+        <div style={{ fontWeight: 700, marginLeft: 20 }}>
           <h1 className="no-margin gray-text">Kanban</h1>
           <h2 className='pink-text no-margin'>Visualize and organize</h2>
         </div>
@@ -23,7 +23,7 @@ const PageHeader = () => (
           </li>
         </ul>
       </nav>
- </div>
+ </header>
 );
 
 export default PageHeader;

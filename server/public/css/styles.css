@@ -6,6 +6,7 @@ body {
 button {
   cursor: pointer;
 }
+
 /* utility classes */
 
 .flex {
@@ -19,10 +20,6 @@ button {
 .justify-center {
   justify-content: center;
   display: flex;
-}
-
-.teal-bg {
-  background-color: #1db9c3;
 }
 
 .white-bg {
@@ -81,14 +78,11 @@ button {
   text-align: center;
 }
 
-/* other styles */
+/* PageHeader component */
+
 .banner {
   border-bottom: 2px solid #292929;
-}
-
-.logo {
-  width: 80px;
-  height: 80px;
+  background-color: #1db9c3;
 }
 
 .header-text {
@@ -96,7 +90,7 @@ button {
 }
 
 .brand {
-  margin: 20px;
+  display: flex;
 }
 
 .nav-item {
@@ -126,6 +120,8 @@ button {
   border: 0.5px solid #292929;
 }
 
+/* links in nav bar */
+
 a {
   text-decoration: none;
 }
@@ -139,9 +135,10 @@ a:hover {
   color: #1db9c3;
 }
 
+/* tag colors */
+
 .yellow {
   background-color: #f2e82c;
-
 }
 
 .red {
@@ -178,6 +175,7 @@ a:hover {
   background-color: #990af2;
 }
 
+/* tooltip */
 .tooltip {
   position: relative;
   display: inline-block;
@@ -186,13 +184,13 @@ a:hover {
 .tooltip .tooltiptext {
   visibility: hidden;
   border-radius: 6px;
-  background-color: rgba(18, 17, 18, 0.49);
-  color:#eafeff;
+  background-color: rgb(18 17 18 / 49%);
+  color: #eafeff;
   position: absolute;
   z-index: 2;
   bottom: 100%;
   font-size: 12px;
-  padding: 5px 5px;
+  padding: 5px;
 }
 
 .tooltip:hover .tooltiptext {

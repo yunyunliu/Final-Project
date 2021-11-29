@@ -6,6 +6,7 @@
 
 .label-input {
   margin-bottom: 20px;
+
   /* margin-left: 10px; */
 }
 
@@ -65,7 +66,7 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  z-index: 1
+  z-index: 1;
 }
 
 .card-btns-container {
@@ -119,7 +120,7 @@
 
 .expanded-description {
   text-align: left;
-  margin: 10px 10px;
+  margin: 10px;
 }
 
 .expanded-btns {
@@ -140,6 +141,7 @@
   justify-content: flex-start;
   width: 100%;
 }
+
 /* add tag submenu  */
 
 .sub-menu {
@@ -187,7 +189,6 @@
   width: 150px;
 }
 
-
 .tag-section {
   justify-content: flex-start;
   width: 100%;
@@ -202,7 +203,7 @@
 }
 
 .add-tag-btn:active {
-  transform: translateY(0.25rem)
+  transform: translateY(0.25rem);
 }
 
 .remove-tag-btn {
@@ -210,6 +211,7 @@
   width: 15px;
   height: 15px;
   left: 100%;
+
   /* bottom: 90%; */
   border: none;
   font-size: 12px;
@@ -223,5 +225,5 @@
 }
 
 .delete-tag-btn:active {
-  transform: translateY(0.25rem)
+  transform: translateY(0.25rem);
 }
