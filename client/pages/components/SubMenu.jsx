@@ -22,7 +22,7 @@ const SubMenu = ({ setTags, tags, board }) => {
 
   return (
       <div className='sub-menu'>
-            <ul className='color-list'>
+            <ul style={{ listStyleType: 'none', padding: 0 }}>
               {options.map(opt => (
                 <li key={opt.tagId}
                   style={{ margin: '5 2' }}>
