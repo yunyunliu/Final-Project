@@ -112,7 +112,8 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
           handleEdit={handleEditCard} />)}
       </ul>
       <button type='button'
-        className='new-card-btn blue-bg pink-text semi-bold btn'
+        className='form-btn'
+        style={{ marginBottom: 10 }}
         onClick={() => setDisplayAddCard(true)}
         ><i className='fas fa-plus'></i> New Card</button>
         {displayAddCard

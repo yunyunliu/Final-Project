@@ -34,23 +34,25 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
           <i className='fas fa-edit'></i>
         </button>
       </div>
-      <div className='card-name pink-text'>{cardData.name}</div>
-        <div className='flex' style={{ margin: '5 10' }}>
-          { cardData.tags.map(tag => (<div
-                  key={tag.tagId}
-                  className={`${tag.color} card-label tooltip`}
-                  style={{ backgroundColor: tag.color }}>
-                  <span className='tooltiptext'>{tag.text}</span>
-                </div>))
-            }
-        </div>
+      <button
+        type='button'
+        onClick={() => setIsExpanded(true)}
+        className='card-name pink-text blue-bg no-padding no-border'>{cardData.name}
+      </button>
+        {cardData.tags.length > 0
+          ? (<div style={{ margin: '5 10', display: 'flex' }}>
+            {cardData.tags.map(tag => (<div
+                    key={tag.tagId}
+                    className={`${tag.color} card-label tooltip`}
+                    style={{ backgroundColor: tag.color }}>
+                    <span className='tooltiptext'>{tag.text}</span>
+                  </div>))
+              }
+             </div>)
+          : null
+        }
       <div className='card-desc'>
         {cardData.description}
-      </div>
-      <div className='flex card-bottom'>
-        <button type='button' className='card-btn no-border no-padding blue-bg'
-          onClick={() => setIsExpanded(true)}><i className='fas fa-expand'></i>
-        </button>
       </div>
     </li>
   );

@@ -81,14 +81,6 @@
   margin: 0 10px;
 }
 
-.card {
-  border: 2px solid #1db9c3;
-}
-
-.card-bottom {
-  flex-direction: row-reverse;
-}
-
 .card-modal-description {
   width: 100%;
   margin-bottom: 10px;

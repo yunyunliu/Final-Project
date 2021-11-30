@@ -8,7 +8,6 @@ const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
-const tags = require('./controllers/tags');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
