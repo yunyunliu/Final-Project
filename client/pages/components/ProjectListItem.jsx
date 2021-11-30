@@ -44,7 +44,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
     <div className='link-container'>
       <Link to={`/boards/${boardId}`}>
         <button type='button'
-          className='project-item blue-bg semi-bold no-padding btn'>
+          className='project-item blue-bg semi-bold'>
           <p>{name}</p>
         </button>
       </Link>

@@ -3,8 +3,13 @@ body {
   font-family: "Source Sans Pro", sans-serif;
 }
 
+i,
 button {
   cursor: pointer;
+}
+
+button:active {
+  transform: translateY(0.25rem);
 }
 
 /* utility classes */
@@ -104,10 +109,6 @@ button {
   display: flex;
   margin: 10px 150px;
   width: 100%;
-}
-
-.btn:active {
-  transform: translateY(0.25rem);
 }
 
 .icon-btn {

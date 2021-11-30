@@ -62,9 +62,9 @@ const HomeView = () => {
         </div>
         <div className='column-half justify-center'>
           <button
-            className='add-project-btn blue-bg semi-bold pink-text btn'
+            className='add-project-btn blue-bg semi-bold pink-text'
             onClick={() => handleAddNew()}>
-            <span className='plus-icon-container btn'><i className='fas fa-plus'></i></span>
+            <span style={{ margin: 10 }}><i className='fas fa-plus'></i></span>
             New Project
           </button>
         </div>
