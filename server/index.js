@@ -111,22 +111,25 @@ app.delete('/api/cards/:cardId/remove/:tagId', async (req, res) => {
 });
 
 // tags
-app.get('/api/tags/:boardId', (req, res) => {
-  tags.get(req, res, db);
-});
-
-app.post('/api/tags', (req, res) => {
-  tags.create(req, res, db);
-});
-
-app.delete('/api/tags/:tagId', (req, res) => {
-  tags.delete(req, res, db);
+app.get('/api/tags/:boardId', async (req, res) => {
+  const { boardId } = req.params;
+  const sql = `
+    SELECT *
+      FROM "tags"
+    WHERE "boardId" = $1
+  `;
+  try {
+    const result = await db.query(sql, [boardId]);
+    const tags = result.rows;
+    res.json(tags);
+  } catch (err) {
+    res.status(500).send('error');
+    console.error('error:', err.message);
+  }
 });
 
 app.use((req, res) => {
   res.sendFile('/index.html', {
-    // you'll need to require the built-in path module
-    // into your server code if you haven't already
     root: path.join(__dirname, 'public')
   });
 });

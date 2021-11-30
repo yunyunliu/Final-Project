@@ -48,7 +48,6 @@ const cards = {
   },
   deleteCard: async (req, res, db) => {
     const { cardId } = req.params;
-    console.log('cardId', cardId)
     const sql = `
       DELETE FROM "cards"
           WHERE "cardId" = $1
@@ -84,10 +83,10 @@ const cards = {
     try {
       const result = await db.query(sql, [name, description, columnId, cardId]);
       const [edited] = result.rows;
-      // for (let i = 0; i < tags.length; i++) {
-      //   const id = tags[i].tagId;
-      //   await db.query(relSql, [id, cardId]);
-      // }
+      for (let i = 0; i < tags.length; i++) {
+        const id = tags[i].tagId;
+        await db.query(relSql, [id, cardId]);
+      }
       const tagsResult = await db.query(tagSql, [cardId]);
       res.json({ ...edited, tags: tagsResult.rows });
     } catch (err) {

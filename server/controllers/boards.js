@@ -58,6 +58,7 @@ const boards = {
       const [updated] = result.rows;
       res.json(updated);
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err.message);
       res.status(500).send(err.message);
     }
