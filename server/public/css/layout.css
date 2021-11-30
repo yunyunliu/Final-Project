@@ -9,14 +9,6 @@
   box-sizing: border-box;
 }
 
-.hidden {
-  visibility: hidden;
-}
-
-.show {
-  visibility: visible;
-}
-
 .container {
   max-width: 75%;
   margin: 0 auto;
