@@ -16,9 +16,9 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
 
   return (
     <dialog className='add-edit-modal' open>
-      <form className='add-form flex flex-col align-center'>
-        <h2 className='form-name no-margin'>Add new task card</h2>
-          <div className='task-col-title'>in <span className='semi-bold pink-text'>{colName}</span></div>
+      <form className='flex flex-col align-center'>
+        <h2 className='no-margin'>Add new task card</h2>
+          <div style={{ margin: '10 0' }}>in <span className='semi-bold pink-text'>{colName}</span></div>
         <label className='width-100 semi-bold'>Task:
           <input className='task-name-input'
             style={{ width: 200 }}

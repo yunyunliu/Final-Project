@@ -61,14 +61,6 @@
   justify-content: space-between;
 }
 
-.edit-col-btn {
-  border: none;
-}
-
-.edit-col-btn:hover {
-  border: 0.5px solid #292929;
-}
-
 .col-edit-input {
   font-size: 18px;
   text-indent: 5px;

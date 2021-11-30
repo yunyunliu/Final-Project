@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const SubMenu = ({ setTags, tags, board }) => {
-  const [tagColor, setTagColor] = useState('green');
-  const [selected, setSelected] = useState('');
+  const [tagColor, setTagColor] = useState('yellow');
+  // const [selected, setSelected] = useState('');
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
@@ -22,20 +22,24 @@ const SubMenu = ({ setTags, tags, board }) => {
 
   return (
       <div className='sub-menu'>
-          <div className=''>
             <ul className='color-list'>
               {options.map(opt => (
                 <li key={opt.tagId}
                   style={{ margin: '5 2' }}>
                   <button type='button'
-                    onClick={() => handleSelect(opt.tagId)}
+                    onClick={() => {
+                      setTagColor(opt.color);
+                      handleSelect(opt.tagId);
+                    }}
                     className={`color-btn ${opt.color}`}>{opt.text}
-                    <span>{tagColor === opt.color ? <i className='fas fa-check'></i> : null}</span>
+                    <span>{tagColor === opt.color
+                      ? <i className='fas fa-check' style={{ margin: 2 }}></i>
+                      : null}
+                    </span>
                   </button>
                 </li>
               ))}
             </ul>
-          </div>
       </div>
   );
 };

@@ -10,7 +10,8 @@ const BoardView = () => {
 
   // fetch data once here and set to board;
   useEffect(() => {
-    fetch(`/api/users/1/boards/${boardId}`)
+    // fetch(`/api/users/1/boards/${boardId}`)
+    fetch('/api/users/1/boards/1')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -46,7 +47,6 @@ const BoardView = () => {
     const columnToUpdate = columns.find(col => col.columnId == colId);
     columnToUpdate.cards = newCards;
     const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
-    // setColumns(updatedColumns);
     setBoard({ ...board, columns: updatedColumns });
   };
 
@@ -81,7 +81,7 @@ const BoardView = () => {
             handleEditCol={handleEditCol} />))}
         <button className='add-project-btn blue-bg semi-bold pink-text add-col btn'
           onClick={() => handleAddCol()}>
-          <span className='plus-icon-container'><i className='fas fa-plus'></i></span>
+          <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
           Add Column
         </button>
       </div>

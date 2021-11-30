@@ -9,7 +9,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
 
   const [colName, setColName] = useState(columnData.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
-  const [displayAddCard, setDisplayAddCard] = useState(false);
+  const [displayAddCard, setDisplayAddCard] = useState(true);
 
   const handleAddCard = async (name, description, tags) => {
     const { boardId, columnId } = columnData;
@@ -68,14 +68,14 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
           }
         }}
         />
-        <div className='edit-btn-container gray-text btn'>
+        <div className='edit-btn-container gray-text'>
           <button type='button'
-            className='edit-col-btn'
+            className='form-btn'
             onClick={() => setDisplayEditCol(false)}>
             Cancel
           </button>
           <button type='button'
-            className='edit-col-btn gray-text btn'
+            className='form-btn'
             onClick={() => {
               setDisplayEditCol(false);
               handleEditCol(columnData.columnId, colName);
