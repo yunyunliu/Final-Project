@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
+// import Spinner from './components/Spinner'; // css spinner
 
 const BoardView = () => {
   const [board, setBoard] = useState();
@@ -88,7 +89,11 @@ const BoardView = () => {
     </BoardContext.Provider>
     );
   }
-  return null;
+  return (
+    <div className='justify-center align-center' style={{ minHeight: 500 }}>
+      <img src='/images/Dual Ring-1s-200px.gif' alt='spinner' />
+      {/* <Spinner /> */}
+    </div>);
 };
 
 export default BoardView;

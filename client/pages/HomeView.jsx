@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import ProjectListItem from './components/ProjectListItem';
 import ConfirmDelete from './components/ConfirmDelete';
 
@@ -51,7 +52,6 @@ const HomeView = () => {
     setBoards(updated);
     handleCancel();
   };
-
   return (
     <div className='container flex flex-col align-center'>
       <div className='homeview-header'>
@@ -73,7 +73,7 @@ const HomeView = () => {
         ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
         : null}
       <ul className='project-list'>
-         {
+          {
           boards.map(board => {
             return (
               <ProjectListItem
