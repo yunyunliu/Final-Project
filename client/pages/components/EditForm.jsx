@@ -52,7 +52,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, setExpanded }) => {
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
-      <div className='tag-section flex'>
+      <div className='tag-section flex' style={{ marginBottom: 15 }}>
         <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
         {tags.map(tag => (
           <div key={tag.tagId}
