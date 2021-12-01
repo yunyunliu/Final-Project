@@ -12,7 +12,7 @@ import BoardView from './pages/BoardView';
 const App = () => {
   return (
     <Router>
-      {/* stuff outside Switch will apear in every view */}
+      {/* stuff outside Switch will appear in every view */}
       <PageHeader />
       <Switch>
         {/* swappable views go here */}

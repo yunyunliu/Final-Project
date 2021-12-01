@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const PageHeader = () => (
  <header>
    <div className='justify-center banner'>
-      <div className='justify-center'>
+      <div className='justify-center' style={{ margin: 10 }}>
         <img style={{ height: 80, width: 80 }} src='/images/Trello.png' alt="logo"/>
         <div style={{ fontWeight: 700, marginLeft: 20 }}>
           <h1 className="no-margin gray-text">Kanban</h1>
