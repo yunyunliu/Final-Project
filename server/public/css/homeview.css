@@ -81,6 +81,7 @@
   font-size: 22px;
   margin-right: 10px;
   border: 2px solid #1db9c3;
+  border-radius: 3px;
 }
 
 .project-item:hover {

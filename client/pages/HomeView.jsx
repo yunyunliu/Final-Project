@@ -2,13 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import ProjectListItem from './components/ProjectListItem';
 import ConfirmDelete from './components/ConfirmDelete';
-// import Notification from './components/Notification';
 
 const HomeView = () => {
   const [boards, setBoards] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
-  // const [note, setNote] = useState(false);
   useEffect(() => {
     fetch('/api/users/1/boards/')
       .then(res => {
@@ -17,7 +15,6 @@ const HomeView = () => {
         }
       })
       .then(data => setBoards(data));
-      // .catch(err => setNote(true));
   }, []);
 
   const handleEditBoard = async (id, name) => {

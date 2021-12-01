@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import BoardContext from '../BoardContext';
 
+import BoardContext from '../BoardContext';
 import SubMenu from './SubMenu';
 
 const AddForm = ({ setModal, handleAdd, colName }) => {
