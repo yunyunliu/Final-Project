@@ -43,8 +43,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
           ? (<div style={{ margin: '5 10', display: 'flex' }}>
             {cardData.tags.map(tag => (<div
                     key={tag.tagId}
-                    className={`${tag.color} card-label tooltip`}
-                    style={{ backgroundColor: tag.color }}>
+                    className={`${tag.color} card-label tooltip`}>
                     <span className='tooltiptext'>{tag.text}</span>
                   </div>))
               }

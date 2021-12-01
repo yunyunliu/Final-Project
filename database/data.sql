@@ -26,11 +26,11 @@ RETURNING *;
 INSERT INTO "tags" ("boardId", "text", "color")
     VALUES (1, 'refactor', 'yellow'),
             (1, 'bug', 'red'),
-            (1, 'feature', 'blue'),
-            (1, 'research', 'green'),
+            (1, 'feature', 'green'),
+            (1, 'research', 'blue'),
             (1, 'database', 'pink'),
             (1, 'UI/CSS', 'light-blue'),
-            (1, 'backend', 'gray'),
+            (1, 'server', 'gray'),
             (1, 'testing', 'orange'),
             (1, 'HTML',  'purple')
         RETURNING *;

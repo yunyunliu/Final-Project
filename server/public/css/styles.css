@@ -112,46 +112,6 @@ a:hover {
   color: #1db9c3;
 }
 
-/* tag colors */
-
-.yellow {
-  background-color: #f2e82c;
-}
-
-.red {
-  background-color: #f2300a;
-}
-
-.orange {
-  background-color: #fa9a46;
-}
-
-.green {
-  background-color: #0fd170;
-}
-
-.light-blue {
-  background-color: #28c4eb;
-}
-
-.gray {
-  background-color: #050636;
-  color: white;
-}
-
-.blue {
-  background-color: #1251e0;
-  color: white;
-}
-
-.pink {
-  background-color: #f22ce4;
-}
-
-.purple {
-  background-color: #990af2;
-}
-
 /* tooltip */
 .tooltip {
   position: relative;
