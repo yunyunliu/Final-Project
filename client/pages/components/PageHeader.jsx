@@ -13,8 +13,8 @@ const PageHeader = () => (
         </div>
       </div>
    </div>
-    <nav className='top-nav no-padding'>
-        <ul className='top-list no-padding'>
+    <nav className='flex no-padding width-100' style={{ marginLeft: 150 }}>
+        <ul className='no-padding'>
           <li className="nav-item">
             <Link className='gray-text semi-bold' to="/">Home</Link>
           </li>

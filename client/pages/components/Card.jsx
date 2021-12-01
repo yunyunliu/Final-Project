@@ -4,7 +4,7 @@ import CardModal from './CardModal';
 import EditForm from './EditForm';
 
 const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [editCard, setEditCard] = useState(false);
 
   return (

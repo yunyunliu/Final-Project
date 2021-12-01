@@ -34,27 +34,19 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
         <div className='tag-section flex'>
           <span className='semi-bold' style={{ marginRight: 10, alignSel: 'flex-start' }}>Tags:</span>
           <div className='flex'>
-          {tags.length > 0
-            ? (<ul className='no-bullets no-margin no-padding'>
-                  {tags.map(tag => (
-                    <li key={tag.tagId} style={{ display: 'inline-block', margin: 2 }}>
-                      <div className='flex'>
-                        <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
-                        <button type='button'
-                          className='no-border white-bg'
-                          style={{ marginLeft: 2, fontSize: 10 }}
-                          onClick={() => removeTag(tag.tagId)}
-                          ><i className='fas fa-times' style={{ marginLeft: 5 }}></i></button>
-                      </div>
-                    </li>))}
-                </ul>)
-            : null
-          }
-
-
-
-
-
+          <ul className='no-bullets no-margin no-padding'>
+            {tags.map(tag => (
+              <li key={tag.tagId} style={{ display: 'inline-block', margin: 2 }}>
+                <div className='flex'>
+                  <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
+                  <button type='button'
+                    className='no-border white-bg'
+                    style={{ marginLeft: 2, fontSize: 10 }}
+                    onClick={() => removeTag(tag.tagId)}
+                    ><i className='fas fa-times' style={{ marginLeft: 5 }}></i></button>
+                </div>
+              </li>))}
+          </ul>
         </div>
       </div>
         <div className='flex width-100' style={{ marginBottom: 20 }}>

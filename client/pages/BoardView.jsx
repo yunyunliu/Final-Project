@@ -79,7 +79,8 @@ const BoardView = () => {
             columnData={col}
             handleDeleteCol={handleDeleteCol}
             handleEditCol={handleEditCol} />))}
-        <button className='add-project-btn blue-bg semi-bold pink-text add-col btn'
+        <button className='form-btn add-project-btn'
+          style={{ minWidth: 175, marginLeft: 20 }}
           onClick={() => handleAddCol()}>
           <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
           Add Column
