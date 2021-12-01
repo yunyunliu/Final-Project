@@ -13,10 +13,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
          ? <EditForm data={cardData}
               setEdit={setEditCard}
               handleEdit={handleEdit}
-              colName={colName}
-              expanded={isExpanded}
-              setExpanded={setIsExpanded}
-               />
+              colName={colName} />
          : null}
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>

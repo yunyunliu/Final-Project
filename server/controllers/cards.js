@@ -66,9 +66,12 @@ const cards = {
           WHERE "cardId" = $4
           RETURNING *
     `;
+    // upsert to prevent the tags that don't change in edit causing unique constraint conflict
     const relSql = `
       INSERT INTO "tagsCards" ("tagId", "cardId")
         VALUES ($1, $2)
+        ON CONFLICT ON CONSTRAINT "tagsCards_pk"
+        DO NOTHING
     `;
     const tagSql = `
       SELECT "tagId",
@@ -90,8 +93,7 @@ const cards = {
       const tagsResult = await db.query(tagSql, [cardId]);
       res.json({ ...edited, tags: tagsResult.rows });
     } catch (err) {
-      console.log(err.message);
-      res.status(500).send(err.message);
+      res.status(500).send('server error');
     }
   }
 };

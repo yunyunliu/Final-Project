@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react';
 import BoardContext from '../BoardContext';
 import SubMenu from './SubMenu';
 
-const EditForm = ({ data, setEdit, handleEdit, colName, setExpanded }) => {
+const EditForm = ({ data, setEdit, handleEdit, colName }) => {
   const { board } = useContext(BoardContext);
 
   const [task, setTask] = useState(data.name);
@@ -56,8 +56,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, setExpanded }) => {
         <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
         {tags.map(tag => (
           <div key={tag.tagId}
-              className={`${tag.color} card-label tooltip`}
-              style={{ backgroundColor: tag.color }}>
+              className={`${tag.color} card-label tooltip`}>
                 <span className='tooltiptext'> {tag.text}
                   <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button>
                 </span>
