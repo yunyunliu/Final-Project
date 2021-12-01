@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import BoardContext from '../BoardContext';
 import SubMenu from './SubMenu';
+import TagList from './TagList';
 
 const AddForm = ({ setModal, handleAdd, colName }) => {
   const { board } = useContext(BoardContext);
@@ -32,23 +33,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             onChange={({ target }) => setDescription(target.value)} />
         </label>
         <div className='tag-section flex'>
-          <span className='semi-bold' style={{ marginRight: 10, alignSel: 'flex-start' }}>Tags:</span>
-          <div className='flex'>
-          <ul className='no-bullets no-margin no-padding'>
-            {tags.map(tag => (
-              <li key={tag.tagId} style={{ display: 'inline-block', margin: 2 }}>
-                <div className='flex'>
-                  <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
-                  <button type='button'
-                    className='no-border white-bg'
-                    style={{ marginLeft: 2, fontSize: 10 }}
-                    onClick={() => removeTag(tag.tagId)}
-                    ><i className='fas fa-times' style={{ marginLeft: 5 }}></i></button>
-                </div>
-              </li>))}
-          </ul>
+          <TagList tags={tags} remove={removeTag} />
         </div>
-      </div>
         <div className='flex width-100' style={{ marginBottom: 20 }}>
           <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
         </div>

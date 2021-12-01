@@ -43,7 +43,6 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
     const response = await fetch(`/api/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      console.log('responsedata:', updated)
       if (editData.columnId === srcColId) {
         // if not moving
         const updatedCards = columnData.cards.map(card => card.cardId === updated.cardId ? updated : card);
