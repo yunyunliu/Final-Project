@@ -29,7 +29,9 @@ Try TaskMap [here](https://project-board-345.herokuapp.com/)!
 
 ## Preview
 
-![TaskMap](assets/demoCreateTask.gif)
+![TaskMap](assets/demoCreate.gif)
+
+![TaskMap](assets/demoEdit.gif)
 
 ## Planned Features
 
