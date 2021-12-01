@@ -20,8 +20,7 @@ const App = () => {
           <BoardView />
         </Route>
         <Route path="/">
-        <BoardView />
-          {/* <HomeView /> */}
+          <HomeView />
         </Route>
       </Switch>
     </Router>
