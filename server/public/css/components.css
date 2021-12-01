@@ -8,15 +8,6 @@
   justify-content: space-between;
 }
 
-.description-input {
-  margin-top: 10px;
-}
-
-.description-label {
-  margin-bottom: 15px;
-  margin-top: 15px;
-}
-
 .close-edit-btn {
   font-size: 20px;
   height: 30px;
@@ -72,16 +63,6 @@
   width: 100%;
   margin-bottom: 10px;
   text-align: center;
-}
-
-.col-select {
-  margin: 5px 10px;
-  border: 2px solid #1db9c3;
-}
-
-.edit-btns {
-  margin-top: 15px;
-  flex-direction: row-reverse;
 }
 
 /* card select menu */

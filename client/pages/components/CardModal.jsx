@@ -13,7 +13,7 @@ const CardModal = ({ data, setExpanded, setEdit }) => {
       </div>
       <div className=' width-100'>
         <h3 className='pink-text no-margin' style={{ marginBottom: 10 }}>Task Description:</h3>
-        <div className='gray-text source-sans' style={{ marginBottom: 10 }}> {data.description}</div>
+        <div className='gray-text source-sans' style={{ marginBottom: 10, minHeight: 40 }}> {data.description}</div>
       </div>
       <div className='expanded-btns'>
        <button

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const SubMenu = ({ setTags, tags, board }) => {
+const SubMenu = ({ setTags, tags }) => {
   const [tagColor, setTagColor] = useState('yellow');
-  // const [selected, setSelected] = useState('');
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
