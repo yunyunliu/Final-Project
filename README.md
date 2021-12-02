@@ -6,7 +6,7 @@
 
 Use ProjectMap to map out a complex project by breaking it up into small tasks and tracking their progress.
 
-Try ProjectMap [here](https://project-board-345.herokuapp.com/)!
+Try ProjectMap [here](https://project-map-345.herokuapp.com/)!
 
 ## Technologies Used
 
