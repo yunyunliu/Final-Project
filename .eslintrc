@@ -37,6 +37,7 @@
         ]
       }
     ],
+    "eqeqeq": 0,
     "space-before-function-paren": [
       "warn",
       {
