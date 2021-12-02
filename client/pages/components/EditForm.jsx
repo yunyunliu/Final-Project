@@ -2,8 +2,9 @@ import React, { useState, useContext } from 'react';
 
 import BoardContext from '../BoardContext';
 import SubMenu from './SubMenu';
+import TagList from './TagList';
 
-const EditForm = ({ data, setEdit, handleEdit, colName, setExpanded }) => {
+const EditForm = ({ data, setEdit, handleEdit, colName }) => {
   const { board } = useContext(BoardContext);
 
   const [task, setTask] = useState(data.name);
@@ -41,7 +42,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName, setExpanded }) => {
           rows='5'
           onChange={({ target }) => setDescription(target.value)} />
       </label>
-      <label className='semi-bold width-100'> Move Card:
+      <label className='semi-bold width-100' style={{ marginBottom: 10 }}> Move Card:
         <select className='teal-border-2'
             style={{ margin: 10 }}
             value={value}
@@ -52,16 +53,8 @@ const EditForm = ({ data, setEdit, handleEdit, colName, setExpanded }) => {
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
-      <div className='tag-section flex'>
-        <span className='semi-bold' style={{ marginRight: 10 }}>Tags:</span>
-        {tags.map(tag => (
-          <div key={tag.tagId}
-              className={`${tag.color} card-label tooltip`}
-              style={{ backgroundColor: tag.color }}>
-                <span className='tooltiptext'> {tag.text}
-                  <button type='button' className='remove-tag-btn' onClick={() => removeTag(tag.tagId)}><i className='fas fa-times tooltip-icon'></i></button>
-                </span>
-          </div>))}
+      <div className='tag-section flex' style={{ marginBottom: 20 }}>
+        <TagList tags={tags} remove={removeTag} />
       </div>
       <SubMenu setTags={setTags} tags={tags} />
       <div className='flex width-100' style={{ marginTop: 15, flexDirection: 'row-reverse' }}>

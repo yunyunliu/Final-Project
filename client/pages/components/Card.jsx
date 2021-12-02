@@ -13,10 +13,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
          ? <EditForm data={cardData}
               setEdit={setEditCard}
               handleEdit={handleEdit}
-              colName={colName}
-              expanded={isExpanded}
-              setExpanded={setIsExpanded}
-               />
+              colName={colName} />
          : null}
       {isExpanded
         ? <CardModal data={cardData} setExpanded={setIsExpanded} setEdit={setEditCard}/>
@@ -43,8 +40,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
           ? (<div style={{ margin: '5 10', display: 'flex' }}>
             {cardData.tags.map(tag => (<div
                     key={tag.tagId}
-                    className={`${tag.color} card-label tooltip`}
-                    style={{ backgroundColor: tag.color }}>
+                    className={`${tag.color} card-label tooltip`}>
                     <span className='tooltiptext'>{tag.text}</span>
                   </div>))
               }
