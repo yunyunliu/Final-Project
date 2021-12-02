@@ -1,10 +1,10 @@
 # ProjectMap
 
- ProjectMap is a full stack project board application for developers who want to visualize and organize their projects. The app is inspired by the kanban board used in agile development methodologies.
+ProjectMap is a full stack web application for developers who want to visualize and organize their projects. The app is inspired by kanban boards used in agile development methodologies.
 
 ## Live Site
 
-Use ProjectMap to map out a complex project by breaking it up into small tasks and tracking their progress.
+ProjectMap allows users to map out a complex project by dividing it into small tasks, move tasks from column to column on the project board to mark their progress, and keep tasks organized with color-coded labels. 
 
 Try ProjectMap [here](https://project-map-123.herokuapp.com/)!
 
@@ -35,7 +35,7 @@ Try ProjectMap [here](https://project-map-123.herokuapp.com/)!
 
 ## Planned Features
 
-- add drag and drop functionality to task cards
+- add drag and drop functionality to task cards and columns
 - allow users to authenticate through Github's OAuth implementation.
 
 ## Development
