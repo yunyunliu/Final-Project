@@ -1,12 +1,12 @@
-# TaskMap
+# ProjectMap
 
- TaskMap is a full stack project board application for developers who want to visualize and organize their projects. It is by the kanban board used in agile development methodologies.
+ ProjectMap is a full stack project board application for developers who want to visualize and organize their projects. The app is inspired by the kanban board used in agile development methodologies.
 
 ## Live Site
 
-Use TaskMap to break up a larger project into small tasks and keep track of task progress.
+Use ProjectMap to map out a complex project by breaking it up into small tasks and tracking their progress.
 
-Try TaskMap [here](https://project-board-345.herokuapp.com/)!
+Try ProjectMap [here](https://project-board-345.herokuapp.com/)!
 
 ## Technologies Used
 
@@ -29,9 +29,9 @@ Try TaskMap [here](https://project-board-345.herokuapp.com/)!
 
 ## Preview
 
-![TaskMap](assets/demoCreate.gif)
+![ProjectMap](assets/demoCreate.gif)
 
-![TaskMap](assets/demoEdit.gif)
+![ProjectMap](assets/demoEdit.gif)
 
 ## Planned Features
 
@@ -44,6 +44,30 @@ Try TaskMap [here](https://project-board-345.herokuapp.com/)!
 
 - Node.js 10 or higher
 - NPM 6 or higher
-- PostgreSQL
+- PostgreSQL 12 or higher
+
+### Getting Started
 
 1. Clone the repository.
+
+ ```shell
+    git clone https://github.com/yunyunliu/project-map.git
+    cd project-map
+  ```
+2. Install all dependencies with NPM.
+
+ ```shell
+    npm install
+ ```
+
+3. Import the example database to PostgreSQL.
+
+ ```shell
+    npm run db:import
+ ```
+
+4. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser.
+
+  ```shell
+    npm run dev
+  ```
