@@ -3,7 +3,6 @@ const pg = require('pg');
 const express = require('express');
 const path = require('path');
 
-const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
@@ -19,7 +18,6 @@ const db = new pg.Pool({
 const app = express();
 app.use(express.json());
 app.use(staticMiddleware);
-app.use(errorMiddleware);
 // boards
 
 app.get('/api/users/:id/boards', (req, res) => {
