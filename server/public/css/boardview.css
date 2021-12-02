@@ -1,6 +1,9 @@
+/* Column component */
+
 .col {
-  flex-basis: 25%;
-  max-width: 210px;
+  /* flex-basis: 25%; */
+  width: 210px;
+  /* max-width: 210px; */
   min-width: 210px;
   min-height: 200px;
   margin: 5px;
@@ -38,11 +41,6 @@
 .add-col {
   margin-left: 25px;
   min-width: 200px;
-}
-
-.board-container {
-  justify-content: flex-start;
-  margin: 20px 50px;
 }
 
 .edit-col {
@@ -99,9 +97,9 @@
   align-items: center;
 }
 
-.card-desc {
+/* .card-desc {
   padding-bottom: 10px;
-}
+} */
 
 .card-btn {
   height: 25px;
@@ -110,18 +108,4 @@
 
 .card-btn:hover {
   border: 0.5px solid #292929;
-}
-
-/* .new-card-btn {
-  margin-bottom: 10px;
-  border: 2px solid #1db9c3;
-  height: 25px;
-}
-
-new-card-btn:hover {
-  border: 4px solid #292929;
-} */
-
-.card-list {
-  width: 170px;
 }

@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
-// import Spinner from './components/Spinner'; // css spinner
 
 const BoardView = () => {
   const [board, setBoard] = useState();
@@ -72,7 +71,7 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
-      <div className='flex board-container'>
+      <div style={{ display: 'flex', margin: '20px 50px' }}>
         { board.columns.map(col => (
           <Column
             key={col.columnId}
@@ -92,7 +91,6 @@ const BoardView = () => {
   return (
     <div className='justify-center align-center' style={{ minHeight: 500 }}>
       <img src='/images/Dual Ring-1s-200px.gif' alt='spinner' />
-      {/* <Spinner /> */}
     </div>);
 };
 

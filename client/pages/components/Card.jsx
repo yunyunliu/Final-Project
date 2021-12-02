@@ -51,7 +51,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
              </div>)
           : null
         }
-      <div className='card-desc'>
+      <div style={{ paddingBottom: 10 }}>
         {cardData.description}
       </div>
     </li>

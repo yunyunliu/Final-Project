@@ -7,6 +7,7 @@ const HomeView = () => {
   const [boards, setBoards] = useState([]);
   const [displayModal, setDisplayModal] = useState(false);
   const [toDelete, setToDelete] = useState(null);
+
   useEffect(() => {
     fetch('/api/users/1/boards/')
       .then(res => {
@@ -51,7 +52,7 @@ const HomeView = () => {
     handleCancel();
   };
   return (
-    <div className='container flex flex-col align-center'>
+    <div className=' flex flex-col align-center'>
       <div className='homeview-header'>
         <div className='column-half justify-center'>
           <h1 style={{ fontSize: '48px', marginTop: 0 }}
