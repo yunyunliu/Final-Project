@@ -8,7 +8,7 @@ const PageHeader = () => (
       <div className='justify-center' style={{ margin: 10 }}>
         <img style={{ height: 80, width: 80 }} src='/images/Trello.png' alt="logo"/>
         <div style={{ fontWeight: 700, marginLeft: 20 }}>
-          <h1 className="no-margin gray-text">Kanban</h1>
+          <h1 className="no-margin gray-text">ProjectMap</h1>
           <h2 className='pink-text no-margin'>Visualize and organize</h2>
         </div>
       </div>
