@@ -8,9 +8,10 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
 
   const editInput = (
     <>
-      <div className='edit-element'>
+      <div className='flex align-center' style={{ height: 70 }}>
         <input value={projectName}
-        className='edit-input gray-text'
+        className='gray-text teal-border-2 border-r3'
+        style={{ height: '100%', textIndent: 8, fontSize: 22 }}
         onChange={({ target }) => setProjectName(target.value)}
         onKeyDown={e => {
           if (e.key === 'Escape') {
@@ -23,7 +24,8 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
         }}
         />
         <button type='button'
-          className='edit-btn icon-btn source-sans'
+          className='icon-btn'
+          style={{ height: 70 }}
           id={boardId}
           onClick={e => {
             setDisplayEdit(false);
@@ -32,7 +34,8 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
         </button>
       </div>
       <button type='button'
-      className='edit-btn icon-btn source-sans'
+      className='icon-btn'
+        style={{ height: 70 }}
         onClick={() => {
           setDisplayEdit(false);
         }}>Cancel
@@ -41,7 +44,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
   );
 
   const boardName = (
-    <div className='link-container'>
+    <div style={{ width: 350, height: 80}}>
       <Link to={`/boards/${boardId}`}>
         <button type='button'
           className='project-item blue-bg semi-bold'>

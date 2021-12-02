@@ -1,9 +1,7 @@
 /* Column component */
 
 .col {
-  /* flex-basis: 25%; */
   width: 210px;
-  /* max-width: 210px; */
   min-width: 210px;
   min-height: 200px;
   margin: 5px;
@@ -13,17 +11,6 @@
   flex-direction: column;
   align-items: center;
   border-radius: 3px;
-}
-
-.col-header {
-  width: 100%;
-  justify-content: space-between;
-  padding: 10px 5px;
-}
-
-.col-name {
-  margin: 0 10px;
-  font-weight: 400;
 }
 
 .col-name-btn {
@@ -36,23 +23,6 @@
 
 .col-btn:hover {
   border: 0.5px solid #292929;
-}
-
-.add-col {
-  margin-left: 25px;
-  min-width: 200px;
-}
-
-.edit-col {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  padding: 10px 5px;
-}
-
-.edit-btn-container {
-  display: flex;
-  justify-content: space-between;
 }
 
 .col-edit-input {
@@ -90,16 +60,6 @@
 .card-name:hover {
   color: #1db9c3;
 }
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* .card-desc {
-  padding-bottom: 10px;
-} */
 
 .card-btn {
   height: 25px;

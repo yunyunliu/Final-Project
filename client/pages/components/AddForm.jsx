@@ -40,8 +40,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
                 <div className='flex'>
                   <div className={`${tag.color}`} style={{ textAlign: 'center' }}>{tag.text}</div>
                   <button type='button'
-                    className='no-border white-bg'
-                    style={{ marginLeft: 2, fontSize: 10 }}
+                    className='no-border'
+                    style={{ marginLeft: 2, fontSize: 10, backgroundColor: 'white' }}
                     onClick={() => removeTag(tag.tagId)}
                     ><i className='fas fa-times' style={{ marginLeft: 5 }}></i></button>
                 </div>

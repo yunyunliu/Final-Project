@@ -9,10 +9,6 @@
   box-sizing: border-box;
 }
 
-.page-container {
-
-}
-
 .column-full,
 .column-half,
 .column-third {
@@ -20,10 +16,6 @@
 }
 
 @media screen and (min-width: 576px) {
-  .container {
-    max-width: 900px;
-  }
-
   .column-half {
     width: 50%;
   }

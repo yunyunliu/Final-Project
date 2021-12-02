@@ -27,8 +27,9 @@ button:active {
   display: flex;
 }
 
-.white-bg {
-  background-color: white;
+.space-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 .gray-text {
@@ -81,6 +82,10 @@ button:active {
 
 .center-text {
   text-align: center;
+}
+
+.border-r3 {
+  border-radius: 3px;
 }
 
 /* PageHeader component */
@@ -162,7 +167,7 @@ a:hover {
   visibility: hidden;
   border-radius: 6px;
   background-color: rgb(18 17 18 / 49%);
-  color: #eafeff;
+  /* color: #eafeff; */
   position: absolute;
   z-index: 2;
   bottom: 100%;
@@ -172,14 +177,4 @@ a:hover {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-.icon-btn {
-  background-color: #eafeff;
-  border: none;
-  font-size: 22px;
-}
-
-.icon-btn:hover {
-  border: 0.5px solid #292929;
 }

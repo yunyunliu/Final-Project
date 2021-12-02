@@ -57,7 +57,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   };
 
   const editCol = (
-    <div className='edit-col'>
+    <div className='flex flex-col' style={{ width: '80px', padding: '10px 5px' }}>
       <input value={colName}
         className='col-edit-input'
         onChange={({ target }) => setColName(target.value)}
@@ -68,7 +68,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
           }
         }}
         />
-        <div className='edit-btn-container gray-text'>
+        <div className='space-between gray-text'>
           <button type='button'
             className='form-btn'
             onClick={() => setDisplayEditCol(false)}>
@@ -87,11 +87,12 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   );
 
   const columnName = (
-    <div className='col-header flex align-center'>
+    <div className='width-100 flex align-center space-between' style={{ padding: '10px 5px' }}>
         <button type='button'
           className='col-name-btn'
           onDoubleClick={() => setDisplayEditCol(true)}>
-          <h2 className='col-name gray-text'>{columnData.name}</h2>
+          <h2 className='gray-text'
+            style={{ margin: '0 10px', fontWeight: 400 }}>{columnData.name}</h2>
         </button>
         <button type='button'
           className='no-border col-btn'
