@@ -57,7 +57,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   };
 
   const editCol = (
-    <div className='flex flex-col' style={{ width: '80px', padding: '10px 5px' }}>
+    <div className='flex flex-col' style={{ width: '80%', padding: '10px 5px' }}>
       <input value={colName}
         className='col-edit-input'
         onChange={({ target }) => setColName(target.value)}
