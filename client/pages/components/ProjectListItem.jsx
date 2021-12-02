@@ -11,15 +11,13 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
       <div className='flex align-center' style={{ height: 70 }}>
         <input value={projectName}
         className='gray-text teal-border-2 border-r3'
+        id={boardId}
         style={{ height: '100%', textIndent: 8, fontSize: 22 }}
         onChange={({ target }) => setProjectName(target.value)}
         onKeyDown={e => {
-          if (e.key === 'Escape') {
-            setDisplayEdit(false);
-          }
           if (e.key === 'Enter') {
             setDisplayEdit(false);
-            handleEdit(e, projectName);
+            handleEdit(Number(e.target.id), projectName);
           }
         }}
         />
@@ -44,7 +42,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
   );
 
   const boardName = (
-    <div style={{ width: 350, height: 80}}>
+    <div style={{ width: 350, height: 80 }}>
       <Link to={`/boards/${boardId}`}>
         <button type='button'
           className='project-item blue-bg semi-bold'>
