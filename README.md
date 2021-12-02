@@ -37,3 +37,13 @@ Try TaskMap [here](https://project-board-345.herokuapp.com/)!
 
 - add drag and drop functionality to task cards
 - allow users to authenticate through Github's OAuth implementation.
+
+## Development
+
+### System Requirements
+
+- Node.js 10 or higher
+- NPM 6 or higher
+- PostgreSQL
+
+1. Clone the repository.

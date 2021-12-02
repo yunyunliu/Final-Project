@@ -3,15 +3,13 @@ import { useParams } from 'react-router-dom';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
-// import Spinner from './components/Spinner'; // css spinner
 
 const BoardView = () => {
   const [board, setBoard] = useState();
   const { boardId } = useParams();
 
-  // fetch data once here and set to board;
   useEffect(() => {
-    fetch('/api/users/1/boards/1')
+    fetch(`/api/users/1/boards/${boardId}`)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -92,7 +90,6 @@ const BoardView = () => {
   return (
     <div className='justify-center align-center' style={{ minHeight: 500 }}>
       <img src='/images/Dual Ring-1s-200px.gif' alt='spinner' />
-      {/* <Spinner /> */}
     </div>);
 };
 
