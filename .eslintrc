@@ -16,20 +16,20 @@
   },
   "rules": {
     "semi": [
-      "error",
+      "warn",
       "always"
     ],
     "padded-blocks": 0,
     "arrow-parens": [
-      "error",
+      "warn",
       "as-needed"
     ],
     "curly": [
-      "error",
+      "warn",
       "multi-line"
     ],
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": [
           "warn",
@@ -38,7 +38,7 @@
       }
     ],
     "space-before-function-paren": [
-      "error",
+      "warn",
       {
         "anonymous": "always",
         "named": "never",
