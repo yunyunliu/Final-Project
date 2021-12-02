@@ -127,7 +127,7 @@ a:hover {
   visibility: hidden;
   border-radius: 6px;
   background-color: rgb(18 17 18 / 49%);
-  /* color: #eafeff; */
+  color: #eafeff;
   position: absolute;
   z-index: 2;
   bottom: 100%;

@@ -1,11 +1,8 @@
+/* AddForm/EditForm component */
 .add-edit-modal {
   border: 3px solid #1db9c3;
   width: 300px;
   z-index: 2;
-}
-
-.add-btns-container {
-  justify-content: space-between;
 }
 
 .close-edit-btn {
@@ -31,7 +28,7 @@
 }
 
 .form-btn:hover {
-  border: 4px solid #1db9c3;
+  border: 3px solid #1db9c3;
 }
 
 /* CardModal component */
@@ -48,43 +45,6 @@
 .card-btns-container {
   flex-direction: row-reverse;
   width: 100%;
-  position: relative;
-}
-
-.card-btns {
-  border: 2px solid #1db9c3;
-  width: 75px;
-  height: 30px;
-  font-size: 18px;
-  margin: 0 10px;
-}
-
-.card-modal-description {
-  width: 100%;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-/* card select menu */
-
-.card-col-select {
-  position: absolute;
-  top: 25px;
-  width: 75px;
-  border: 2px solid #1db9c3;
-}
-
-/* expanded card modal */
-
-.expanded-description {
-  text-align: left;
-  margin: 10px;
-}
-
-.expanded-btns {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
 }
 
 .expanded-tags {
@@ -95,21 +55,7 @@
   border-radius: 4px;
 }
 
-/* add tag submenu  */
-
-.sub-menu {
-  display: flex;
-  flex-direction: column;
-  bottom: 15px;
-  left: 5px;
-  width: 300px;
-  align-items: center;
-}
-
-.header-btn {
-  font-size: 16px;
-  background-color: white;
-}
+/* SubMenu Component  */
 
 .color-btn {
   width: 100px;
@@ -121,17 +67,7 @@
   border: 2px solid #1db9c3;
 }
 
-.menu-header {
-  width: 100%;
-  display: flex;
-  margin-bottom: 15px;
-}
-
-.tag-section {
-  justify-content: flex-start;
-  width: 100%;
-  align-items: center;
-}
+/* TagList component */
 
 .remove-tag-btn {
   position: absolute;

@@ -32,13 +32,13 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             value={description}
             onChange={({ target }) => setDescription(target.value)} />
         </label>
-        <div className='tag-section flex'>
+        <div className='align-center width-100 flex' style={{ justifyContent: 'flex-start' }}>
           <TagList tags={tags} remove={removeTag} />
         </div>
         <div className='flex width-100' style={{ marginBottom: 20 }}>
           <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
         </div>
-        <div className='add-btns-container flex width-100'>
+        <div className='space-between width-100'>
           <button
             className='form-btn'
             type='button'

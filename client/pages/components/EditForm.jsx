@@ -53,7 +53,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
           {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
         </select>
       </label>
-      <div className='tag-section flex' style={{ marginBottom: 20 }}>
+      <div className='align-center width-100 flex' style={{ marginBottom: 20, justifyContent: 'flex-start' }}>
         <TagList tags={tags} remove={removeTag} />
       </div>
       <SubMenu setTags={setTags} tags={tags} />

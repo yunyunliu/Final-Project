@@ -20,7 +20,7 @@ const SubMenu = ({ setTags, tags }) => {
   };
 
   return (
-      <div className='sub-menu'>
+      <div className='flex flex-col align-center' style={{ width: 300 }}>
             <ul style={{ listStyleType: 'none', padding: 0 }}>
               {options.map(opt => (
                 <li key={opt.tagId}
