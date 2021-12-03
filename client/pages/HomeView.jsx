@@ -51,42 +51,51 @@ const HomeView = () => {
     setBoards(updated);
     handleCancel();
   };
-  return (
-    <div className=' flex flex-col align-center'>
-      <div className='homeview-header'>
-        <div className='column-half justify-center'>
-          <h1 style={{ fontSize: '48px', marginTop: 0 }}
-            className='pink-text semi-bold'>Projects
-          </h1>
+  if (boards) {
+    return (
+      <div className=' flex flex-col align-center '>
+        <div className='homeview-header'>
+          <div className='column-half justify-center'>
+            <h1 style={{ fontSize: '48px', marginTop: 0 }}
+              className='pink-text semi-bold'>Projects
+            </h1>
+          </div>
+          <div className='column-half justify-center'>
+            <button
+              className='add-project-btn blue-bg semi-bold pink-text'
+              onClick={() => handleAddNew()}>
+              <span style={{ marginRight: 10 }}><i className='fas fa-plus'></i></span>
+              New Project
+            </button>
+          </div>
         </div>
-        <div className='column-half justify-center'>
-          <button
-            className='add-project-btn blue-bg semi-bold pink-text'
-            onClick={() => handleAddNew()}>
-            <span style={{ margin: 10 }}><i className='fas fa-plus'></i></span>
-            New Project
-          </button>
-        </div>
-      </div>
-      {displayModal
-        ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
-        : null}
-      <ul className='project-list'>
-          {
-          boards.map(board => {
-            return (
-              <ProjectListItem
-                    key={board.boardId}
-                    board={board}
-                    id={board.boardId}
-                    setDisplayModal={setDisplayModal}
-                    handleEdit={handleEditBoard}
-                    setToDelete={setToDelete}
-                    />
-            );
-          })
+        {displayModal
+          ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
+          : null}
+        {boards.length === 0
+          ? (<div style={{ fontSize: 32 }}>You currently have no projects.</div>)
+          : (<ul className='project-list'>
+            {boards.map(board => {
+              return (
+                <ProjectListItem
+                      key={board.boardId}
+                      board={board}
+                      id={board.boardId}
+                      setDisplayModal={setDisplayModal}
+                      handleEdit={handleEditBoard}
+                      setToDelete={setToDelete}
+                      />
+              );
+            })
+            }
+          </ul>)
         }
-      </ul>
+      </div>
+    );
+  }
+  return (
+    <div className='justify-center align-center' style={{ minHeight: 500 }}>
+      <img src='/images/Dual Ring-1s-200px.gif' alt='spinner' />
     </div>
   );
 };
