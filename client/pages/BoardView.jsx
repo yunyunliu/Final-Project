@@ -70,7 +70,7 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <h1 style={{ textAlign: 'center', marginTop: 0 }}>{board.name}</h1>
-      <div className='scroll' style={{ display: 'flex', margin: '20px 50px', overflow: 'auto' }}>
+      <div className='scroll' style={{ display: 'flex', margin: '20px 50px', overflowX: 'auto' }}>
         { board.columns.map(col => (
           <Column
             key={col.columnId}
