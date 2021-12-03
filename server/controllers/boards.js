@@ -7,7 +7,7 @@ const boards = {
       SELECT *
           FROM "boards"
         WHERE "userId" = $1
-        ORDER BY "createdAt" DESC;
+        ORDER BY "boardId" DESC;
     `;
     const params = [id];
     const result = await db.query(sql, params);

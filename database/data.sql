@@ -24,15 +24,15 @@ INSERT INTO "cards" ("columnId", "boardId", "name", "description")
 RETURNING *;
 
 INSERT INTO "tags" ("boardId", "text", "color")
-    VALUES (1, 'refactor', 'yellow'),
-            (1, 'bug', 'red'),
-            (1, 'feature', 'green'),
-            (1, 'research', 'blue'),
-            (1, 'database', 'pink'),
-            (1, 'UI/CSS', 'light-blue'),
-            (1, 'server', 'gray'),
-            (1, 'testing', 'orange'),
-            (1, 'HTML',  'purple')
+    VALUES (null, 'refactor', 'yellow'),
+            (null, 'bug', 'red'),
+            (null, 'feature', 'green'),
+            (null, 'research', 'blue'),
+            (null, 'database', 'pink'),
+            (null, 'UI/CSS', 'light-blue'),
+            (null, 'server', 'gray'),
+            (null, 'testing', 'orange'),
+            (null, 'HTML',  'purple')
         RETURNING *;
 
 INSERT INTO "tagsCards" ("cardId", "tagId")

@@ -44,7 +44,7 @@ CREATE TABLE "tags" (
 	"tagId" serial NOT NULL,
 	"color" TEXT NOT NULL,
 	"text" TEXT,
-	"boardId" integer NOT NULL,
+	"boardId" integer,
 	CONSTRAINT "tags_pk" PRIMARY KEY ("tagId")
 ) WITH (
   OIDS=FALSE
