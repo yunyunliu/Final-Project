@@ -9,7 +9,8 @@ const BoardView = () => {
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch(`/api/users/1/boards/${boardId}`)
+    // fetch(`/api/users/1/boards/${boardId}`)
+    fetch('/api/users/1/boards/1')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -70,7 +71,7 @@ const BoardView = () => {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
       <div style={{ padding: '15px 10%', alignItems: 'center' }} className='space-between'>
-        <h1 style={{ fontSize: 48, color: '#f56fad' }}>{board.name}</h1>
+        <h1 style={{ fontSize: 48 }} className='board-name pink-text'>{board.name}</h1>
         <button className='form-btn add-project-btn'
           style={{ minWidth: 175, marginLeft: 20 }}
           onClick={() => handleAddCol()}>

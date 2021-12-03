@@ -37,6 +37,7 @@
         ]
       }
     ],
+    "no-unused-vars": 0,
     "eqeqeq": 0,
     "space-before-function-paren": [
       "warn",

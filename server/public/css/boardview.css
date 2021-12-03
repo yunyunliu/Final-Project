@@ -1,3 +1,14 @@
+/* BoardView component */
+.board-name {
+  font-size: 40px;
+}
+
+@media screen and (min-width: 576px) {
+  .board-name {
+    font-size: 48px;
+  }
+}
+
 /* Column component */
 
 .col {
