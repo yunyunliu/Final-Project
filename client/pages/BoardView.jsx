@@ -80,7 +80,7 @@ const BoardView = () => {
         </button>
       </div>
 
-      <div style={{ display: 'flex', margin: '20px 50px', overflowX: 'auto' }}>
+      <div style={{ display: 'flex', overflowX: 'auto' }} className='board-content'>
         { board.columns.length > 0
           ? board.columns.map(col => (
             <Column

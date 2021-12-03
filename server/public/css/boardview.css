@@ -3,9 +3,18 @@
   font-size: 40px;
 }
 
+.board-content {
+  margin: 20px 30px;
+}
+
 @media screen and (min-width: 576px) {
   .board-name {
     font-size: 48px;
+  }
+
+  .board-content {
+    margin-left: 50px;
+    margin-right: 50px;
   }
 }
 
