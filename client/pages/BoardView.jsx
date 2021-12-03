@@ -70,9 +70,9 @@ const BoardView = () => {
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-      <div style={{ padding: '15px 10%', alignItems: 'center' }} className='space-between'>
-        <h1 style={{ fontSize: 48 }} className='board-name pink-text'>{board.name}</h1>
-        <button className='form-btn add-project-btn'
+      <div style={{ padding: '15px 10%', alignItems: 'center', flexWrap: 'wrap' }} className='space-between'>
+        <h1 className='board-name pink-text column-half'>{board.name}</h1>
+        <button className='form-btn add-project-btn column-half'
           style={{ minWidth: 175, marginLeft: 20 }}
           onClick={() => handleAddCol()}>
           <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
