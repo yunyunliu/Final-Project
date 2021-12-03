@@ -79,7 +79,7 @@ const BoardView = () => {
         </button>
       </div>
 
-      <div className='scroll' style={{ display: 'flex', margin: '20px 50px', overflowX: 'auto' }}>
+      <div style={{ display: 'flex', margin: '20px 50px', overflowX: 'auto' }}>
         { board.columns.length > 0
           ? board.columns.map(col => (
             <Column
@@ -88,12 +88,6 @@ const BoardView = () => {
               handleDeleteCol={handleDeleteCol}
               handleEditCol={handleEditCol} />))
           : (<div style={{ fontSize: 32, width: '100%', textAlign: 'center' }}>You have no tasks.</div>) }
-            {/* <button className='form-btn add-project-btn'
-              style={{ minWidth: 175, marginLeft: 20 }}
-              onClick={() => handleAddCol()}>
-            <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-            Add Column
-          </button> */}
       </div>
     </BoardContext.Provider>
     );

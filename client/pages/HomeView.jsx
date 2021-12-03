@@ -56,7 +56,7 @@ const HomeView = () => {
       <div className=' flex flex-col align-center '>
         <div className='homeview-header'>
           <div className='column-half justify-center'>
-            <h1 style={{ fontSize: '48px', marginTop: 0 }}
+            <h1 style={{ fontSize: 52, marginTop: 0 }}
               className='pink-text semi-bold'>Projects
             </h1>
           </div>
@@ -72,23 +72,22 @@ const HomeView = () => {
         {displayModal
           ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
           : null}
-        {boards.length === 0
-          ? (<div style={{ fontSize: 32 }}>You currently have no projects.</div>)
-          : (<ul className='project-list'>
-            {boards.map(board => {
-              return (
-                <ProjectListItem
-                      key={board.boardId}
-                      board={board}
-                      id={board.boardId}
-                      setDisplayModal={setDisplayModal}
-                      handleEdit={handleEditBoard}
-                      setToDelete={setToDelete}
-                      />
-              );
-            })
-            }
-          </ul>)
+        {boards.length > 0
+          ? (<ul className='project-list'>
+          {boards.map(board => {
+            return (
+              <ProjectListItem
+                    key={board.boardId}
+                    board={board}
+                    id={board.boardId}
+                    setDisplayModal={setDisplayModal}
+                    handleEdit={handleEditBoard}
+                    setToDelete={setToDelete}
+                    />
+            );
+          })}
+        </ul>)
+          : (<div style={{ fontSize: 32 }}>You currently have no projects.</div>)
         }
       </div>
     );
