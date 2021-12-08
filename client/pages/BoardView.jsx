@@ -68,10 +68,28 @@ const BoardView = () => {
     setBoard({ ...board, columns: updated });
   };
 
+  const reorderCards = (source, destination) => {
+    const srcIndex = source.index;
+    const destinationIndex = destination.index;
+    const listCopy = getColumnCards(Number(source.droppableId)).slice();
+    const [moved] = listCopy.splice(srcIndex, 1); // array.splice returns the removed element
+    listCopy.splice(destinationIndex, 0, moved);
+    listCopy.forEach((card, i) => { card.order = i; }); // assign new sequence number for each card
+    setColumnCards(Number(source.droppableId), listCopy);
+  };
+
   const handleDragEnd = result => {
     const { source, destination } = result;
-    console.log('result', result);
+    // console.log('destination', destination, 'source', source);
+    if (destination.droppableId === source.droppableId) {
+      reorderCards(source, destination);
+      console.log('reorder');
+    } else {
+    //   // moveColumns(source, destination)
+      console.log('move columns');
+    }
   };
+
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
