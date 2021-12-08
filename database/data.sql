@@ -16,11 +16,11 @@ INSERT INTO "columns" ("boardId", "name")
    RETURNING *;
 
 
-INSERT INTO "cards" ("columnId", "boardId", "name", "description")
-    VALUES (1, 1, 'style confirm modal', 'use a div with position:fixed'),
-          (1, 1, 'add react context', 'decide where what contexts are needed and where to put provider components'),
-          (1, 1, 'implement drag and drop', 'research html drag and drop api'),
-          (2, 1, 'create endpoints', '')
+INSERT INTO "cards" ("columnId", "boardId", "name", "description", "sequenceNum")
+    VALUES (1, 1, 'style confirm modal', 'use a div with position:fixed', 0),
+          (1, 1, 'add react context', 'decide where what contexts are needed and where to put provider components', 1),
+          (1, 1, 'implement drag and drop', 'research html drag and drop api', 2),
+          (2, 1, 'create endpoints', '', 3)
 RETURNING *;
 
 INSERT INTO "tags" ("boardId", "text", "color")

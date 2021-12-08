@@ -9,7 +9,8 @@ const BoardView = () => {
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch(`/api/users/1/boards/${boardId}`)
+    // fetch(`/api/users/1/boards/${boardId}`)
+    fetch('api/users/1/boards/1')
       .then(res => {
         if (res.ok) {
           return res.json();

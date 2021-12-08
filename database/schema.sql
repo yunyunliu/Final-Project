@@ -31,6 +31,7 @@ CREATE TABLE "columns" (
 );
 CREATE TABLE "cards" (
 	"cardId" serial NOT NULL,
+  "sequenceNum" integer,
 	"name" TEXT NOT NULL,
 	"description" TEXT,
 	"columnId" integer NOT NULL,

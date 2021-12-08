@@ -25,12 +25,14 @@ const sql = `with "cardTags" as (
   from (
     select
       "boardId",
+      "sequenceNum",
       "cardId",
       "columnId",
       "name",
       "description",
       coalesce((select matching from "cardTags" where "cardTags"."cardId" = c."cardId"), '[]'::json) as tags
     from cards c
+    order by "sequenceNum"
   ) as c
   group by c."columnId"
 ), "cols" as (
@@ -55,6 +57,6 @@ select
   "name",
   coalesce((select matching from "cols" where "cols"."boardId" = b."boardId"), '[]'::json) as columns
 from boards b
-where b."boardId" = $1;`;
+where b."boardId" = $1`;
 
 module.exports = { sql };
