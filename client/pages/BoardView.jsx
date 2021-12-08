@@ -68,13 +68,13 @@ const BoardView = () => {
     setBoard({ ...board, columns: updated });
   };
 
-  const reorderCards = (source, destination) => {
+  const reorderCards = (source, destination) => { // order not being saved to db
     const srcIndex = source.index;
     const destinationIndex = destination.index;
     const listCopy = getColumnCards(Number(source.droppableId)).slice();
     const [moved] = listCopy.splice(srcIndex, 1); // array.splice returns the removed element
     listCopy.splice(destinationIndex, 0, moved);
-    listCopy.forEach((card, i) => { card.order = i; }); // assign new sequence number for each card
+    listCopy.forEach((card, i) => { card.sequenceNum = i; }); // assign new sequence number for each card
     setColumnCards(Number(source.droppableId), listCopy);
   };
 

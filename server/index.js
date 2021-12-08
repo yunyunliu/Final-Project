@@ -108,15 +108,13 @@ app.delete('/api/cards/:cardId/remove/:tagId', async (req, res) => {
 });
 
 // tags
-app.get('/api/tags/:boardId', async (req, res) => {
-  const { boardId } = req.params;
+app.get('/api/tags/', async (req, res) => {
   const sql = `
     SELECT *
       FROM "tags"
-    WHERE "boardId" = $1
   `;
   try {
-    const result = await db.query(sql, [boardId]);
+    const result = await db.query(sql);
     const tags = result.rows;
     res.json(tags);
   } catch (err) {

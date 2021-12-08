@@ -5,7 +5,7 @@ const SubMenu = ({ setTags, tags }) => {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    fetch('/api/tags/1')
+    fetch('/api/tags/')
       .then(response => response.json())
       .then(tags => setOptions(tags))
       .catch(err => console.error(err.message));
