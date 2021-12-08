@@ -108,17 +108,20 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
       { displayEditCol ? editCol : columnName }
       <Droppable droppableId={columnData.columnId + ''}>
         {({ droppableProps, innerRef, placeholder }) => (
-          <ul className='no-bullets no-padding' style={{ width: 170 }} {...droppableProps} ref={innerRef}>
+          <ul className={`no-bullets no-padding ${columnData.columnId}`}
+            style={{ width: 170, minHeight: '80%' }}
+            {...droppableProps}
+            ref={innerRef}>
           {columnData.cards.map((card, i) => (
             <Draggable key={card.cardId} draggableId={card.cardId + ''} index={i}>
               {({ innerRef, draggableProps, dragHandleProps }) => (
-                <div ref={innerRef} {...draggableProps} {...dragHandleProps}>
+                <li ref={innerRef} {...draggableProps} {...dragHandleProps}>
                   <Card
                   cardData={card}
                   handleDelete={deleteCard}
                   colName={columnData.name}
                   handleEdit={handleEditCard} />
-                </div>
+                </li>
               )}
             </Draggable>))}
             {placeholder}

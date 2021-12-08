@@ -25,7 +25,7 @@ const TestDnd = () => {
     if (!destination) {
       return;
     }
-    // console.log('results:', result)
+    console.log('results:', result);
     const sourceI = source.index;
     const destI = destination.index;
     const itemId = draggableId;

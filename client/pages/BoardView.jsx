@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
@@ -80,7 +80,7 @@ const BoardView = () => {
 
   const handleDragEnd = result => {
     const { source, destination } = result;
-    // console.log('destination', destination, 'source', source);
+    console.log('destination', destination, 'source', source);
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
       console.log('reorder');
@@ -92,17 +92,17 @@ const BoardView = () => {
 
   if (board) {
     return (
-    <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-      <div style={{ flexWrap: 'wrap', maxWidth: 700, alignItems: 'baseline' }} className='space-between board-content'>
-        <h1 className='board-name pink-text column-half'>{board.name}</h1>
-        <button className='form-btn add-project-btn column-half'
-          style={{ minWidth: 175 }}
-          onClick={() => handleAddCol()}>
-          <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-          Add Column
-        </button>
-      </div>
-      <DragDropContext onDragEnd={handleDragEnd}>
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
+        <div style={{ flexWrap: 'wrap', maxWidth: 700, alignItems: 'baseline' }} className='space-between board-content'>
+          <h1 className='board-name pink-text column-half'>{board.name}</h1>
+          <button className='form-btn add-project-btn column-half'
+            style={{ minWidth: 175 }}
+            onClick={() => handleAddCol()}>
+            <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+            Add Column
+          </button>
+        </div>
         <div className='board-content flex'>
           { board.columns.length > 0
             ? board.columns.map(col => (
@@ -113,8 +113,8 @@ const BoardView = () => {
                 handleEditCol={handleEditCol} />))
             : (<div style={{ fontSize: 32, width: '100%', textAlign: 'center' }}>You have no tasks.</div>) }
         </div>
-      </DragDropContext>
-    </BoardContext.Provider>
+      </BoardContext.Provider>
+    </DragDropContext>
     );
   }
   return (

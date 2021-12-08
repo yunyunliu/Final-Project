@@ -8,7 +8,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
   const [editCard, setEditCard] = useState(false);
 
   return (
-    <li className='card blue-bg'>
+    <div className='card blue-bg'>
        {editCard
          ? <EditForm data={cardData}
               setEdit={setEditCard}
@@ -50,7 +50,7 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
       <div style={{ paddingBottom: 10 }}>
         {cardData.description}
       </div>
-    </li>
+    </div>
   );
 };
 
