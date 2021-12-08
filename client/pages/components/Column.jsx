@@ -109,7 +109,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
       <Droppable droppableId={columnData.columnId + ''}>
         {({ droppableProps, innerRef, placeholder }) => (
           <ul className={`no-bullets no-padding ${columnData.columnId}`}
-            style={{ width: 170, minHeight: '80%' }}
+            style={{ width: 170, minHeight: 200 }}
             {...droppableProps}
             ref={innerRef}>
           {columnData.cards.map((card, i) => (

@@ -78,15 +78,31 @@ const BoardView = () => {
     setColumnCards(Number(source.droppableId), listCopy);
   };
 
+  const moveColumns = (source, destination) => {
+    const srcIndex = source.index;
+    const destinationIndex = destination.index;
+    const srcList = getColumnCards(Number(source.droppableId)).slice();
+    const [moved] = srcList.splice(srcIndex, 1);
+    srcList.forEach((p, i) => { p.order = i; });
+    const destinationList = getColumnCards(Number(destination.droppableId)).slice();
+    destinationList.splice(destinationIndex, 0, moved);
+    destinationList.forEach((p, i) => { p.order = i; });
+    setColumnCards(Number(source.droppableId), srcList);
+    setColumnCards(Number(destination.droppableId), destinationList);
+  };
+
   const handleDragEnd = result => {
     const { source, destination } = result;
+    if (!destination) {
+      return;
+    }
     console.log('destination', destination, 'source', source);
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
-      console.log('reorder');
     } else {
-    //   // moveColumns(source, destination)
+      // moveColumns(source, destination)
       console.log('move columns');
+      moveColumns(source, destination);
     }
   };
 
