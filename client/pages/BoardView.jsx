@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
@@ -67,6 +68,10 @@ const BoardView = () => {
     setBoard({ ...board, columns: updated });
   };
 
+  const handleDragEnd = result => {
+    const { source, destination } = result;
+    console.log('result', result);
+  };
   if (board) {
     return (
     <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
@@ -79,17 +84,18 @@ const BoardView = () => {
           Add Column
         </button>
       </div>
-
-      <div className='board-content flex'>
-        { board.columns.length > 0
-          ? board.columns.map(col => (
-            <Column
-              key={col.columnId}
-              columnData={col}
-              handleDeleteCol={handleDeleteCol}
-              handleEditCol={handleEditCol} />))
-          : (<div style={{ fontSize: 32, width: '100%', textAlign: 'center' }}>You have no tasks.</div>) }
-      </div>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <div className='board-content flex'>
+          { board.columns.length > 0
+            ? board.columns.map(col => (
+              <Column
+                key={col.columnId}
+                columnData={col}
+                handleDeleteCol={handleDeleteCol}
+                handleEditCol={handleEditCol} />))
+            : (<div style={{ fontSize: 32, width: '100%', textAlign: 'center' }}>You have no tasks.</div>) }
+        </div>
+      </DragDropContext>
     </BoardContext.Provider>
     );
   }

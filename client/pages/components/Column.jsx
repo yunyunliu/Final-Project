@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import Card from './Card';
 import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
@@ -106,18 +106,31 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   return (
     <div className='col'>
       { displayEditCol ? editCol : columnName }
-      <ul className='no-bullets no-padding' style={{ width: 170 }}>
-        {columnData.cards.map(card => <Card key={card.cardId}
-          cardData={card}
-          handleDelete={deleteCard}
-          colName={columnData.name}
-          handleEdit={handleEditCard} />)}
-      </ul>
+      <Droppable droppableId={columnData.columnId + ''}>
+        {({ droppableProps, innerRef, placeholder }) => (
+          <ul className='no-bullets no-padding' style={{ width: 170 }} {...droppableProps} ref={innerRef}>
+          {columnData.cards.map((card, i) => (
+            <Draggable key={card.cardId} draggableId={card.cardId + ''} index={i}>
+              {({ innerRef, draggableProps, dragHandleProps }) => (
+                <div ref={innerRef} {...draggableProps} {...dragHandleProps}>
+                  <Card
+                  cardData={card}
+                  handleDelete={deleteCard}
+                  colName={columnData.name}
+                  handleEdit={handleEditCard} />
+                </div>
+              )}
+            </Draggable>))}
+            {placeholder}
+          </ul>
+        )}
+      </Droppable>
       <button type='button'
         className='form-btn'
         style={{ marginBottom: 10 }}
-        onClick={() => setDisplayAddCard(true)}
-        ><i className='fas fa-plus'></i> New Card</button>
+        onClick={() => setDisplayAddCard(true)}>
+          <i className='fas fa-plus'></i> New Card
+      </button>
         {displayAddCard
           ? <AddForm setModal={setDisplayAddCard}
               handleAdd={handleAddCard}
