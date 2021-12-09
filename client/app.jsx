@@ -8,7 +8,6 @@ import {
 import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
 import BoardView from './pages/BoardView';
-import TestDnd from './pages/components/TestDnd';
 
 const App = () => {
   return (
