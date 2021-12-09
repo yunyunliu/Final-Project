@@ -29,9 +29,9 @@ Try ProjectMap [here](https://project-map-123.herokuapp.com/)!
 - User can drag and drop to move a task card between columns.
 ## Preview
 
-![ProjectMap](assets/demoCreate.gif)
+![CreateTask](assets/demoCreate.gif)
 
-![ProjectMap](assets/dndDemo.gif)
+![MoveTask](assets/dndDemo.gif)
 
 ## Planned Features
 
