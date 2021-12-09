@@ -7,6 +7,7 @@ const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
+const { ppid } = require('process');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -60,10 +61,13 @@ app.delete('/api/columns/:colId', (req, res) => {
   columns.delete(req, res, db);
 });
 
-app.put('/api/columns/:colId', async (req, res) => {
+app.put('/api/columns/:colId', (req, res) => {
   columns.edit(req, res, db);
 });
 
+app.put('/api/columns/:colId/cards', (req, res) => {
+  columns.editCardOrder(req, res, db);
+});
 // task cards
 
 app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {

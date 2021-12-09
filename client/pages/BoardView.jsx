@@ -68,7 +68,7 @@ const BoardView = () => {
     setBoard({ ...board, columns: updated });
   };
 
-  const reorderCards = (source, destination) => { // order not being saved to db
+  const reorderCards = async (source, destination) => { // order not being saved to db
     const srcIndex = source.index;
     const destinationIndex = destination.index;
     const listCopy = getColumnCards(Number(source.droppableId)).slice();
@@ -76,19 +76,46 @@ const BoardView = () => {
     listCopy.splice(destinationIndex, 0, moved);
     listCopy.forEach((card, i) => { card.sequenceNum = i; }); // assign new sequence number for each card
     setColumnCards(Number(source.droppableId), listCopy);
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(listCopy)
+    };
+    const response = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options);
+    if (response.ok()) {
+      const updatedCards = await response.json();
+      setColumnCards(Number(source.droppableId), updatedCards);
+    }
   };
 
-  const moveColumns = (source, destination) => {
+  const moveColumns = async (source, destination) => {
     const srcIndex = source.index;
     const destinationIndex = destination.index;
     const srcList = getColumnCards(Number(source.droppableId)).slice();
     const [moved] = srcList.splice(srcIndex, 1);
-    srcList.forEach((p, i) => { p.order = i; });
+    srcList.forEach((p, i) => { p.sequenceNum = i; });
     const destinationList = getColumnCards(Number(destination.droppableId)).slice();
-    destinationList.splice(destinationIndex, 0, moved);
-    destinationList.forEach((p, i) => { p.order = i; });
-    setColumnCards(Number(source.droppableId), srcList);
-    setColumnCards(Number(destination.droppableId), destinationList);
+    destinationList.splice(destinationIndex, 0, { ...moved, columnId: Number(destination.droppableId) });
+    destinationList.forEach((p, i) => { p.sequenceNum = i; });
+    // console.log('src:', srcList, 'dest:', destinationList)
+    const options1 = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(srcList)
+    };
+    const options2 = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(destinationList)
+    };
+    const srcResponse = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options1);
+    const destinationResponse = await fetch(`/api/columns/${Number(destination.droppableId)}/cards`, options2);
+    if (srcResponse.ok && destinationResponse.ok) {
+      setColumnCards(Number(source.droppableId), srcList);
+      setColumnCards(Number(destination.droppableId), destinationList);
+    } else {
+      console.log('network request problem');
+    }
   };
 
   const handleDragEnd = result => {
@@ -96,12 +123,10 @@ const BoardView = () => {
     if (!destination) {
       return;
     }
-    console.log('destination', destination, 'source', source);
+    // console.log('destination', destination, 'source', source);
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
     } else {
-      // moveColumns(source, destination)
-      console.log('move columns');
       moveColumns(source, destination);
     }
   };

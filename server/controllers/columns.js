@@ -24,7 +24,7 @@ const columns = {
       res.status(201).json({ ...newCol, cards: [] });
     } catch (err) {
       console.error(err.message);
-      res.status(400).json({ error: err.message});
+      res.status(400).json({ error: err.message });
     }
   },
   delete: async (req, res, db) => {
@@ -51,6 +51,34 @@ const columns = {
     } catch (err) {
       console.error('error:', err.message);
       res.status(500).send({ error: 'something went wrong' });
+    }
+  },
+  editCardOrder: async (req, res, db) => {
+    const body = req.body;
+    const sql = `
+      UPDATE "cards"
+          SET "columnId" = $1,
+         "sequenceNum" = $2
+        WHERE "cardId" = $3
+    `;
+    const selectSql = `
+      SELECT *
+          FROM "cards"
+        WHERE "columnId" = $1
+      ORDER BY "sequenceNum"
+    `;
+
+    if (body.length > 0) {
+      try {
+        await body.forEach(card => { db.query(sql, [card.columnId, card.sequenceNum, card.cardId]); });
+        const result = await db.query(selectSql, [req.params.colId]);
+        res.json(result.rows);
+      } catch (err) {
+        res.sendStatus(500);
+        console.log('error:', err.message);
+      }
+    } else {
+      res.json([]);
     }
   }
 };
