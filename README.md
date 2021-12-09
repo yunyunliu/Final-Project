@@ -4,7 +4,7 @@ ProjectMap is a full stack web application for developers who want to visualize 
 
 ## Live Site
 
-ProjectMap allows users to map out a complex project by dividing it into small tasks, move tasks from column to column on the project board to mark their progress, and keep tasks organized with color-coded labels. 
+ProjectMap allows users to map out a complex project by dividing it into small tasks, move tasks from column to column on the project board to mark their progress, and keep tasks organized with color-coded labels.
 
 Try ProjectMap [here](https://project-map-123.herokuapp.com/)!
 
@@ -25,17 +25,17 @@ Try ProjectMap [here](https://project-map-123.herokuapp.com/)!
 - User can add and delete columns from project boards.
 - User create, delete, and edit task cards.
 - User can add and remove color-coded labels from cards
-- User can move task cards between columns.
-
+- User can drag and drop to reorder task cards within a column;
+- User can drag and drop to move a task card between columns.
 ## Preview
 
 ![ProjectMap](assets/demoCreate.gif)
 
-![ProjectMap](assets/demoEdit.gif)
+![ProjectMap](assets/dndDemo.gif)
 
 ## Planned Features
 
-- add drag and drop functionality to task cards and columns
+- build out user registration and authentication
 - allow users to authenticate through Github's OAuth implementation.
 
 ## Development
