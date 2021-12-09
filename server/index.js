@@ -3,11 +3,9 @@ const pg = require('pg');
 const express = require('express');
 const path = require('path');
 
-const staticMiddleware = require('./static-middleware');
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
-const { ppid } = require('process');
 
 const db = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -18,7 +16,11 @@ const db = new pg.Pool({
 
 const app = express();
 app.use(express.json());
+
+const publicPath = path.join(__dirname, 'public');
+const staticMiddleware = express.static(publicPath);
 app.use(staticMiddleware);
+
 // boards
 
 app.get('/api/users/:id/boards', (req, res) => {
