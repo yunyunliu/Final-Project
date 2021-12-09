@@ -5,7 +5,7 @@ INSERT INTO "users" ("email", "password")
 INSERT INTO "boards" ("userId", "name")
   VALUES  (1, 'typescript project'),
           (1, 'code journal' ),
-          (1, 'ajax project'),
+          (1, 'ajax project')
   RETURNING *;
 
 
