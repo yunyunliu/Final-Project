@@ -106,10 +106,18 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
   return (
     <div className='col'>
       { displayEditCol ? editCol : columnName }
+      { displayEditCol
+        ? null
+        : (<button type='button'
+            className='form-btn'
+            onClick={() => setDisplayAddCard(true)}>
+            <i className='fas fa-plus'></i> New Card
+          </button>) }
+
       <Droppable droppableId={columnData.columnId + ''}>
         {({ droppableProps, innerRef, placeholder }) => (
           <ul className={`no-bullets no-padding ${columnData.columnId}`}
-            style={{ width: 170, minHeight: 200 }}
+            style={{ width: 170, height: '100%' }}
             {...droppableProps}
             ref={innerRef}>
           {columnData.cards.map((card, i) => (
@@ -128,12 +136,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
           </ul>
         )}
       </Droppable>
-      <button type='button'
-        className='form-btn'
-        style={{ marginBottom: 10 }}
-        onClick={() => setDisplayAddCard(true)}>
-          <i className='fas fa-plus'></i> New Card
-      </button>
+
         {displayAddCard
           ? <AddForm setModal={setDisplayAddCard}
               handleAdd={handleAddCard}

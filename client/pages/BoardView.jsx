@@ -97,7 +97,8 @@ const BoardView = () => {
     const destinationList = getColumnCards(Number(destination.droppableId)).slice();
     destinationList.splice(destinationIndex, 0, { ...moved, columnId: Number(destination.droppableId) });
     destinationList.forEach((p, i) => { p.sequenceNum = i; });
-    // console.log('src:', srcList, 'dest:', destinationList)
+    setColumnCards(Number(source.droppableId), srcList);
+    setColumnCards(Number(destination.droppableId), destinationList);
     const options1 = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -110,12 +111,6 @@ const BoardView = () => {
     };
     const srcResponse = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options1);
     const destinationResponse = await fetch(`/api/columns/${Number(destination.droppableId)}/cards`, options2);
-    if (srcResponse.ok && destinationResponse.ok) {
-      setColumnCards(Number(source.droppableId), srcList);
-      setColumnCards(Number(destination.droppableId), destinationList);
-    } else {
-      console.log('network request problem');
-    }
   };
 
   const handleDragEnd = result => {
@@ -123,7 +118,6 @@ const BoardView = () => {
     if (!destination) {
       return;
     }
-    // console.log('destination', destination, 'source', source);
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
     } else {
