@@ -32,7 +32,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
         <input style={{ margin: 10 }}
           className='teal-border-2'
           value={task}
-          onChange={({ target }) => setTask(target.value)} />
+          onChange={({ target }) => setTask(target.value)} required/>
       </label>
       <label className='width-100 semi-bold' style={{ margin: 15 }}>Task Description:
         <textarea className='teal-border-2 gray-text source-sans'

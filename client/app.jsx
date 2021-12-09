@@ -21,9 +21,7 @@ const App = () => {
           <BoardView />
         </Route>
         <Route path='/'>
-          {/* <HomeView /> */}
-          {/* <TestDnd /> */}
-          <BoardView />
+          <HomeView />
         </Route>
       </Switch>
     </Router>

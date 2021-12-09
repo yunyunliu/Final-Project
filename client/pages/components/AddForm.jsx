@@ -24,7 +24,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
           <input className='teal-border-2 gray-text'
             style={{ width: 200, marginLeft: 10 }}
             value={task}
-            onChange={({ target }) => setTask(target.value)} />
+            onChange={({ target }) => setTask(target.value)} required/>
         </label>
         <label className='width-100 semi-bold' style={{ margin: 15 }}>Task Description:
           <textarea className='teal-border-2 source-sans'
