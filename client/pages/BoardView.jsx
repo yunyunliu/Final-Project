@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';

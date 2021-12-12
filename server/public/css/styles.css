@@ -139,8 +139,6 @@ a:hover {
   visibility: visible;
 }
 
-.modal {
+dialog {
   position: fixed;
-  background-color: white;
-  padding: 15px;
 }

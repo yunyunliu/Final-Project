@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+
 import Card from './Card';
 import AddForm from './AddForm';
 import BoardContext from '../BoardContext';
@@ -136,11 +137,10 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
           </ul>
         )}
       </Droppable>
-
         {displayAddCard
           ? <AddForm setModal={setDisplayAddCard}
-              handleAdd={handleAddCard}
-              colName={columnData.name} />
+                handleAdd={handleAddCard}
+                colName={columnData.name} />
           : null}
     </div>
   );
