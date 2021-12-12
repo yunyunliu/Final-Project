@@ -138,3 +138,9 @@ a:hover {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
+
+.modal {
+  position: fixed;
+  background-color: white;
+  padding: 15px;
+}

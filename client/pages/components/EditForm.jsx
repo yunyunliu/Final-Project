@@ -21,7 +21,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
   };
 
   return (
-  <dialog className='add-edit-modal' open>
+  <div className='add-edit-modal modal' style={{ top: '20%', left: '33%' }}>
     <form className='flex flex-col align-center'>
       <div className='edit-form-header'>
         <h2 className='no-margin'>Edit task card</h2>
@@ -76,7 +76,7 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
         </button>
       </div>
     </form>
-  </dialog>
+  </div>
   );
 };
 
