@@ -1,18 +1,19 @@
 require('dotenv/config');
-const pg = require('pg');
+// const pg = require('pg');
 const express = require('express');
 const path = require('path');
 
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
+const { connectDb } = require('./database/db');
 
-const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+// const db = new pg.Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: {
+//     rejectUnauthorized: false
+//   }
+// });
 
 const app = express();
 app.use(express.json());
@@ -20,6 +21,15 @@ app.use(express.json());
 const publicPath = path.join(__dirname, 'public');
 const staticMiddleware = express.static(publicPath);
 app.use(staticMiddleware);
+
+const startApp = async () => {
+  await connectDb(); // make sure database connected, before starting server
+  app.listen(process.env.PORT, () => {
+    console.log(`express server listening on port ${process.env.PORT}`);
+  });
+};
+
+startApp();
 
 // boards
 
