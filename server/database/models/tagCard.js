@@ -4,6 +4,11 @@ const { sequelize } = require('../db');
 const Card = require('./card');
 const Tag = require('./tag');
 
+const options = {
+  tableName: 'TagsCards',
+  timestamps: true
+};
+
 const TagCard = sequelize.define('TagCard', {
   TagId: {
     type: DataTypes.INTEGER,
@@ -19,6 +24,6 @@ const TagCard = sequelize.define('TagCard', {
       key: 'id'
     }
   }
-}, { tableName: 'TagsCards' });
+}, options);
 
 module.exports = TagCard;

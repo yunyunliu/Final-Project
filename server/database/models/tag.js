@@ -2,16 +2,18 @@ const { Model, DataTypes } = require('sequelize');
 
 const { sequelize } = require('../db');
 
-const Column = sequelize.define('Column', {
+const Tag = sequelize.define('Tag', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  name: {
-    type: DataTypes.TEXT,
-    allowNull: false
+  color: {
+    type: DataTypes.TEXT
+  },
+  text: {
+    type: DataTypes.TEXT
   }
-});
+}, { timestamps: false, sequelize });
 
-module.exports = Column;
+module.exports = Tag;

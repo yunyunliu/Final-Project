@@ -1,19 +1,12 @@
 require('dotenv/config');
-// const pg = require('pg');
 const express = require('express');
 const path = require('path');
+const { User, Board, Column, Card, Tag, TagCard } = require('./database/models');
 
-const columns = require('./controllers/columns');
-const boards = require('./controllers/boards');
-const cards = require('./controllers/cards');
+// const columns = require('./controllers/columns');
+// const boards = require('./controllers/boards');
+// const cards = require('./controllers/cards');
 const { connectDb } = require('./database/db');
-
-// const db = new pg.Pool({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false
-//   }
-// });
 
 const app = express();
 app.use(express.json());
@@ -33,11 +26,12 @@ startApp();
 
 // boards
 
-app.get('/api/users/:id/boards', (req, res) => {
+app.get('/api/users/:id/boards', async (req, res) => {
   try {
-    boards.get(req, res, db);
+    const boards = await Board.findAll();
+    res.json(boards);
   } catch (err) {
-    console.error('error:', err);
+    console.error('error:', err.message);
     res.send({ error: 'server error' });
   }
 });
@@ -143,9 +137,4 @@ app.use((req, res) => {
   res.sendFile('/index.html', {
     root: path.join(__dirname, 'public')
   });
-});
-
-app.listen(process.env.PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`express server listening on port ${process.env.PORT}`);
 });

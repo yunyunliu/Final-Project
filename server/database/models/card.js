@@ -2,18 +2,24 @@ const { Model, DataTypes } = require('sequelize');
 
 const { sequelize } = require('../db');
 
-const Tag = sequelize.define('Tag', {
+const Card = sequelize.define('Card', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  color: {
+  title: {
+    type: DataTypes.TEXT,
+    allowNull: false
+  },
+  description: {
     type: DataTypes.TEXT
   },
-  text: {
-    type: DataTypes.TEXT
+  sequenceNum: {
+    type: DataTypes.INTEGER
   }
+}, {
+  timestamps: false
 });
 
-module.exports = Tag;
+module.exports = Card;
