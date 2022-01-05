@@ -27,8 +27,17 @@ startApp();
 // boards
 
 app.get('/api/users/:id/boards', async (req, res) => {
+  const userId = req.params.id;
+  const options = {
+    order: [
+      ['id', 'DESC']
+    ],
+    where: {
+      UserId: userId
+    }
+  };
   try {
-    const boards = await Board.findAll();
+    const boards = await Board.findAll(options);
     res.json(boards);
   } catch (err) {
     console.error('error:', err.message);
@@ -36,13 +45,32 @@ app.get('/api/users/:id/boards', async (req, res) => {
   }
 });
 
-app.post('/api/users/:id/boards', (req, res) => {
-  boards.create(req, res, db);
+app.post('/api/users/:id/boards', async (req, res) => {
+  const userId = req.params.id;
+  try {
+    const newBoard = await Board.create({ UserId: userId });
+    res.json(newBoard);
+  } catch (err) {
+    console.error('error creating board:', err);
+    res.send({ error: 'server error' });
+  }
 });
 
 // get formatted data of all cols and cards associated with boardId
-app.get('/api/users/:userId/boards/:boardId', (req, res) => {
-  boards.getOne(req, res, db);
+app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
+  const boardId = req.params.boardId;
+  try {
+    const boardData = await Board.findOne({
+      where: {
+        id: boardId
+      }
+    });
+    res.json(boardData);
+  } catch (err) {
+    console.error(`error fetching data for board ${boardId}`, err);
+    res.send({ error: 'server error' });
+  }
+
 });
 
 app.delete('/api/users/:id/boards/:boardId', (req, res) => {

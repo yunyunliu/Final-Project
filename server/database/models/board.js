@@ -9,7 +9,7 @@ const Board = sequelize.define('Board', {
   },
   name: {
     type: DataTypes.TEXT,
-    allowNull: false
+    defaultValue: 'New Project'
   }
 }, { timestamps: true });
 
