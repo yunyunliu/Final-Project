@@ -40,7 +40,7 @@ app.get('/api/users/:id/boards', async (req, res) => {
     const boards = await Board.findAll(options);
     res.json(boards);
   } catch (err) {
-    console.error('error:', err.message);
+    console.error('error fetching boards:', err.message);
     res.send({ error: 'server error' });
   }
 });
@@ -49,7 +49,7 @@ app.post('/api/users/:id/boards', async (req, res) => {
   const userId = req.params.id;
   try {
     const newBoard = await Board.create({ UserId: userId });
-    res.json(newBoard);
+    res.status(201).json(newBoard);
   } catch (err) {
     console.error('error creating board:', err);
     res.send({ error: 'server error' });
@@ -81,15 +81,37 @@ app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
     console.error(`error fetching data for board ${boardId}`, err);
     res.send({ error: 'server error' });
   }
-
 });
 
-app.delete('/api/users/:id/boards/:boardId', (req, res) => {
-  boards.delete(req, res, db);
+app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
+  const boardId = req.params.boardId;
+  try {
+    await Board.destroy({
+      where: {
+        id: boardId
+      }
+    });
+    res.sendStatus(204);
+  } catch (err) {
+    console.error(`error deleting board ${boardId}`, err);
+    res.send({ error: 'server error' });
+  }
 });
 
 app.put('/api/users/:id/boards/:boardId', async (req, res) => {
-  boards.edit(req, res, db);
+  const boardId = req.params.boardId;
+  const data = req.body.name;
+  try {
+    const updated = await Board.update({ name: data }, {
+      where: {
+        id: boardId
+      }
+    });
+    res.send(updated);
+  } catch (err) {
+    console.error(`error updating board ${boardId}`, err);
+    res.send({ error: 'server error' });
+  }
 });
 
 // columns
