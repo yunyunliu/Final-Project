@@ -2,11 +2,8 @@ require('dotenv/config');
 const express = require('express');
 const path = require('path');
 const { User, Board, Column, Card, Tag, TagCard } = require('./database/models');
-
-// const columns = require('./controllers/columns');
-// const boards = require('./controllers/boards');
-// const cards = require('./controllers/cards');
 const { connectDb } = require('./database/db');
+const { clear } = require('console');
 
 const app = express();
 app.use(express.json());
@@ -41,7 +38,7 @@ app.get('/api/users/:id/boards', async (req, res) => {
     res.json(boards);
   } catch (err) {
     console.error('error fetching boards:', err.message);
-    res.send({ error: 'server error' });
+    res.status(500).send({ error: 'server error' });
   }
 });
 
@@ -52,7 +49,7 @@ app.post('/api/users/:id/boards', async (req, res) => {
     res.status(201).json(newBoard);
   } catch (err) {
     console.error('error creating board:', err);
-    res.send({ error: 'server error' });
+    res.status(500).send({ error: 'server error' });
   }
 });
 
@@ -79,7 +76,7 @@ app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
     res.json(boardData);
   } catch (err) {
     console.error(`error fetching data for board ${boardId}`, err);
-    res.send({ error: 'server error' });
+    res.status(500).send({ error: 'server error' });
   }
 });
 
@@ -94,7 +91,7 @@ app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
     res.sendStatus(204);
   } catch (err) {
     console.error(`error deleting board ${boardId}`, err);
-    res.send({ error: 'server error' });
+    res.status(500).send({ error: 'server error' });
   }
 });
 
@@ -107,21 +104,36 @@ app.put('/api/users/:id/boards/:boardId', async (req, res) => {
         id: boardId
       }
     });
-    res.send(updated);
+    res.sendStatus(200);
   } catch (err) {
     console.error(`error updating board ${boardId}`, err);
-    res.send({ error: 'server error' });
+    res.status(500).send({ error: 'server error' });
   }
 });
 
 // columns
 
-app.get('/api/users/:id/boards/:boardId/col', (req, res) => {
-  columns.get(req, res, db);
+app.get('/api/boards/:boardId/columns', async (req, res) => {
+  const boardId = req.params.boardId;
+  try {
+    const columns = await Column.findAll({ where: { BoardId: boardId } });
+    res.json(columns);
+  } catch (err) {
+    console.error('error creating column', err);
+    res.status(500).send({ error: 'server error' });
+  }
 });
 
-app.post('/api/columns', (req, res) => {
-  columns.create(req, res, db);
+app.post('/api/boards/:boardId/columns', async (req, res) => {
+  const boardId = req.params.boardId;
+  console.log('boardId:', boardId, 'type:', typeof boardId);
+  try {
+    const newCol = await Column.create({ BoardId: boardId });
+    res.sendStatus(201).json(newCol);
+  } catch (err) {
+    console.error('error creating column', err);
+    res.send({ error: 'server error' });
+  }
 });
 
 app.delete('/api/columns/:colId', (req, res) => {

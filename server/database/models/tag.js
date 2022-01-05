@@ -14,6 +14,6 @@ const Tag = sequelize.define('Tag', {
   text: {
     type: DataTypes.TEXT
   }
-}, { timestamps: false, sequelize });
+}, { timestamps: true });
 
 module.exports = Tag;

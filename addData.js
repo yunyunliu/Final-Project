@@ -142,7 +142,12 @@ const addColsCardsRels = async () => {
   }
 };
 
-// result data is at dbResponse.dataValues;
+const dropTables = async () => {
+  await sequelize.drop();
+  console.log('tables dropped');
+};
+
+// dropTables();
 addUsers();
 addTags();
 addBoards();

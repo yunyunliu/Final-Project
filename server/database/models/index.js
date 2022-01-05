@@ -20,7 +20,7 @@ Card.belongsTo(Column);
 Tag.belongsToMany(Card, { through: TagCard });
 Card.belongsToMany(Tag, { through: TagCard });
 
-sequelize.sync()
+sequelize.sync({ alter: true })
   .catch(err => { console.log('error from sequelize.sync:', err.message); }); // for each model, drop any existing table, then create new one
 
 module.exports = { User, Board, Column, Card, Tag, TagCard };

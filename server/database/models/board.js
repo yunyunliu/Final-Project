@@ -11,6 +11,6 @@ const Board = sequelize.define('Board', {
     type: DataTypes.TEXT,
     defaultValue: 'New Project'
   }
-}, { timestamps: true });
+}, { timestamps: true, initialAutoIncrement: 4 });
 
 module.exports = Board;

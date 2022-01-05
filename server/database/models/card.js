@@ -18,8 +18,6 @@ const Card = sequelize.define('Card', {
   sequenceNum: {
     type: DataTypes.INTEGER
   }
-}, {
-  timestamps: false
-});
+}, { timestamps: true });
 
 module.exports = Card;

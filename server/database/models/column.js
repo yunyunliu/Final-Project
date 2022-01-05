@@ -1,7 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
-const { sequelize } = require('../db');
 
-const options = { sequelize, timestamps: false };
+const { sequelize } = require('../db');
 
 const Column = sequelize.define('Column', {
   id: {
@@ -11,8 +10,8 @@ const Column = sequelize.define('Column', {
   },
   name: {
     type: DataTypes.TEXT,
-    allowNull: false
+    defaultValue: 'New Column'
   }
-}, options);
+}, { timestamps: true, autoIncrement: 8 });
 
 module.exports = Column;
