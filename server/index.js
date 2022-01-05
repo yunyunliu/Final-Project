@@ -63,7 +63,18 @@ app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
     const boardData = await Board.findOne({
       where: {
         id: boardId
-      }
+      },
+      include: [
+        {
+          model: Column,
+          include: [
+            {
+              model: Card,
+              include: Tag
+            }
+          ]
+        }
+      ]
     });
     res.json(boardData);
   } catch (err) {
