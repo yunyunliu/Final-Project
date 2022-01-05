@@ -8,10 +8,10 @@ const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
 
 const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  connectionString: process.env.DATABASE_URL
+  // ssl: {
+  //   rejectUnauthorized: false
+  // }
 });
 
 const app = express();
