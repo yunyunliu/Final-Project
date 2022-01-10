@@ -30,15 +30,8 @@
       "warn",
       "multi-line"
     ],
-    "no-console": [
-      "warn",
-      {
-        "allow": [
-          "warn",
-          "error"
-        ]
-      }
-    ],
+    "eqeqeq": 0,
+    "no-console": 0,
     "space-before-function-paren": [
       "warn",
       {

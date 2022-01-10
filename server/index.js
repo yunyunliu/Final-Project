@@ -15,7 +15,8 @@ app.use(staticMiddleware);
 const startApp = async () => {
   await connectDb(); // make sure database connected, before starting server
   app.listen(process.env.PORT, () => {
-    console.log(`express server listening on port ${process.env.PORT}`);
+    console.log('env var:', process.env);
+    console.log(`express server listening on port ${process.env.NODE_ENV}`);
   });
 };
 
