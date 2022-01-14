@@ -20,7 +20,6 @@ const HomeView = () => {
 
   const handleEditBoard = async (id, name) => {
     const boardId = id;
-    console.log(name, id);
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -46,10 +45,12 @@ const HomeView = () => {
   };
 
   const handleDelete = async () => {
-    await fetch(`/api/users/1/boards/${toDelete}`,
+    const res = await fetch(`/api/users/1/boards/${toDelete}`,
       { method: 'DELETE' });
-    const updated = boards.filter(board => board.boardId !== toDelete);
-    setBoards(updated);
+    if (res.ok) {
+      const updated = boards.filter(board => board.id !== toDelete);
+      setBoards(updated);
+    }
     handleCancel();
   };
   if (boards) {

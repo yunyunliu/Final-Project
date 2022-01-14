@@ -83,12 +83,12 @@ app.get('/api/users/:userId/boards/:boardId', async (req, res) => {
 app.delete('/api/users/:id/boards/:boardId', async (req, res) => {
   const boardId = req.params.boardId;
   try {
-    await Board.destroy({
+    const deleted = await Board.destroy({
       where: {
         id: boardId
       }
     });
-    res.sendStatus(204);
+    deleted ? res.sendStatus(204) : res.sendStatus(404);
   } catch (err) {
     console.error(`error deleting board ${boardId}`, err);
     res.status(500).send({ error: 'server error' });
