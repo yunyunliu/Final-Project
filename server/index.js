@@ -15,8 +15,7 @@ app.use(staticMiddleware);
 const startApp = async () => {
   await connectDb(); // make sure database connected, before starting server
   app.listen(process.env.PORT, () => {
-    console.log('env var:', process.env);
-    console.log(`express server listening on port ${process.env.NODE_ENV}`);
+    console.log(`express server listening on port ${process.env.PORT}`);
   });
 };
 
@@ -36,6 +35,7 @@ app.get('/api/users/:id/boards', async (req, res) => {
   };
   try {
     const boards = await Board.findAll(options);
+    console.log('boarddata', boards.Board);
     res.json(boards);
   } catch (err) {
     console.error('error fetching boards:', err.message);

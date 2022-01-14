@@ -148,7 +148,7 @@ const dropTables = async () => {
 };
 
 // dropTables();
-addUsers();
-addTags();
-addBoards();
-addColsCardsRels();
+// addUsers();
+// addTags();
+// addBoards();
+// addColsCardsRels();

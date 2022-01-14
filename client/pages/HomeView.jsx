@@ -77,9 +77,9 @@ const HomeView = () => {
           {boards.map(board => {
             return (
               <ProjectListItem
-                    key={board.boardId}
+                    key={board.id}
                     board={board}
-                    id={board.boardId}
+                    // id={board.id}
                     setDisplayModal={setDisplayModal}
                     handleEdit={handleEditBoard}
                     setToDelete={setToDelete}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisplayModal }) => {
-  const { name, boardId } = board;
+  const { name, id } = board;
   const [projectName, setProjectName] = useState(name);
   const [displayEdit, setDisplayEdit] = useState(false);
 
@@ -11,7 +11,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
       <div className='flex align-center' style={{ height: 70 }}>
         <input value={projectName}
         className='gray-text teal-border-2 border-r3'
-        id={boardId}
+        // id={id}
         style={{ height: '100%', textIndent: 8, fontSize: 22 }}
         onChange={({ target }) => setProjectName(target.value)}
         onKeyDown={e => {
@@ -24,7 +24,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
         <button type='button'
           className='icon-btn'
           style={{ height: 70 }}
-          id={boardId}
+          // id={boardId}
           onClick={e => {
             setDisplayEdit(false);
             handleEdit(Number(e.target.id), projectName);
@@ -43,7 +43,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
 
   const boardName = (
     <div style={{ width: 350, height: 80 }}>
-      <Link to={`/boards/${boardId}`}>
+      <Link to={`/boards/${id}`}>
         <button type='button'
           className='project-item blue-bg semi-bold'>
           <p>{name}</p>
@@ -65,7 +65,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
           ? null
           : (<button type='button'
                 onClick={() => {
-                  setToDelete(boardId);
+                  setToDelete(id);
                   setDisplayModal(true);
                 }}
                 style={{ height: 80, width: 80 }}
