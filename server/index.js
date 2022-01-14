@@ -102,9 +102,12 @@ app.put('/api/users/:id/boards/:boardId', async (req, res) => {
     const updated = await Board.update({ name: data }, {
       where: {
         id: boardId
-      }
+      },
+      returning: true,
+      plain: true
     });
-    res.sendStatus(200);
+    const formatted = updated[1].dataValues;
+    res.json(formatted);
   } catch (err) {
     console.error(`error updating board ${boardId}`, err);
     res.status(500).send({ error: 'server error' });

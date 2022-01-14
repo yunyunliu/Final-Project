@@ -11,7 +11,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
       <div className='flex align-center' style={{ height: 70 }}>
         <input value={projectName}
         className='gray-text teal-border-2 border-r3'
-        // id={id}
+        id={id}
         style={{ height: '100%', textIndent: 8, fontSize: 22 }}
         onChange={({ target }) => setProjectName(target.value)}
         onKeyDown={e => {
@@ -24,7 +24,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
         <button type='button'
           className='icon-btn'
           style={{ height: 70 }}
-          // id={boardId}
+          id={id}
           onClick={e => {
             setDisplayEdit(false);
             handleEdit(Number(e.target.id), projectName);

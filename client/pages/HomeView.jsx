@@ -20,6 +20,7 @@ const HomeView = () => {
 
   const handleEditBoard = async (id, name) => {
     const boardId = id;
+    console.log(name, id);
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -27,7 +28,7 @@ const HomeView = () => {
     };
     const response = await fetch(`/api/users/1/boards/${boardId}`, options);
     const data = await response.json();
-    const updated = boards.map(board => board.boardId === data.boardId ? data : board);
+    const updated = boards.map(board => board.id === data.id ? data : board);
     setBoards(updated);
   };
 
