@@ -140,10 +140,10 @@ const BoardView = () => {
           </button>
         </div>
         <div className='board-content flex'>
-          { board.columns.length > 0
-            ? board.columns.map(col => (
+          { board.Columns.length > 0
+            ? board.Columns.map(col => (
               <Column
-                key={col.columnId}
+                key={col.id}
                 columnData={col}
                 handleDeleteCol={handleDeleteCol}
                 handleEditCol={handleEditCol} />))

@@ -36,10 +36,10 @@ const Card = ({ cardData, handleEdit, colName, handleDelete }) => {
         onClick={() => setIsExpanded(true)}
         className='card-name pink-text blue-bg no-padding no-border'>{cardData.name}
       </button>
-        {cardData.tags.length > 0
+        {cardData.Tags.length > 0
           ? (<div style={{ margin: '5 10', display: 'flex' }}>
-            {cardData.tags.map(tag => (<div
-                    key={tag.tagId}
+            {cardData.Tags.map(tag => (<div
+                    key={tag.id}
                     className={`${tag.color} card-label tooltip`}>
                     <span className='tooltiptext'>{tag.text}</span>
                   </div>))

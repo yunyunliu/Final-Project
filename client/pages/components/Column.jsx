@@ -121,8 +121,8 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
             style={{ width: 170, height: '100%' }}
             {...droppableProps}
             ref={innerRef}>
-          {columnData.cards.map((card, i) => (
-            <Draggable key={card.cardId} draggableId={card.cardId + ''} index={i}>
+          {columnData.Cards.map((card, i) => (
+            <Draggable key={card.id} draggableId={card.id + ''} index={i}>
               {({ innerRef, draggableProps, dragHandleProps }) => (
                 <li ref={innerRef} {...draggableProps} {...dragHandleProps}>
                   <Card

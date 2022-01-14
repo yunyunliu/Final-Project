@@ -35,7 +35,6 @@ app.get('/api/users/:id/boards', async (req, res) => {
   };
   try {
     const boards = await Board.findAll(options);
-    console.log('boarddata', boards.Board);
     res.json(boards);
   } catch (err) {
     console.error('error fetching boards:', err.message);
