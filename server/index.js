@@ -7,12 +7,19 @@ const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
 
-const db = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
+let db;
+if (process.env.NODE_ENV === 'production') {
+  db = new pg.Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
+  });
+} else {
+  db = new pg.Pool({
+    connectionString: process.env.DATABASE_URL
+  });
+}
 
 const app = express();
 app.use(express.json());
