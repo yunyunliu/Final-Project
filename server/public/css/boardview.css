@@ -1,4 +1,11 @@
 /* BoardView component */
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 25px 100px;
+}
+
 .board-name {
   font-size: 40px;
   margin-top: 0;
@@ -26,7 +33,7 @@
   width: 210px;
   min-width: 210px;
   min-height: 200px;
-  margin: 5px;
+  margin-right: 10px;
   background-color: #f0f0f0;
   border: 3px solid #1db9c3;
   display: flex;

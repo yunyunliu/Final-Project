@@ -138,7 +138,3 @@ a:hover {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-
-dialog {
-  position: fixed;
-}

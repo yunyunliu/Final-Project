@@ -18,7 +18,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
 
   return (
     <FocusTrap>
-      <dialog className='add-edit-modal' style={{ top: '20%' }} open>
+      <div className='add-edit-modal div-modal'>
         <form className='flex flex-col align-center'>
           <h2 className='no-margin'>Add new task card</h2>
             <div style={{ margin: 10 }}>in <span className='semi-bold pink-text'>{colName}</span></div>
@@ -58,7 +58,7 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             </button>
           </div>
         </form>
-      </dialog>
+      </div>
     </FocusTrap>
   );
 };

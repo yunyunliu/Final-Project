@@ -1,0 +1,13 @@
+dialog {
+
+}
+
+dialog:focus-within {
+  background-color: green;
+}
+
+
+.div-modal {
+  position: fixed;
+  background-color: #eafeff;
+}
