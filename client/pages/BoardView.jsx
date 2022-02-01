@@ -5,13 +5,14 @@ import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
+import AddForm from './components/AddForm';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch('/api/users/1/boards/2')
+    fetch('/api/users/1/boards/3')
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -128,6 +129,7 @@ const BoardView = () => {
   if (board) {
     return (
     <DragDropContext onDragEnd={handleDragEnd}>
+      {/* <AddForm /> */}
       <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
         <div style={{ flexWrap: 'wrap', maxWidth: 700, alignItems: 'baseline' }} className='space-between board-content'>
           <h1 className='board-name pink-text column-half'>{board.name}</h1>
