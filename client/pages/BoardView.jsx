@@ -5,15 +5,13 @@ import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
-import AddForm from './components/AddForm';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
-  const [displayAddCard, setDisplayAddCard] = useState(false);
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch('/api/users/1/boards/3')
+    fetch('/api/users/1/boards/' + boardId)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -134,9 +132,6 @@ const BoardView = () => {
         <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0 }} className='board-content'>
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
-        { displayAddCard
-          ? <AddForm setModal={setDisplayAddCard} />
-          : null }
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
           { board.columns.length > 0
             ? board.columns.map(col => (
