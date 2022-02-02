@@ -10,7 +10,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
 
   const [colName, setColName] = useState(columnData.name);
   const [displayEditCol, setDisplayEditCol] = useState(false);
-  const [displayAddCard, setDisplayAddCard] = useState(true);
+  const [displayAddCard, setDisplayAddCard] = useState(false);
 
   const handleAddCard = async (name, description, tags) => {
     const { boardId, columnId } = columnData;
