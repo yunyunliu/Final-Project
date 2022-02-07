@@ -1,10 +1,8 @@
 import React from 'react';
 
 const TagList = ({ tags, remove }) => (
-  <>
-    <span className='semi-bold'
-    style={{ marginRight: 10, alignSelf: 'flex-start' }}>Tags:
-    </span>
+  <div>
+    <span className='semi-bold' style={{ marginRight: 10, alignSelf: 'flex-start' }}>Tags:</span>
     <ul className='no-bullets no-padding'>
     {tags.map(tag => (
       <li key={tag.tagId}
@@ -19,7 +17,7 @@ const TagList = ({ tags, remove }) => (
         </span>
       </li>))}
     </ul>
-  </>
+  </div>
 );
 
 export default TagList;

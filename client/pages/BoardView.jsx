@@ -11,7 +11,7 @@ const BoardView = () => {
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch(`/api/users/1/boards/${boardId}`)
+    fetch('/api/users/1/boards/' + boardId)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -129,16 +129,10 @@ const BoardView = () => {
     return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-        <div style={{ flexWrap: 'wrap', maxWidth: 700, alignItems: 'baseline' }} className='space-between board-content'>
-          <h1 className='board-name pink-text column-half'>{board.name}</h1>
-          <button className='form-btn add-project-btn column-half'
-            style={{ minWidth: 175 }}
-            onClick={() => handleAddCol()}>
-            <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-            Add Column
-          </button>
+        <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0 }} className='board-content'>
+          <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
-        <div className='board-content flex'>
+        <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
           { board.columns.length > 0
             ? board.columns.map(col => (
               <Column
@@ -147,6 +141,12 @@ const BoardView = () => {
                 handleDeleteCol={handleDeleteCol}
                 handleEditCol={handleEditCol} />))
             : (<div style={{ fontSize: 32, width: '100%', textAlign: 'center' }}>You have no tasks.</div>) }
+          <button className='form-btn add-project-btn'
+            style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+            onClick={() => handleAddCol()}>
+            <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+            Add Column
+          </button>
         </div>
       </BoardContext.Provider>
     </DragDropContext>
