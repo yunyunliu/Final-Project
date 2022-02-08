@@ -4,7 +4,7 @@ import FocusTrap from 'focus-trap-react';
 const CardModal = ({ data, setExpanded, setEdit }) => {
   return (
     <FocusTrap>
-      <dialog className='card-modal flex' open>
+      <dialog className='card-modal flex' style={{ position: 'fixed', top: '30%' }} open>
         <h2 className='no-margin'>{data.name}</h2>
         <div className='flex width-100' style={{ margin: 10 }}>
           {data.tags.map(tag => (<div
