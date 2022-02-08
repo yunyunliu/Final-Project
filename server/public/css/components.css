@@ -1,8 +1,7 @@
 /* AddForm/EditForm component */
 .add-edit-modal {
   border: 3px solid #1db9c3;
-  padding: 10px 50px;
-  width: 400px;
+  width: 420px;
   z-index: 2;
 }
 
@@ -10,15 +9,15 @@
   font-size: 20px;
   height: 30px;
   width: 30px;
+  position: absolute;
+  right: 10px;
   background-color: white;
   border: none;
 }
 
 .edit-form-header {
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+ text-align: center;
 }
 
 .form-btn {
@@ -28,6 +27,7 @@
   font-weight: 700;
 }
 
+.close-edit-btn:hover,
 .form-btn:hover {
   color: #1db9c3;
 }
@@ -65,7 +65,7 @@
 }
 
 .color-btn:hover {
-  border: 2px solid #1db9c3;
+  border: 1px solid black;
 }
 
 /* TagList component */

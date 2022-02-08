@@ -23,59 +23,66 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
 
   return (
     <FocusTrap>
-      <dialog className='add-edit-modal' style={{ top: '20%' }} open >
-        <form className='flex flex-col align-center'>
-          <div className='edit-form-header'>
-            <h2 className='no-margin'>Edit task card</h2>
-            <button type='button' className='close-edit-btn' onClick={() => setEdit(false)}><i className='fas fa-times'></i></button>
-          </div>
+      <dialog className='add-edit-modal' style={{ top: '20%', position: 'fixed', padding: 20 }} open >
+        <button type='button' className='close-edit-btn' onClick={() => setEdit(false)}>
+            <i className='fas fa-times'></i>
+          </button>
+        <div className='edit-form-header '>
+          <h2 className='no-margin'>Edit task card</h2>
           <div> in <span className='pink-text semi-bold'>{colName}</span></div>
-          <label className='width-100 semi-bold'>Task:
-            <input style={{ margin: 10 }}
-              className='teal-border-2'
-              value={task}
-              onChange={({ target }) => setTask(target.value)} required/>
-          </label>
-          <label className='width-100 semi-bold' style={{ margin: 15 }}>Task Description:
-            <textarea className='teal-border-2 gray-text source-sans'
-              style={{ marginTop: 10 }}
-              value={description}
-              cols='35'
-              rows='5'
-              onChange={({ target }) => setDescription(target.value)} />
-          </label>
-          <label className='semi-bold width-100' style={{ marginBottom: 10 }}> Move Card:
-            <select className='teal-border-2'
-                style={{ margin: 10 }}
-                value={value}
-                onChange={({ target }) => {
-                  setValue(Number(target.value));
-                }}>
-              <option value='label'>Choose column</option>
-              {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
-            </select>
-          </label>
-          <div className='align-center width-100 flex' style={{ marginBottom: 20, justifyContent: 'flex-start' }}>
-            <TagList tags={tags} remove={removeTag} />
+        </div>
+        <form className='flex align-center' style={{ paddingTop: 20 }}>
+          <div style={{ minHeight: 315, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <label className='width-100 semi-bold' htmlFor='task-name'>Task:</label>
+              <input
+                className='teal-border-2'
+                value={task}
+                id='task-name'
+                style={{ height: 25, textIndent: 3 }}
+                onChange={({ target }) => setTask(target.value)} required/>
+            <label className='width-100 semi-bold' htmlFor='task-description'>Task Description:</label>
+              <textarea className='teal-border-2 gray-text source-sans'
+                value={description}
+                cols='35'
+                rows='5'
+                style={{ textIndent: 3 }}
+                onChange={({ target }) => setDescription(target.value)}
+                id='task-description' />
+            <div style={{ marginTop: 15 }}>
+              <button
+                type='button'
+                className='form-btn'
+                onClick={() => {
+                  const updated = {
+                    ...data,
+                    columnId: value === 'label' ? data.columnId : Number(value),
+                    name: task,
+                    description,
+                    tags
+                  };
+                  handleEdit(updated, data.columnId);
+                  setEdit(false);
+                }} >
+                Done
+              </button>
+            </div>
           </div>
-          <SubMenu setTags={setTags} tags={tags} />
-          <div className='flex width-100' style={{ marginTop: 15, flexDirection: 'row-reverse' }}>
-            <button
-              type='button'
-              className='form-btn'
-              onClick={() => {
-                const updated = {
-                  ...data,
-                  columnId: value === 'label' ? data.columnId : Number(value),
-                  name: task,
-                  description,
-                  tags
-                };
-                handleEdit(updated, data.columnId);
-                setEdit(false);
-              }} >
-              Done
-            </button>
+          <div style={{ paddingLeft: 20 }}>
+            <label className='semi-bold width-100' style={{ marginBottom: 10 }}> Move Card:
+              <select className='teal-border-2'
+                  style={{ marginTop: 10, marginBottom: 10, height: 25 }}
+                  value={value}
+                  onChange={({ target }) => {
+                    setValue(Number(target.value));
+                  }}>
+                <option value='label'>Choose column</option>
+                {board.columns.map(col => <option key={col.columnId} value={col.columnId}>{col.name}</option>)}
+              </select>
+            </label>
+            <div className='align-center width-100 flex' style={{ marginBottom: 20, justifyContent: 'flex-start' }}>
+              <TagList tags={tags} remove={removeTag} />
+            </div>
+            <SubMenu setTags={setTags} tags={tags} />
           </div>
         </form>
       </dialog>

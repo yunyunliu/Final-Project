@@ -1,6 +1,9 @@
 {
   "name": "project-map",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.x"
+  },
   "private": true,
   "description": "Project board app built with React, Express, Node. and PostgreSQL",
   "main": "server/index.js",
@@ -10,8 +13,7 @@
     "dev": "npm-run-all --silent --parallel dev:*",
     "dev:client": "webpack serve --mode=development",
     "dev:server": "nodemon server/index.js",
-    "db:import": "bash scripts/db-import.bash",
-    "prepare": "husky install"
+    "db:import": "bash scripts/db-import.bash"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
