@@ -11,7 +11,7 @@ const BoardView = () => {
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch('/api/users/1/boards/' + boardId)
+    fetch('/api/users/1/boards/' + 3)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -140,7 +140,7 @@ const BoardView = () => {
                 columnData={col}
                 handleDeleteCol={handleDeleteCol}
                 handleEditCol={handleEditCol} />))
-            : (<div style={{ fontSize: 32, width: '100%', textAlign: 'center' }}>You have no tasks.</div>) }
+            : null }
           <button className='form-btn add-project-btn'
             style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
             onClick={() => handleAddCol()}>
