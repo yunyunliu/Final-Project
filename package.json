@@ -13,8 +13,7 @@
     "dev": "npm-run-all --silent --parallel dev:*",
     "dev:client": "webpack serve --mode=development",
     "dev:server": "nodemon server/index.js",
-    "db:import": "bash scripts/db-import.bash",
-    "prepare": "husky install"
+    "db:import": "bash scripts/db-import.bash"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
