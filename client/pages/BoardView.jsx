@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
@@ -133,25 +133,37 @@ const BoardView = () => {
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-          <ul className='no-bullets no-padding width-100' style={{ display: 'flex', marginTop: 0}}>
-             { board.columns.map(col => (
-              <li key={col.columnId}>
-                <Column
-                  columnData={col}
-                  handleDeleteCol={handleDeleteCol}
-                  handleEditCol={handleEditCol} />
-              </li>
-             ))}
-             <li>
-              <button className='form-btn add-project-btn'
-                style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
-                onClick={() => handleAddCol()}>
-                <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-                Add Column
-              </button>
-            </li>
-          </ul>
+          <Droppable droppableId='columns' type='columns' direction='horizontal'>
+            {({ innerRef, droppableProps, placeholder }) => (
+              <ul className='no-bullets no-padding width-100'
+                  style={{ display: 'flex', marginTop: 0 }}
+                  {...droppableProps}
+                  ref={innerRef}>
+                { board.columns.map((col, i) => (
+                  <Draggable key={col.columnId} draggableId={col.columnId + ''} index={i}>
+                    {({ innerRef, draggableProps, dragHandleProps }) => (
+                      <li ref={innerRef} {...draggableProps} {...dragHandleProps} >
+                        <Column
+                          columnData={col}
+                          handleDeleteCol={handleDeleteCol}
+                          handleEditCol={handleEditCol} />
+                      </li>
+                    )}
+                  </Draggable>)) }
+                  {placeholder}
+                <li>
+                  <button className='form-btn add-project-btn'
+                    style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+                    onClick={() => handleAddCol()}>
+                    <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+                    Add Column
+                  </button>
+                </li>
+              </ul>
+            )
+            }
 
+          </Droppable>
         </div>
       </BoardContext.Provider>
     </DragDropContext>

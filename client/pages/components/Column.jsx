@@ -115,7 +115,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
             <i className='fas fa-plus'></i> New Card
           </button>) }
 
-      <Droppable droppableId={columnData.columnId + ''}>
+      <Droppable droppableId={columnData.columnId + ''} type='cards'>
         {({ droppableProps, innerRef, placeholder }) => (
           <ul className={`no-bullets no-padding ${columnData.columnId}`}
             style={{ width: 170, height: '100%' }}
