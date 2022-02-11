@@ -113,16 +113,29 @@ const BoardView = () => {
     const destinationResponse = await fetch(`/api/columns/${Number(destination.droppableId)}/cards`, options2);
   };
 
-  const handleDragEnd = result => {
-    const { source, destination } = result;
-    if (!destination) {
-      return;
-    }
+  const handleDragCard = (source, destination) => {
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
     } else {
       moveColumns(source, destination);
     }
+  };
+
+  const handleDragCol = () => {
+
+  };
+
+  const handleDragEnd = result => {
+    const { source, destination, draggableId, type } = result;
+    if (!destination) return; // invalid drop location
+    if (type === 'card') {
+      // Draggable is a Card component
+      handleDragCard(source, destination);
+    }
+    if (type === 'column') { // Draggable is a Column component
+
+    }
+
   };
 
   if (board) {
@@ -133,14 +146,14 @@ const BoardView = () => {
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-          <Droppable droppableId='columns' type='columns' direction='horizontal'>
+          <Droppable droppableId='columns' type='column' direction='horizontal'>
             {({ innerRef, droppableProps, placeholder }) => (
               <ul className='no-bullets no-padding width-100'
                   style={{ display: 'flex', marginTop: 0 }}
                   {...droppableProps}
                   ref={innerRef}>
                 { board.columns.map((col, i) => (
-                  <Draggable key={col.columnId} draggableId={col.columnId + ''} index={i}>
+                  <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
                     {({ innerRef, draggableProps, dragHandleProps }) => (
                       <li ref={innerRef} {...draggableProps} {...dragHandleProps} >
                         <Column
