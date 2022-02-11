@@ -133,20 +133,25 @@ const BoardView = () => {
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-          { board.columns.length > 0
-            ? board.columns.map(col => (
-              <Column
-                key={col.columnId}
-                columnData={col}
-                handleDeleteCol={handleDeleteCol}
-                handleEditCol={handleEditCol} />))
-            : null }
-          <button className='form-btn add-project-btn'
-            style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
-            onClick={() => handleAddCol()}>
-            <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-            Add Column
-          </button>
+          <ul className='no-bullets no-padding width-100' style={{ display: 'flex', marginTop: 0}}>
+             { board.columns.map(col => (
+              <li key={col.columnId}>
+                <Column
+                  columnData={col}
+                  handleDeleteCol={handleDeleteCol}
+                  handleEditCol={handleEditCol} />
+              </li>
+             ))}
+             <li>
+              <button className='form-btn add-project-btn'
+                style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+                onClick={() => handleAddCol()}>
+                <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+                Add Column
+              </button>
+            </li>
+          </ul>
+
         </div>
       </BoardContext.Provider>
     </DragDropContext>
