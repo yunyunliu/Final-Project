@@ -71,18 +71,19 @@ const boards = {
         SET "sequenceNum" = $1
       WHERE "columnId" = $2
     `;
-    const selectSql = `
-      SELECT *
-          FROM "columns"
-        WHERE "boardId" = $1
-      ORDER BY "sequenceNum"
-    `;
+    // const selectSql = `
+    //   SELECT *
+    //       FROM "columns"
+    //     WHERE "boardId" = $1
+    //   ORDER BY "sequenceNum"
+    // `;
     try {
       await body.forEach(col => {
         db.query(sql, [col.sequenceNum, col.columnId]);
       });
-      const result = await db.query(selectSql, [boardId]);
-      res.json(result.rows);
+      // const result = await db.query(selectSql, [boardId]);
+      // res.json(result.rows);
+      res.sendStatus(200);
     } catch (err) {
       res.sendStatus(500);
       console.log('error:', err.message);

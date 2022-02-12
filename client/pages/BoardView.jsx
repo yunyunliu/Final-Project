@@ -133,13 +133,14 @@ const BoardView = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(colsCopy)
     };
+    setBoard({ ...board, columns: colsCopy });
     const res = await fetch('/api/boards/' + board.boardId + '/columns', options);
-    if (res.ok) {
-      setBoard({ ...board, columns: colsCopy });
+    // if (res.ok) { // come back to error ha
 
-    } else {
-      console.log('server error');
-    }
+
+    // } else {
+    //   console.log('server error');
+    // }
   };
 
   const handleDragEnd = result => {
@@ -163,9 +164,9 @@ const BoardView = () => {
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
           <Droppable droppableId='columns' type='column' direction='horizontal'>
-            {({ innerRef, droppableProps, placeholder }) => (
+            {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
               <ul className='no-bullets no-padding width-100'
-                  style={{ display: 'flex', marginTop: 0 }}
+                  style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#cac9cc' : '#eafeff' }}
                   {...droppableProps}
                   ref={innerRef}>
                 { board.columns.map((col, i) => (
