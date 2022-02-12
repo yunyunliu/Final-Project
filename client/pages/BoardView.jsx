@@ -5,7 +5,6 @@ import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
-import { closeComplete } from 'pg-protocol/dist/messages';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
@@ -126,19 +125,18 @@ const BoardView = () => {
     const srcIndex = source.index;
     const destIndex = destination.index;
     const colsCopy = board.columns.slice();
-    // console.log('cols', colsCopy);
     const [moved] = colsCopy.splice(srcIndex, 1);
     colsCopy.splice(destIndex, 0, moved);
     colsCopy.forEach((col, i) => { col.sequenceNum = i; });
-    // console.log('cols', colsCopy)
-    const body = {
+    const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(colsCopy)
     };
-    const res = await fetch(`/api/boards/${board.boardId}`, body);
+    const res = await fetch('/api/boards/' + board.boardId + '/columns', options);
     if (res.ok) {
       setBoard({ ...board, columns: colsCopy });
+
     } else {
       console.log('server error');
     }

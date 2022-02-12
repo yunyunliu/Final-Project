@@ -113,10 +113,10 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
             onClick={() => setDisplayAddCard(true)}>
             <i className='fas fa-plus'></i> New Card
           </button>) }
-      <Droppable droppableId={columnData.columnId + ''} type='card'>
+      <Droppable droppableId={columnData.columnId + ''} type='card' style={{ minHeight: 100 }}>
         {({ droppableProps, innerRef, placeholder }) => (
           <ul className={`no-bullets no-padding ${columnData.columnId}`}
-            style={{ width: 170, height: '100%' }}
+            style={{ width: 170, marginBottom: 20, marginTop: 20 }}
             {...droppableProps}
             ref={innerRef}>
           {columnData.cards.map((card, i) => (

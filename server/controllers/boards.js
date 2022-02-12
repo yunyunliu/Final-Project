@@ -64,24 +64,25 @@ const boards = {
     }
   },
   editColumnOrder: async (req, res, db) => {
+    const boardId = req.params.boardId;
     const body = req.body;
-    const { boardId } = req.params;
     const sql = `
       UPDATE "columns"
         SET "sequenceNum" = $1
-      WHERE "boardId" = $2
+      WHERE "columnId" = $2
     `;
-    // const selectSql = `
-    //   SELECT *
-    //       FROM "columns"
-    //     WHERE "boardId" = $1
-    //   ORDER BY "sequenceNum"
-    // `;
-
+    const selectSql = `
+      SELECT *
+          FROM "columns"
+        WHERE "boardId" = $1
+      ORDER BY "sequenceNum"
+    `;
     try {
-      await body.forEach(col => { db.query(sql, [col.sequenceNum, boardId]); });
-      // const result = await db.query(selectSql, [boardId]);
-      res.sendStatus(200);
+      await body.forEach(col => {
+        db.query(sql, [col.sequenceNum, col.columnId]);
+      });
+      const result = await db.query(selectSql, [boardId]);
+      res.json(result.rows);
     } catch (err) {
       res.sendStatus(500);
       console.log('error:', err.message);
