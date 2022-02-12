@@ -163,37 +163,36 @@ const BoardView = () => {
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-          <Droppable droppableId='columns' type='column' direction='horizontal'>
-            {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
-              <ul className='no-bullets no-padding width-100'
-                  style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#cac9cc' : '#eafeff' }}
+          <ul className='no-bullets no-padding flex'>
+            <Droppable droppableId='columns' type='column' direction='horizontal'>
+              {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
+                <li style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#cac9cc' : '#eafeff' }}
                   {...droppableProps}
                   ref={innerRef}>
-                { board.columns.map((col, i) => (
-                  <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
-                    {({ innerRef, draggableProps, dragHandleProps }) => (
-                      <li ref={innerRef} {...draggableProps} {...dragHandleProps} >
-                        <Column
-                          columnData={col}
-                          handleDeleteCol={handleDeleteCol}
-                          handleEditCol={handleEditCol} />
-                      </li>
-                    )}
-                  </Draggable>)) }
-                  {placeholder}
-                  <li>
-                    <button className='form-btn add-project-btn'
-                      style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
-                      onClick={() => handleAddCol()}>
-                      <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-                      Add Column
-                    </button>
-                  </li>
-              </ul>
-            )
-            }
-
-          </Droppable>
+                    { board.columns.map((col, i) => (
+                    <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
+                      {({ innerRef, draggableProps, dragHandleProps }) => (
+                        <div ref={innerRef} {...draggableProps} {...dragHandleProps} >
+                          <Column
+                            columnData={col}
+                            handleDeleteCol={handleDeleteCol}
+                            handleEditCol={handleEditCol} />
+                        </div>
+                      )}
+                    </Draggable>)) }
+                    {placeholder}
+                </li>
+              )}
+            </Droppable>
+            <li>
+              <button className='form-btn add-project-btn'
+                style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+                onClick={() => handleAddCol()}>
+                <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+                Add Column
+              </button>
+            </li>
+          </ul>
         </div>
       </BoardContext.Provider>
     </DragDropContext>
