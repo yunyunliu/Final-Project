@@ -5,6 +5,7 @@ import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
+import { closeComplete } from 'pg-protocol/dist/messages';
 
 const BoardView = () => {
   const [board, setBoard] = useState();
@@ -82,13 +83,13 @@ const BoardView = () => {
       body: JSON.stringify(listCopy)
     };
     const response = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options);
-    if (response.ok()) {
+    if (response.ok) {
       const updatedCards = await response.json();
       setColumnCards(Number(source.droppableId), updatedCards);
     }
   };
 
-  const moveColumns = async (source, destination) => {
+  const changeColumns = async (source, destination) => {
     const srcIndex = source.index;
     const destinationIndex = destination.index;
     const srcList = getColumnCards(Number(source.droppableId)).slice();
@@ -117,11 +118,26 @@ const BoardView = () => {
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
     } else {
-      moveColumns(source, destination);
+      changeColumns(source, destination);
     }
   };
 
-  const handleDragCol = () => {
+  const handleDragCol = async (source, destination) => {
+    const srcIndex = source.index;
+    const destIndex = destination.index;
+    const colsCopy = board.columns.slice();
+    // console.log('cols', colsCopy);
+    const [moved] = colsCopy.splice(srcIndex, 1);
+    colsCopy.splice(destIndex, 0, moved);
+    colsCopy.forEach((col, i) => { col.sequenceNum = i; });
+    // console.log('cols', colsCopy)
+    const body = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(colsCopy)
+    };
+    setBoard({ ...board, columns: colsCopy })
+    // const res = await fetch(`/api/columns/${id}`, options);
 
   };
 
@@ -133,7 +149,7 @@ const BoardView = () => {
       handleDragCard(source, destination);
     }
     if (type === 'column') { // Draggable is a Column component
-
+      handleDragCol(source, destination);
     }
 
   };
@@ -164,14 +180,14 @@ const BoardView = () => {
                     )}
                   </Draggable>)) }
                   {placeholder}
-                <li>
-                  <button className='form-btn add-project-btn'
-                    style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
-                    onClick={() => handleAddCol()}>
-                    <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-                    Add Column
-                  </button>
-                </li>
+                  <li>
+                    <button className='form-btn add-project-btn'
+                      style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+                      onClick={() => handleAddCol()}>
+                      <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+                      Add Column
+                    </button>
+                  </li>
               </ul>
             )
             }
