@@ -98,8 +98,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
         <button type='button'
           className='no-border col-btn'
           onClick={() => handleDeleteCol(columnData.columnId)}>
-          <i className='fas fa-times semi-bold gray-text'
-            style={{ fontSize: 22 }}></i>
+          <i className='fas fa-times delete-icon'></i>
         </button>
       </div>
   );

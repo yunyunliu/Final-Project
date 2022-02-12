@@ -52,10 +52,13 @@ app.delete('/api/users/:id/boards/:boardId', (req, res) => {
   boards.delete(req, res, db);
 });
 
-app.put('/api/users/:id/boards/:boardId', async (req, res) => {
+app.put('/api/users/:id/boards/:boardId', (req, res) => {
   boards.edit(req, res, db);
 });
 
+app.put('/api/boards/:boardId', (req, res) => {
+  boards.editColumnOrder(req, res, db);
+});
 // columns
 
 app.get('/api/users/:id/boards/:boardId/col', (req, res) => {
@@ -77,6 +80,7 @@ app.put('/api/columns/:colId', (req, res) => {
 app.put('/api/columns/:colId/cards', (req, res) => {
   columns.editCardOrder(req, res, db);
 });
+
 // task cards
 
 app.get('/api/users/:id/boards/:boardId/col/:colId/cards', (req, res) => {

@@ -136,9 +136,12 @@ const BoardView = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(colsCopy)
     };
-    setBoard({ ...board, columns: colsCopy })
-    // const res = await fetch(`/api/columns/${id}`, options);
-
+    const res = await fetch(`/api/boards/${board.boardId}`, body);
+    if (res.ok) {
+      setBoard({ ...board, columns: colsCopy });
+    } else {
+      console.log('server error');
+    }
   };
 
   const handleDragEnd = result => {
@@ -151,7 +154,6 @@ const BoardView = () => {
     if (type === 'column') { // Draggable is a Column component
       handleDragCol(source, destination);
     }
-
   };
 
   if (board) {
