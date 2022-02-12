@@ -87,7 +87,7 @@ const HomeView = () => {
             );
           })}
         </ul>)
-          : (<div style={{ fontSize: 32 }}>You currently have no projects.</div>)
+          : null
         }
       </div>
     );

@@ -49,6 +49,7 @@ const sql = `with "cardTags" as (
       "name",
       coalesce((select matching from "colCards" where "colCards"."columnId" = c."columnId"), '[]'::json) as cards
     from columns c
+    order by "sequenceNum"
   ) as cols
   group by cols."boardId"
 )
