@@ -98,8 +98,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
         <button type='button'
           className='no-border col-btn'
           onClick={() => handleDeleteCol(columnData.columnId)}>
-          <i className='fas fa-times semi-bold gray-text'
-            style={{ fontSize: 22 }}></i>
+          <i className='fas fa-times delete-icon'></i>
         </button>
       </div>
   );
@@ -114,11 +113,10 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
             onClick={() => setDisplayAddCard(true)}>
             <i className='fas fa-plus'></i> New Card
           </button>) }
-
-      <Droppable droppableId={columnData.columnId + ''}>
-        {({ droppableProps, innerRef, placeholder }) => (
+      <Droppable droppableId={columnData.columnId + ''} type='card' style={{ minHeight: 100 }}>
+        {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => (
           <ul className={`no-bullets no-padding ${columnData.columnId}`}
-            style={{ width: 170, height: '100%' }}
+            style={{ width: 170, marginBottom: 20, marginTop: 20, backgroundColor: isDraggingOver ? '#dbf1f1' : '#f0f0f0' }}
             {...droppableProps}
             ref={innerRef}>
           {columnData.cards.map((card, i) => (

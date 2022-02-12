@@ -62,7 +62,32 @@ const boards = {
       console.log(err.message);
       res.status(500).send(err.message);
     }
-
+  },
+  editColumnOrder: async (req, res, db) => {
+    const boardId = req.params.boardId;
+    const body = req.body;
+    const sql = `
+      UPDATE "columns"
+        SET "sequenceNum" = $1
+      WHERE "columnId" = $2
+    `;
+    // const selectSql = `
+    //   SELECT *
+    //       FROM "columns"
+    //     WHERE "boardId" = $1
+    //   ORDER BY "sequenceNum"
+    // `;
+    try {
+      await body.forEach(col => {
+        db.query(sql, [col.sequenceNum, col.columnId]);
+      });
+      // const result = await db.query(selectSql, [boardId]);
+      // res.json(result.rows);
+      res.sendStatus(200);
+    } catch (err) {
+      res.sendStatus(500);
+      console.log('error:', err.message);
+    }
   }
 };
 

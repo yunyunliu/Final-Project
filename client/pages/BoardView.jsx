@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
@@ -82,13 +82,13 @@ const BoardView = () => {
       body: JSON.stringify(listCopy)
     };
     const response = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options);
-    if (response.ok()) {
+    if (response.ok) {
       const updatedCards = await response.json();
       setColumnCards(Number(source.droppableId), updatedCards);
     }
   };
 
-  const moveColumns = async (source, destination) => {
+  const changeColumns = async (source, destination) => {
     const srcIndex = source.index;
     const destinationIndex = destination.index;
     const srcList = getColumnCards(Number(source.droppableId)).slice();
@@ -113,15 +113,45 @@ const BoardView = () => {
     const destinationResponse = await fetch(`/api/columns/${Number(destination.droppableId)}/cards`, options2);
   };
 
-  const handleDragEnd = result => {
-    const { source, destination } = result;
-    if (!destination) {
-      return;
-    }
+  const handleDragCard = (source, destination) => {
     if (destination.droppableId === source.droppableId) {
       reorderCards(source, destination);
     } else {
-      moveColumns(source, destination);
+      changeColumns(source, destination);
+    }
+  };
+
+  const handleDragCol = async (source, destination) => {
+    const srcIndex = source.index;
+    const destIndex = destination.index;
+    const colsCopy = board.columns.slice();
+    const [moved] = colsCopy.splice(srcIndex, 1);
+    colsCopy.splice(destIndex, 0, moved);
+    colsCopy.forEach((col, i) => { col.sequenceNum = i; });
+    const options = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(colsCopy)
+    };
+    setBoard({ ...board, columns: colsCopy });
+    const res = await fetch('/api/boards/' + board.boardId + '/columns', options);
+    // if (res.ok) { // come back to error ha
+
+
+    // } else {
+    //   console.log('server error');
+    // }
+  };
+
+  const handleDragEnd = result => {
+    const { source, destination, draggableId, type } = result;
+    if (!destination) return; // invalid drop location
+    if (type === 'card') {
+      // Draggable is a Card component
+      handleDragCard(source, destination);
+    }
+    if (type === 'column') { // Draggable is a Column component
+      handleDragCol(source, destination);
     }
   };
 
@@ -129,24 +159,40 @@ const BoardView = () => {
     return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-        <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0 }} className='board-content'>
+        <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0, paddingLeft: 100 }} className='board-content flex'>
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-          { board.columns.length > 0
-            ? board.columns.map(col => (
-              <Column
-                key={col.columnId}
-                columnData={col}
-                handleDeleteCol={handleDeleteCol}
-                handleEditCol={handleEditCol} />))
-            : null }
-          <button className='form-btn add-project-btn'
-            style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
-            onClick={() => handleAddCol()}>
-            <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
-            Add Column
-          </button>
+          <ul className='no-bullets no-padding flex'>
+            <Droppable droppableId='columns' type='column' direction='horizontal'>
+              {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
+                <li style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff' }}
+                  {...droppableProps}
+                  ref={innerRef}>
+                    { board.columns.map((col, i) => (
+                    <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
+                      {({ innerRef, draggableProps, dragHandleProps }) => (
+                        <div ref={innerRef} {...draggableProps} {...dragHandleProps} >
+                          <Column
+                            columnData={col}
+                            handleDeleteCol={handleDeleteCol}
+                            handleEditCol={handleEditCol} />
+                        </div>
+                      )}
+                    </Draggable>)) }
+                    {placeholder}
+                </li>
+              )}
+            </Droppable>
+            <li>
+              <button className='form-btn add-project-btn'
+                style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+                onClick={() => handleAddCol()}>
+                <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+                Add Column
+              </button>
+            </li>
+          </ul>
         </div>
       </BoardContext.Provider>
     </DragDropContext>

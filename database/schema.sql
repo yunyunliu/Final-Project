@@ -25,6 +25,7 @@ CREATE TABLE "columns" (
 	"boardId" integer NOT NULL,
 	"columnId" serial NOT NULL,
 	"name" TEXT NOT NULL,
+	"sequenceNum" integer,
 	CONSTRAINT "columns_pk" PRIMARY KEY ("columnId")
 ) WITH (
   OIDS=FALSE
