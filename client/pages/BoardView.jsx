@@ -159,14 +159,14 @@ const BoardView = () => {
     return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-        <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0 }} className='board-content'>
+        <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0, paddingLeft: 100 }} className='board-content flex'>
           <h1 className='board-name pink-text center-text'>{board.name}</h1>
         </div>
         <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
           <ul className='no-bullets no-padding flex'>
             <Droppable droppableId='columns' type='column' direction='horizontal'>
               {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
-                <li style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#cac9cc' : '#eafeff' }}
+                <li style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff' }}
                   {...droppableProps}
                   ref={innerRef}>
                     { board.columns.map((col, i) => (

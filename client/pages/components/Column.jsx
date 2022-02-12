@@ -116,7 +116,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
       <Droppable droppableId={columnData.columnId + ''} type='card' style={{ minHeight: 100 }}>
         {({ droppableProps, innerRef, placeholder }, { isDraggingOver }) => (
           <ul className={`no-bullets no-padding ${columnData.columnId}`}
-            style={{ width: 170, marginBottom: 20, marginTop: 20, backgroundColor: isDraggingOver ? '#cac9cc' : '#f0f0f0' }}
+            style={{ width: 170, marginBottom: 20, marginTop: 20, backgroundColor: isDraggingOver ? '#dbf1f1' : '#f0f0f0' }}
             {...droppableProps}
             ref={innerRef}>
           {columnData.cards.map((card, i) => (
