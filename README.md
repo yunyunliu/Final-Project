@@ -27,6 +27,7 @@ Try ProjectMap [here](https://project-map-123.herokuapp.com/)!
 - User can add and remove color-coded labels from cards
 - User can drag and drop to reorder task cards within a column;
 - User can drag and drop to move a task card between columns.
+- User can drag and drop to reorder columns.
 ## Preview
 
 ![CreateTask](assets/demoCreate.gif)
