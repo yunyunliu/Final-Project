@@ -44,7 +44,7 @@ const Column = ({ columnData, handleDeleteCol, handleEditCol }) => {
     const response = await fetch(`/api/cards/${editData.cardId}`, options);
     if (response.ok) {
       const updated = await response.json();
-      if (editData.columnId === srcColId) {
+      if (editData.columnId === srcColId) { // moving card from edit form
         // if not moving
         const updatedCards = columnData.cards.map(card => card.cardId === updated.cardId ? updated : card);
         setColumnCards(columnData.columnId, updatedCards);

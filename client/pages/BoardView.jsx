@@ -67,7 +67,8 @@ const BoardView = () => {
     setBoard({ ...board, columns: updated });
   };
 
-  const reorderCards = async (source, destination) => { // order not being saved to db
+  // card moving within column
+  const reorderCards = async (source, destination) => {
     const srcIndex = source.index;
     const destinationIndex = destination.index;
     const listCopy = getColumnCards(Number(source.droppableId)).slice();
@@ -87,6 +88,7 @@ const BoardView = () => {
     }
   };
 
+  // card moving from one column to another
   const changeColumns = async (source, destination) => {
     const srcIndex = source.index;
     const destinationIndex = destination.index;
@@ -143,7 +145,8 @@ const BoardView = () => {
       // Draggable is a Card component
       handleDragCard(source, destination);
     }
-    if (type === 'column') { // Draggable is a Column component
+    if (type === 'column') {
+      // Draggable is a Column component
       handleDragCol(source, destination);
     }
   };
@@ -161,6 +164,7 @@ const BoardView = () => {
                 <ul className='no-bullets no-padding flex'
                     {...droppableProps}
                     ref={innerRef}
+                    // droppable areas change color when something is being dragged
                     style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff' }}>
                     { board.columns.map((col, i) => (
                       <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
