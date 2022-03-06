@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import FocusTrap from 'focus-trap-react';
 
 import Column from './components/Column';
 import BoardContext from './BoardContext';
@@ -11,7 +10,7 @@ const BoardView = () => {
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch('/api/users/1/boards/' + 3)
+    fetch('/api/users/1/boards/' + boardId)
       .then(res => {
         if (res.ok) {
           return res.json();

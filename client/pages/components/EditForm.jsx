@@ -25,8 +25,8 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
     <FocusTrap>
       <dialog className='add-edit-modal' style={{ top: '20%', position: 'fixed', padding: 20 }} open >
         <button type='button' className='close-edit-btn' onClick={() => setEdit(false)}>
-            <i className='fas fa-times'></i>
-          </button>
+          <i className='fas fa-times'></i>
+        </button>
         <div className='edit-form-header '>
           <h2 className='no-margin'>Edit task card</h2>
           <div> in <span className='pink-text semi-bold'>{colName}</span></div>
@@ -87,7 +87,6 @@ const EditForm = ({ data, setEdit, handleEdit, colName }) => {
         </form>
       </dialog>
     </FocusTrap>
-
   );
 };
 

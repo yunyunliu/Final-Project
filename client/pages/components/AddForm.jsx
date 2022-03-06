@@ -20,11 +20,8 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
     <FocusTrap>
       <dialog className='add-edit-modal' style={{ top: '20%' }} open>
         <form className='flex flex-col align-center'>
-
           <h2 className='no-margin'>Add new task card</h2>
           <div style={{ margin: 10 }}>in <span className='semi-bold pink-text'>{colName}</span></div>
-
-
           {/* task name */}
           <label className='width-100 semi-bold' style={{ marginBottom: 15 }}>Task:  </label>
             <input className='teal-border-2 gray-text'
@@ -37,18 +34,6 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
               style={{ width: 300, height: 75, fontSize: 16 }}
               value={description}
               onChange={({ target }) => setDescription(target.value)} />
-          {/* selected tags */}
-          {/* <div className='align-center width-100 flex' style={{ justifyContent: 'flex-start' }}>
-            <TagList tags={tags} remove={removeTag} />
-          </div> */}
-          {/* list of colors */}
-          {/* <div className='flex width-100' style={{ marginBottom: 20 }}>
-            <SubMenu setTags={setTags} tags={tags} board={board.boardId} />
-          </div> */}
-
-
-
-          {/* buttons */}
           <div className='space-between width-100' style={{ marginTop: 15 }}>
             <button
               className='form-btn'
@@ -67,7 +52,6 @@ const AddForm = ({ setModal, handleAdd, colName }) => {
             </button>
           </div>
         </form>
-
       </dialog>
     </FocusTrap>
   );
