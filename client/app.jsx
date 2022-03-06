@@ -18,7 +18,8 @@ const App = () => {
           <BoardView />
         </Route>
         <Route path='/'>
-          <HomeView />
+          {/* <HomeView /> */}
+          <BoardView />
         </Route>
       </Switch>
     </Router>

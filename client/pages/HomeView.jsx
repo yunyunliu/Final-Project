@@ -9,7 +9,7 @@ const HomeView = () => {
   const [toDelete, setToDelete] = useState(null);
 
   useEffect(() => {
-    fetch('/api/users/1/boards/')
+    fetch('/api/users/1/boards/' + 3)
       .then(res => {
         if (res.ok) {
           return res.json();

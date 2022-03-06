@@ -11,7 +11,7 @@ const BoardView = () => {
   const { boardId } = useParams();
 
   useEffect(() => {
-    fetch('/api/users/1/boards/' + boardId)
+    fetch('/api/users/1/boards/' + 3)
       .then(res => {
         if (res.ok) {
           return res.json();
@@ -135,12 +135,6 @@ const BoardView = () => {
     };
     setBoard({ ...board, columns: colsCopy });
     const res = await fetch('/api/boards/' + board.boardId + '/columns', options);
-    // if (res.ok) { // come back to error ha
-
-
-    // } else {
-    //   console.log('server error');
-    // }
   };
 
   const handleDragEnd = result => {
@@ -157,45 +151,45 @@ const BoardView = () => {
 
   if (board) {
     return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-        <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0, paddingLeft: 100 }} className='board-content flex'>
-          <h1 className='board-name pink-text center-text'>{board.name}</h1>
-        </div>
-        <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-          <ul className='no-bullets no-padding flex'>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
+          <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0, paddingLeft: 100 }} className='board-content flex'>
+            <h1 className='board-name pink-text center-text'>{board.name}</h1>
+          </div>
+          <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
             <Droppable droppableId='columns' type='column' direction='horizontal'>
-              {({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
-                <li style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff' }}
-                  {...droppableProps}
-                  ref={innerRef}>
+              { ({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
+                <ul className='no-bullets no-padding flex'
+                    {...droppableProps}
+                    ref={innerRef}
+                    style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff' }}>
                     { board.columns.map((col, i) => (
-                    <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
-                      {({ innerRef, draggableProps, dragHandleProps }) => (
-                        <div ref={innerRef} {...draggableProps} {...dragHandleProps} >
-                          <Column
-                            columnData={col}
-                            handleDeleteCol={handleDeleteCol}
-                            handleEditCol={handleEditCol} />
-                        </div>
-                      )}
-                    </Draggable>)) }
-                    {placeholder}
-                </li>
-              )}
+                      <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
+                        { ({ innerRef, draggableProps, dragHandleProps }) => (
+                          <li ref={innerRef} {...draggableProps} {...dragHandleProps} >
+                            <Column
+                              columnData={col}
+                              handleDeleteCol={handleDeleteCol}
+                              handleEditCol={handleEditCol} />
+                          </li>
+                        ) }
+                      </Draggable>
+                    )) }
+                      {placeholder}
+                  </ul>
+              ) }
             </Droppable>
-            <li>
+            <div style={{ paddingTop: 25 }}>
               <button className='form-btn add-project-btn'
-                style={{ minWidth: 175, marginRight: 20, marginLeft: 20, marginTop: 10 }}
+                style={{ minWidth: 175, marginRight: 20, marginLeft: 20 }}
                 onClick={() => handleAddCol()}>
                 <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
                 Add Column
               </button>
-            </li>
-          </ul>
+            </div>
         </div>
-      </BoardContext.Provider>
-    </DragDropContext>
+        </BoardContext.Provider>
+      </DragDropContext>
     );
   }
   return (
