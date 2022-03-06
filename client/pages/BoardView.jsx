@@ -179,7 +179,7 @@ const BoardView = () => {
                   </ul>
               ) }
             </Droppable>
-            <div style={{ paddingTop: 25 }}>
+            <div style={{ marginTop: 5 }}>
               <button className='form-btn add-project-btn'
                 style={{ minWidth: 175, marginRight: 20, marginLeft: 20 }}
                 onClick={() => handleAddCol()}>
