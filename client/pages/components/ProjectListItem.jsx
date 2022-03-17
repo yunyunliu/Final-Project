@@ -7,7 +7,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
   const [displayEdit, setDisplayEdit] = useState(false);
 
   const editInput = (
-    <>
+    <li className='project-li'>
       <div className='flex align-center' style={{ height: 70 }}>
         <input value={projectName}
         className='gray-text teal-border-2 border-r3'
@@ -38,7 +38,7 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
           setDisplayEdit(false);
         }}>Cancel
       </button>
-    </>
+    </li>
   );
 
   const boardName = (
@@ -53,8 +53,8 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
   );
 
   return (
-    <li className='project-li'>
-      <button type='button'
+    <li className='project-li column-third'>
+      {/* <button type='button'
         onClick={() => setDisplayEdit(true)}
         style={{ height: 80, width: 80 }}
         className='icon-btn'>
@@ -71,7 +71,8 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
                 style={{ height: 80, width: 80 }}
                 className='icon-btn'>
                 <i className='fas fa-times'></i>
-              </button>)}
+              </button>)} */}
+              {name}
     </li>
   );
 };

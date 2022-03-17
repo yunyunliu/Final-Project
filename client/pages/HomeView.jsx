@@ -53,7 +53,7 @@ const HomeView = () => {
   };
   if (boards) {
     return (
-      <div className=' flex flex-col align-center '>
+      <div className='flex flex-col align-center '>
         <div className='homeview-header'>
           <div className='column-half justify-center'>
             <h1 style={{ fontSize: 52, marginTop: 0 }}
