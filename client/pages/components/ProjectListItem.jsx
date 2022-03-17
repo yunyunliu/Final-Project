@@ -59,9 +59,9 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
         style={{ height: 80, width: 80 }}
         className='icon-btn'>
         <i className='fas fa-edit'></i>
-      </button>
-        {displayEdit ? editInput : boardName}
-        {displayEdit
+      </button> */}
+        {/* {displayEdit ? editInput : boardName} */}
+        {/* {displayEdit
           ? null
           : (<button type='button'
                 onClick={() => {
@@ -72,7 +72,12 @@ const ProjectListItem = ({ board, handleToggle, handleEdit, setToDelete, setDisp
                 className='icon-btn'>
                 <i className='fas fa-times'></i>
               </button>)} */}
-              {name}
+      <Link to={`/boards/${boardId}`}>
+        <button type='button'
+          className='project-link blue-bg semi-bold'>
+          <p>{name}</p>
+        </button>
+      </Link>
     </li>
   );
 };
