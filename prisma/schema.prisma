@@ -1,0 +1,66 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model boards {
+  boardId   Int       @id(map: "boards_pk") @default(autoincrement())
+  userId    Int
+  name      String
+  createdAt DateTime  @default(now()) @db.Timestamp(6)
+  users     users     @relation(fields: [userId], references: [userId], onDelete: Cascade, onUpdate: NoAction, map: "boards_fk0")
+  cards     cards[]
+  columns   columns[]
+  tags      tags[]
+}
+
+model cards {
+  cardId      Int         @id(map: "cards_pk") @default(autoincrement())
+  sequenceNum Int?
+  name        String
+  description String?
+  columnId    Int
+  boardId     Int
+  createdAt   DateTime    @default(now()) @db.Timestamp(6)
+  columns     columns     @relation(fields: [columnId], references: [columnId], onDelete: Cascade, onUpdate: NoAction, map: "cards_fk0")
+  boards      boards      @relation(fields: [boardId], references: [boardId], onDelete: Cascade, onUpdate: NoAction, map: "cards_fk1")
+  tagsCards   tagsCards[]
+}
+
+model columns {
+  boardId     Int
+  columnId    Int     @id(map: "columns_pk") @default(autoincrement())
+  name        String
+  sequenceNum Int?
+  boards      boards  @relation(fields: [boardId], references: [boardId], onDelete: Cascade, onUpdate: NoAction, map: "columns_fk0")
+  cards       cards[]
+}
+
+model tags {
+  tagId     Int         @id(map: "tags_pk") @default(autoincrement())
+  color     String
+  text      String?
+  boardId   Int?
+  boards    boards?     @relation(fields: [boardId], references: [boardId], onDelete: NoAction, onUpdate: NoAction, map: "tags_fk0")
+  tagsCards tagsCards[]
+}
+
+model tagsCards {
+  cardId Int
+  tagId  Int
+  cards  cards @relation(fields: [cardId], references: [cardId], onDelete: Cascade, onUpdate: NoAction, map: "tagsCards_fk0")
+  tags   tags  @relation(fields: [tagId], references: [tagId], onDelete: NoAction, onUpdate: NoAction, map: "tagsCards_fk1")
+
+  @@id([cardId, tagId], map: "tagsCards_pk")
+}
+
+model users {
+  userId   Int      @id(map: "users_pk") @default(autoincrement())
+  password String
+  email    String   @unique
+  boards   boards[]
+}

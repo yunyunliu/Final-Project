@@ -2,7 +2,26 @@ require('dotenv/config');
 const pg = require('pg');
 const express = require('express');
 const path = require('path');
+const { PrismaClient } = require('@prisma/client');
 
+const prisma = new PrismaClient();
+
+async function main() {
+  // const allUsers = await prisma.users.findMany();
+  const boards = await prisma.boards.findUnique({
+    where: {
+      boardId: 3
+    },
+    include: {
+      columns: true,
+      cards: true,
+      tags: true
+    }
+  });
+  console.log(boards);
+}
+
+main();
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
@@ -81,8 +100,6 @@ app.put('/api/columns/:colId', (req, res) => {
 app.put('/api/columns/:colId/cards', (req, res) => {
   columns.editCardOrder(req, res, db);
 });
-
-
 
 // task cards
 
