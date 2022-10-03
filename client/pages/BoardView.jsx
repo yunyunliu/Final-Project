@@ -16,13 +16,16 @@ const BoardView = () => {
           return res.json();
         }
       })
-      .then(data => setBoard(data))
+      .then(data => {
+        console.log(data);
+        setBoard(data);
+        // console.log('board', board);
+      })
       .catch(err => console.error(err.message));
   }, []);
 
   const handleDeleteCol = async id => {
-    await fetch(`/api/columns/${id}`,
-      { method: 'DELETE' });
+    await fetch(`/api/columns/${id}`, { method: 'DELETE' });
     const updated = board.columns.filter(col => col.columnId !== id);
     setBoard({ ...board, columns: updated });
   };
@@ -45,7 +48,9 @@ const BoardView = () => {
     const columns = board.columns;
     const columnToUpdate = columns.find(col => col.columnId == colId);
     columnToUpdate.cards = newCards;
-    const updatedColumns = columns.map(col => col.columnId === colId ? columnToUpdate : col);
+    const updatedColumns = columns.map(col =>
+      col.columnId === colId ? columnToUpdate : col
+    );
     setBoard({ ...board, columns: updatedColumns });
   };
 
@@ -63,7 +68,9 @@ const BoardView = () => {
     };
     const response = await fetch(`/api/columns/${id}`, options);
     const data = await response.json();
-    const updated = board.columns.map(col => col.columnId === data.columnId ? { ...col, name: data.name } : col);
+    const updated = board.columns.map(col =>
+      col.columnId === data.columnId ? { ...col, name: data.name } : col
+    );
     setBoard({ ...board, columns: updated });
   };
 
@@ -74,14 +81,19 @@ const BoardView = () => {
     const listCopy = getColumnCards(Number(source.droppableId)).slice();
     const [moved] = listCopy.splice(srcIndex, 1); // array.splice returns the removed element
     listCopy.splice(destinationIndex, 0, moved);
-    listCopy.forEach((card, i) => { card.sequenceNum = i; }); // assign new sequence number for each card
+    listCopy.forEach((card, i) => {
+      card.sequenceNum = i;
+    }); // assign new sequence number for each card
     setColumnCards(Number(source.droppableId), listCopy);
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(listCopy)
     };
-    const response = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options);
+    const response = await fetch(
+      `/api/columns/${Number(source.droppableId)}/cards`,
+      options
+    );
     if (response.ok) {
       const updatedCards = await response.json();
       setColumnCards(Number(source.droppableId), updatedCards);
@@ -94,10 +106,19 @@ const BoardView = () => {
     const destinationIndex = destination.index;
     const srcList = getColumnCards(Number(source.droppableId)).slice();
     const [moved] = srcList.splice(srcIndex, 1);
-    srcList.forEach((p, i) => { p.sequenceNum = i; });
-    const destinationList = getColumnCards(Number(destination.droppableId)).slice();
-    destinationList.splice(destinationIndex, 0, { ...moved, columnId: Number(destination.droppableId) });
-    destinationList.forEach((p, i) => { p.sequenceNum = i; });
+    srcList.forEach((p, i) => {
+      p.sequenceNum = i;
+    });
+    const destinationList = getColumnCards(
+      Number(destination.droppableId)
+    ).slice();
+    destinationList.splice(destinationIndex, 0, {
+      ...moved,
+      columnId: Number(destination.droppableId)
+    });
+    destinationList.forEach((p, i) => {
+      p.sequenceNum = i;
+    });
     setColumnCards(Number(source.droppableId), srcList);
     setColumnCards(Number(destination.droppableId), destinationList);
     const options1 = {
@@ -110,8 +131,14 @@ const BoardView = () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(destinationList)
     };
-    const srcResponse = await fetch(`/api/columns/${Number(source.droppableId)}/cards`, options1);
-    const destinationResponse = await fetch(`/api/columns/${Number(destination.droppableId)}/cards`, options2);
+    const srcResponse = await fetch(
+      `/api/columns/${Number(source.droppableId)}/cards`,
+      options1
+    );
+    const destinationResponse = await fetch(
+      `/api/columns/${Number(destination.droppableId)}/cards`,
+      options2
+    );
   };
 
   const handleDragCard = (source, destination) => {
@@ -128,14 +155,19 @@ const BoardView = () => {
     const colsCopy = board.columns.slice();
     const [moved] = colsCopy.splice(srcIndex, 1);
     colsCopy.splice(destIndex, 0, moved);
-    colsCopy.forEach((col, i) => { col.sequenceNum = i; });
+    colsCopy.forEach((col, i) => {
+      col.sequenceNum = i;
+    });
     const options = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(colsCopy)
     };
     setBoard({ ...board, columns: colsCopy });
-    const res = await fetch('/api/boards/' + board.boardId + '/columns', options);
+    const res = await fetch(
+      '/api/boards/' + board.boardId + '/columns',
+      options
+    );
   };
 
   const handleDragEnd = result => {
@@ -154,43 +186,72 @@ const BoardView = () => {
   if (board) {
     return (
       <DragDropContext onDragEnd={handleDragEnd}>
-        <BoardContext.Provider value={{ board, setColumnCards, getColumnCards }}>
-          <div style={{ width: '100%', paddingTop: 0, paddingBottom: 0, paddingLeft: 100 }} className='board-content flex'>
+        <BoardContext.Provider
+          value={{ board, setColumnCards, getColumnCards }}>
+          <div
+            style={{
+              width: '100%',
+              paddingTop: 0,
+              paddingBottom: 0,
+              paddingLeft: 100
+            }}
+            className='board-content flex'>
             <h1 className='board-name pink-text center-text'>{board.name}</h1>
           </div>
           <div style={{ paddingLeft: 100, paddingRight: 100, display: 'flex' }}>
-            <Droppable droppableId='columns' type='column' direction='horizontal'>
-              { ({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
-                <ul className='no-bullets no-padding flex'
-                    {...droppableProps}
-                    ref={innerRef}
-                    // droppable areas change color when something is being dragged
-                    style={{ display: 'flex', marginTop: 0, backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff' }}>
-                    { board.columns.map((col, i) => (
-                      <Draggable key={col.columnId} draggableId={`column-${col.columnId}`} index={i}>
-                        { ({ innerRef, draggableProps, dragHandleProps }) => (
-                          <li ref={innerRef} {...draggableProps} {...dragHandleProps} >
-                            <Column
-                              columnData={col}
-                              handleDeleteCol={handleDeleteCol}
-                              handleEditCol={handleEditCol} />
-                          </li>
-                        ) }
-                      </Draggable>
-                    )) }
-                      {placeholder}
-                  </ul>
-              ) }
+            <Droppable
+              droppableId='columns'
+              type='column'
+              direction='horizontal'>
+              {(
+                { innerRef, droppableProps, placeholder },
+                { isDraggingOver }
+              ) => (
+                <ul
+                  className='no-bullets no-padding flex'
+                  {...droppableProps}
+                  ref={innerRef}
+                  // droppable areas change color when something is being dragged
+                  style={{
+                    display: 'flex',
+                    marginTop: 0,
+                    backgroundColor: isDraggingOver ? '#e1e4e4' : '#eafeff'
+                  }}>
+                  {board.columns.map((col, i) => (
+                    <Draggable
+                      key={col.columnId}
+                      draggableId={`column-${col.columnId}`}
+                      index={i}>
+                      {({ innerRef, draggableProps, dragHandleProps }) => (
+                        <li
+                          ref={innerRef}
+                          {...draggableProps}
+                          {...dragHandleProps}>
+                          <Column
+                            columnData={col}
+                            handleDeleteCol={handleDeleteCol}
+                            handleEditCol={handleEditCol}
+                          />
+                        </li>
+                      )}
+                    </Draggable>
+                  ))}
+                  {placeholder}
+                </ul>
+              )}
             </Droppable>
             <div style={{ marginTop: 5 }}>
-              <button className='form-btn add-project-btn'
+              <button
+                className='form-btn add-project-btn'
                 style={{ minWidth: 175, marginRight: 20, marginLeft: 20 }}
                 onClick={() => handleAddCol()}>
-                <span style={{ marginRight: 5 }}><i className='fas fa-plus'></i></span>
+                <span style={{ marginRight: 5 }}>
+                  <i className='fas fa-plus'></i>
+                </span>
                 Add Column
               </button>
             </div>
-        </div>
+          </div>
         </BoardContext.Provider>
       </DragDropContext>
     );
@@ -198,7 +259,8 @@ const BoardView = () => {
   return (
     <div className='justify-center align-center' style={{ minHeight: 500 }}>
       <img src='/images/Dual Ring-1s-200px.gif' alt='spinner' />
-    </div>);
+    </div>
+  );
 };
 
 export default BoardView;

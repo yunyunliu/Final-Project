@@ -1,76 +1,76 @@
-const { sql } = require('../boardDataQuery');
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
 
 const boards = {
-  get: async (req, res, db) => {
+  get: async (req, res) => {
     const { id } = req.params;
-    const sql = `
-      SELECT *
-          FROM "boards"
-        WHERE "userId" = $1
-        ORDER BY "boardId" DESC;
-    `;
-    const params = [id];
-    const result = await db.query(sql, params);
-    res.json(result.rows);
+    const boards = await prisma.boards.findMany();
+    console.log('boards', boards);
+    res.json(boards);
   },
   // get all card, column, and board data for one board
-  getOne: async (req, res, db) => {
-    const { boardId } = req.params;
-    try {
-      const result = await db.query(sql, [boardId]);
-      const [data] = result.rows;
-      res.json(data);
-    } catch (err) {
-      res.send(err.message);
-    }
+  getOne: async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
+    console.log('boardId', boardId);
+    const board = await prisma.boards.findUniqueOrThrow({
+      where: { boardId: boardId },
+      include: {
+        columns: {
+          include: {
+            cards: true
+          }
+        }
+      }
+    });
+    console.log(board);
+    res.send(board);
   },
-  create: async (req, res, db) => {
-    const userId = req.params.id;
-    const sql = `
-      INSERT INTO "boards" ("userId", "name")
-        VALUES ($1, 'New Project')
-        RETURNING *
-    `;
-    const results = await db.query(sql, [userId]);
-    const [data] = results.rows;
-    res.status(201).json(data);
+  create: async (req, res) => {
+    const userId = parseInt(req.params.id);
+    const result = await prisma.boards.create({
+      data: {
+        name: 'New Project',
+        userId
+      }
+    });
+    console.log('result', result);
+    res.status(201).json(result);
   },
-  delete: async (req, res, db) => {
-    const boardId = req.params.boardId;
-    const sql = `
-      DELETE FROM "boards"
-        WHERE "boardId" = $1
-    `;
-    await db.query(sql, [boardId]);
+  delete: async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
+    await prisma.boards.delete({
+      where: {
+        boardId
+      }
+    });
     res.sendStatus(204);
   },
-  edit: async (req, res, db) => {
-    const { boardId } = req.params;
+  edit: async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
     const { name } = req.body;
-    const sql = `
-    UPDATE "boards"
-        SET "name" = $1
-      WHERE "boardId" = $2
-      RETURNING *
-    `;
     try {
-      const result = await db.query(sql, [name, boardId]);
-      const [updated] = result.rows;
+      const updated = await prisma.boards.update({
+        where: { boardId },
+        data: {
+          name
+        }
+      });
+      console.log('updated', updated);
       res.json(updated);
     } catch (err) {
-      // eslint-disable-next-line no-console
       console.log(err.message);
       res.status(500).send(err.message);
     }
   },
-  editColumnOrder: async (req, res, db) => {
-    const boardId = req.params.boardId;
+  editColumnOrder: async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
     const body = req.body;
-    const sql = `
-      UPDATE "columns"
-        SET "sequenceNum" = $1
-      WHERE "columnId" = $2
-    `;
+    // const sql = `
+    //   UPDATE "columns"
+    //     SET "sequenceNum" = $1
+    //   WHERE "columnId" = $2
+    // `;
     // const selectSql = `
     //   SELECT *
     //       FROM "columns"
@@ -78,9 +78,9 @@ const boards = {
     //   ORDER BY "sequenceNum"
     // `;
     try {
-      await body.forEach(col => {
-        db.query(sql, [col.sequenceNum, col.columnId]);
-      });
+      // await body.forEach(col => {
+      //   db.query(sql, [col.sequenceNum, col.columnId]);
+      // });
       // const result = await db.query(selectSql, [boardId]);
       // res.json(result.rows);
       res.sendStatus(200);

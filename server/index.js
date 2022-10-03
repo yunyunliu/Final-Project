@@ -1,44 +1,27 @@
 require('dotenv/config');
-const pg = require('pg');
+// const pg = require('pg');
 const express = require('express');
 const path = require('path');
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
-
-async function main() {
-  // const allUsers = await prisma.users.findMany();
-  const boards = await prisma.boards.findUnique({
-    where: {
-      boardId: 3
-    },
-    include: {
-      columns: true,
-      cards: true,
-      tags: true
-    }
-  });
-  console.log(boards);
-}
-
-main();
 const columns = require('./controllers/columns');
 const boards = require('./controllers/boards');
 const cards = require('./controllers/cards');
 
-let db;
-if (process.env.NODE_ENV === 'production') {
-  db = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  });
-} else {
-  db = new pg.Pool({
-    connectionString: process.env.DATABASE_URL
-  });
-}
+// let db;
+// if (process.env.NODE_ENV === 'production') {
+//   db = new pg.Pool({
+//     connectionString: process.env.DATABASE_URL,
+//     ssl: {
+//       rejectUnauthorized: false
+//     }
+//   });
+// } else {
+//   db = new pg.Pool({
+//     connectionString: process.env.DATABASE_URL
+//   });
+// }
 
 const app = express();
 app.use(express.json());
@@ -47,11 +30,26 @@ const publicPath = path.join(__dirname, 'public');
 const staticMiddleware = express.static(publicPath);
 app.use(staticMiddleware);
 
+async function main() {
+  const board = await prisma.boards.findUniqueOrThrow({
+    where: { boardId: 3 },
+    include: {
+      columns: {
+        include: {
+          cards: true
+        }
+      }
+    }
+  });
+  console.log(board.columns[0].cards);
+}
+
+main();
 // boards
 
 app.get('/api/users/:id/boards', (req, res) => {
   try {
-    boards.get(req, res, db);
+    boards.get(req, res);
   } catch (err) {
     console.error('error:', err);
     res.send({ error: 'server error' });
@@ -59,16 +57,16 @@ app.get('/api/users/:id/boards', (req, res) => {
 });
 
 app.post('/api/users/:id/boards', (req, res) => {
-  boards.create(req, res, db);
+  boards.create(req, res);
 });
 
 // get formatted data of all cols and cards associated with boardId
 app.get('/api/users/:userId/boards/:boardId', (req, res) => {
-  boards.getOne(req, res, db);
+  boards.getOne(req, res);
 });
 
 app.delete('/api/users/:id/boards/:boardId', (req, res) => {
-  boards.delete(req, res, db);
+  boards.delete(req, res);
 });
 
 app.put('/api/users/:id/boards/:boardId', (req, res) => {

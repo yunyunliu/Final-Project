@@ -27,13 +27,14 @@ const HomeView = () => {
     };
     const response = await fetch(`/api/users/1/boards/${boardId}`, options);
     const data = await response.json();
-    const updated = boards.map(board => board.boardId === data.boardId ? data : board);
+    const updated = boards.map(board =>
+      board.boardId === data.boardId ? data : board
+    );
     setBoards(updated);
   };
 
   const handleAddNew = async () => {
-    const response = await fetch('/api/users/1/boards',
-      { method: 'POST' });
+    const response = await fetch('/api/users/1/boards', { method: 'POST' });
     const data = await response.json(); // response.json is async!!
     const updated = [data].concat(boards);
     setBoards(updated);
@@ -45,8 +46,7 @@ const HomeView = () => {
   };
 
   const handleDelete = async () => {
-    await fetch(`/api/users/1/boards/${toDelete}`,
-      { method: 'DELETE' });
+    await fetch(`/api/users/1/boards/${toDelete}`, { method: 'DELETE' });
     const updated = boards.filter(board => board.boardId !== toDelete);
     setBoards(updated);
     handleCancel();
@@ -56,39 +56,46 @@ const HomeView = () => {
       <div className=' flex flex-col align-center '>
         <div className='homeview-header'>
           <div className='column-half justify-center'>
-            <h1 style={{ fontSize: 52, marginTop: 0 }}
-              className='pink-text semi-bold'>Projects
+            <h1
+              style={{ fontSize: 52, marginTop: 0 }}
+              className='pink-text semi-bold'>
+              Projects
             </h1>
           </div>
           <div className='column-half justify-center'>
             <button
               className='add-project-btn blue-bg semi-bold pink-text'
               onClick={() => handleAddNew()}>
-              <span style={{ marginRight: 10 }}><i className='fas fa-plus'></i></span>
+              <span style={{ marginRight: 10 }}>
+                <i className='fas fa-plus'></i>
+              </span>
               New Project
             </button>
           </div>
         </div>
-        {displayModal
-          ? <ConfirmDelete cancel={handleCancel} deleteId={toDelete} handleDelete={handleDelete} />
-          : null}
-        {boards.length > 0
-          ? (<ul className='project-list'>
-          {boards.map(board => {
-            return (
-              <ProjectListItem
-                    key={board.boardId}
-                    board={board}
-                    id={board.boardId}
-                    setDisplayModal={setDisplayModal}
-                    handleEdit={handleEditBoard}
-                    setToDelete={setToDelete}
-                    />
-            );
-          })}
-        </ul>)
-          : null
-        }
+        {displayModal ? (
+          <ConfirmDelete
+            cancel={handleCancel}
+            deleteId={toDelete}
+            handleDelete={handleDelete}
+          />
+        ) : null}
+        {boards.length > 0 ? (
+          <ul className='project-list'>
+            {boards.map(board => {
+              return (
+                <ProjectListItem
+                  key={board.boardId}
+                  board={board}
+                  id={board.boardId}
+                  setDisplayModal={setDisplayModal}
+                  handleEdit={handleEditBoard}
+                  setToDelete={setToDelete}
+                />
+              );
+            })}
+          </ul>
+        ) : null}
       </div>
     );
   }
