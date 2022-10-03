@@ -28,14 +28,14 @@ const boards = {
   },
   create: async (req, res) => {
     const userId = parseInt(req.params.id);
-    const result = await prisma.boards.create({
+    const newBoard = await prisma.boards.create({
       data: {
         name: 'New Project',
         userId
       }
     });
-    console.log('result', result);
-    res.status(201).json(result);
+    console.log('result', newBoard);
+    res.status(201).json(newBoard);
   },
   delete: async (req, res) => {
     const boardId = parseInt(req.params.boardId);

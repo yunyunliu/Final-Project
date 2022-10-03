@@ -1,39 +1,48 @@
+const { PrismaClient } = require('@prisma/client');
+
+const prisma = new PrismaClient();
+
 const columns = {
-  get: async (req, res, db) => {
-    const { boardId } = req.params;
-    const sql = `
-      SELECT *
-        FROM "columns"
-      WHERE "boardId" = $1
-    `;
-    const values = [boardId];
-    const result = await db.query(sql, values);
-    const data = result.rows;
-    res.json(data);
+  get: async (req, res) => {
+    const boardId = parseInt(req.params.boardId);
+    // const sql = `
+    //   SELECT *
+    //     FROM "columns"
+    //   WHERE "boardId" = $1
+    // `;
+    // const values = [boardId];
+    // const result = await db.query(sql, values);
+    // const data = result.rows;
+    const columns = await prisma.columns.findMany({
+      where: { boardId },
+      include: {
+        cards: true
+      }
+    });
+    res.json(columns);
   },
-  create: async (req, res, db) => {
-    const { boardId } = req.body;
-    const sql = `
-    INSERT INTO "columns" ("boardId", "name")
-      VALUES ($1, 'New Column')
-      RETURNING *
-  `;
+  create: async (req, res) => {
+    const boardId = parseInt(req.body.boardId);
     try {
-      const results = await db.query(sql, [boardId]);
-      const [newCol] = results.rows;
+      const newCol = await prisma.columns.create({
+        data: {
+          name: 'New Column',
+          boardId
+        }
+      });
+      // const [newCol] = results.rows;
+      console.log('newcol', newCol);
       res.status(201).json({ ...newCol, cards: [] });
     } catch (err) {
       console.error(err.message);
       res.status(400).json({ error: err.message });
     }
   },
-  delete: async (req, res, db) => {
-    const { colId } = req.params;
-    const sql = `
-      DELETE FROM "columns"
-        WHERE "columnId" = $1
-    `;
-    await db.query(sql, [colId]);
+  delete: async (req, res) => {
+    const columnId = parseInt(req.params.colId);
+    await prisma.columns.delete({
+      where: { columnId }
+    });
     res.sendStatus(204);
   },
   edit: async (req, res, db) => {
@@ -70,7 +79,9 @@ const columns = {
 
     if (body.length > 0) {
       try {
-        await body.forEach(card => { db.query(sql, [card.columnId, card.sequenceNum, card.cardId]); });
+        await body.forEach(card => {
+          db.query(sql, [card.columnId, card.sequenceNum, card.cardId]);
+        });
         const result = await db.query(selectSql, [req.params.colId]);
         res.json(result.rows);
       } catch (err) {

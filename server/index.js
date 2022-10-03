@@ -70,33 +70,33 @@ app.delete('/api/users/:id/boards/:boardId', (req, res) => {
 });
 
 app.put('/api/users/:id/boards/:boardId', (req, res) => {
-  boards.edit(req, res, db);
+  boards.edit(req, res);
 });
 
 app.put('/api/boards/:boardId/columns', (req, res) => {
-  boards.editColumnOrder(req, res, db);
+  boards.editColumnOrder(req, res);
 });
 
 // columns
 
 app.get('/api/users/:id/boards/:boardId/col', (req, res) => {
-  columns.get(req, res, db);
+  columns.get(req, res);
 });
 
 app.post('/api/columns', (req, res) => {
-  columns.create(req, res, db);
+  columns.create(req, res);
 });
 
 app.delete('/api/columns/:colId', (req, res) => {
-  columns.delete(req, res, db);
+  columns.delete(req, res);
 });
 
 app.put('/api/columns/:colId', (req, res) => {
-  columns.edit(req, res, db);
+  columns.edit(req, res);
 });
 
 app.put('/api/columns/:colId/cards', (req, res) => {
-  columns.editCardOrder(req, res, db);
+  columns.editCardOrder(req, res);
 });
 
 // task cards
