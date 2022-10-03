@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import HomeView from './pages/HomeView';
 import PageHeader from './pages/components/PageHeader';
@@ -14,11 +10,12 @@ const App = () => {
     <Router>
       <PageHeader />
       <Switch>
-        <Route path='/boards/:boardId'>
+        {/* <Route path='/boards/:boardId'>
           <BoardView />
-        </Route>
+        </Route> */}
         <Route path='/'>
-          <HomeView />
+          {/* <HomeView /> */}
+          <BoardView />
         </Route>
       </Switch>
     </Router>
